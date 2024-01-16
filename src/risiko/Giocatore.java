@@ -5,6 +5,8 @@
  */
 package risiko;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author Annachiara
@@ -12,12 +14,14 @@ package risiko;
 abstract class Giocatore {
 
     private String nome;
-    private TipoColoreArmata coloreArmata;
-    private int n_armate;
-    private int n_territori;
+    private Colors colore;
+    private int nTruppe;
+    private ArrayList<Territorio> territoriPosseduti;
+    //private Obiettivo obrittivo;
+    private int riservaTruppe;
 
-    public Giocatore(String nome, TipoColoreArmata colore) {
+    public Giocatore(String nome, Colors colore) {
         this.nome = nome;
-        this.coloreArmata = colore;
+        this.colore = colore;
     }
 }

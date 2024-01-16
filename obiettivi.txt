@@ -1,0 +1,14 @@
+Devi conquistare la totalità del NORD AMERICA e dell'OCEANIA;false
+Devi conquistare la totalità dell'EUROPA e dell'OCEANIA più un terzo continente a tua scelta;false
+Devi conquistare la totalità dell'ASIA e dell'AFRICA;false
+Devi conquistare la totalità del NORD AMERICA e dell'AFRICA;false
+Devi conquistare la totalità dell'EUROPA e del SUD AMERICA più un terzo continente a tua scelta;false
+Devi conquistare la totalità dell'ASIA e del SUD AMERICA;false
+Devi distruggere LE ARMATE BLU, se sei tu stesso, se il giocatore è stato eliminato o se nessuno ha l'armata blu, devi conquistare 24 TERRITORI;false
+Devi distruggere LE ARMATE VIOLA, se sei tu stesso, se il giocatore è stato eliminato o se nessuno ha l'armata viola, devi conquistare 24 TERRITORI;false
+Devi distruggere LE ARMATE NERE, se sei tu stesso, se il giocatore è stato eliminato o se nessuno ha l'armata nera, devi conquistare 24 TERRITORI;false
+Devi distruggere LE ARMATE VERDE, se sei tu stesso, se il giocatore è stato eliminato o se nessuno ha l'armata verde, devi conquistare 24 TERRITORI;false
+Devi distruggere LE ARMATE ROSSE, se sei tu stesso, se il giocatore è stato eliminato o se nessuno ha l'armata rossa, devi conquistare 24 TERRITORI;false
+Devi distruggere LE ARMATE GIALLE, se sei tu stesso, se il giocatore è stato eliminato o se nessuno ha l'armata gialla, devi conquistare 24 TERRITORI;false
+Devi conquistare 18 TERRITORI ed occupare ciascuno di essi con almeno due armate;false
+Devi conquistare 24 TERRITORI a tua scelta;false
