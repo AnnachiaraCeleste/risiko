@@ -17,8 +17,9 @@ abstract class Giocatore {
     private Colors colore;
     private int nTruppe;
     private ArrayList<Territorio> territoriPosseduti;
-    //private Obiettivo obrittivo;
-    private int riservaTruppe;
+    private int rinforzi;
+    //private Obiettivo obiettivo;
+    //private ArrayList<Carta> listaCarte;
 
     public Giocatore(String nome, Colors colore) {
         this.nome = nome;
