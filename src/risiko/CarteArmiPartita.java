@@ -15,7 +15,7 @@ public class CarteArmiPartita extends Territorio {
 
     private String nomeGiocatore;
 
-    public CarteArmiPartita(String nome,String nomeGiocatore, TipoArma arma) {
+    public CarteArmiPartita(String nome, TipoArma arma,String nomeGiocatore) {
         super(nome, arma);
         this.nomeGiocatore = nomeGiocatore;
     }

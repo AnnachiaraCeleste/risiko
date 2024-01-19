@@ -11,23 +11,13 @@ import java.util.ArrayList;
  *
  * @author Annachiara
  */
-public class TerritorioPartita extends Territorio {
+public class TerritorioPartita extends CarteArmiPartita {
 
-    private Giocatore proprietario;
     private int numeroArmate;
 
-    public TerritorioPartita(String nome, TipoArma arma,Giocatore proprietario, int numeroArmate) {
-        super(nome,arma);
-        this.proprietario = proprietario;
+    public TerritorioPartita(String nome, TipoArma arma,String nomeGiocatore, int numeroArmate ) {
+        super(nome,arma,nomeGiocatore);
         this.numeroArmate = numeroArmate;
-    }
-
-    public Giocatore getProprietario() {
-        return proprietario;
-    }
-
-    public void setProprietario(Giocatore proprietario) {
-        this.proprietario = proprietario;
     }
 
     public int getNumeroArmate() {
