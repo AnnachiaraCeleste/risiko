@@ -1,9 +1,42 @@
-Afghanistan;China,Medio Oriente,Ucraina,Urali;ASIA;FANTERIA
-Africa del Nord;Brasile,Europa Meridionale,Europa Occidentale,Egitto,Africa Orientale,Congo;AFRICA;FANTERIA
-Africa del Sud;Africa Orientale,Congo,Madagascar;AFRICA;ARTIGLIERIA
-Africa Orientale;Africa del Sud,Congo,Madagascar,Egitto,Africa del Nord;AFRICA;ARTIGLIERIA
-Alaska;Alberta,Kamchatka,Territori del Nord Ovest;NORD_AMERICA;FANTERIA
-Alberta;Alaska,Ontario,Stati Uniti Occidentali,Territori del Nord Ovest;NORD_AMERICA;FANTERIA
-America Centrale;Stati Uniti Orientali,Venezuela,Stati Uniti Occidentali;NORD_AMERICA;CAVALLERIA
-Argentina;Brasile,Perù;SUD_AMERICA;FANTERIA
-Australia Occidentale;Australia Orientale,Indonesia,Nuova Guinea;OCEANIA;ARTIGLIERIA
+Alaska;Kamchatka,Alberta,Territori del Nord-Ovest;NORD_AMERICA;FANTERIA
+Alberta;Alaska,Ontario,Stati Uniti Occidentali,Territori del Nord-Ovest;NORD_AMERICA;FANTERIA
+Stati Uniti Orientali;Alberta,Ontario,Stati Uniti Occidentali,Quebec;NORD_AMERICA;ARTIGLIERIA
+Stati Uniti Occidentali;Alberta,Stati Uniti Orientali,Ontario,America Centrale;NORD_AMERICA;FANTERIA
+Groenlandia;Islanda,Quebec,Ontario,Territori del Nord-Ovest;NORD_AMERICA;CAVALLERIA
+Quebec;Groenlandia,Ontario,Stati Uniti Orientali;NORD_AMERICA;ARTIGLIERIA
+Ontario;Quebec,Groenlandia,Stati Uniti Orientali,Stati Uniti Occidentali,Alberta,Territori del Nord-Ovest;NORD_AMERICA;CAVALLERIA
+Territori del Nord-Ovest;Alberta,Ontario,Alaska,Groenlandia;NORD_AMERICA;ARTIGLIERIA
+America Centrale;Venezuela,Stati Uniti Orientali,Stati Uniti Occidentali;NORD_AMERICA;CAVALLERIA
+Venezuela;America Centrale,Brasile,Perù;SUD_AMERICA;ARTIGLIERIA
+Brasile;Venezuela,Perù,Nord Africa,Argentina;SUD_AMERICA;ARTIGLIERIA
+Perù;Brasile,Venezuela,Argentina;SUD_AMERICA;CAVALLERIA
+Argentina;Perù,Brasile;SUD_AMERICA;FANTERIA
+Islanda;Groenlandia,Gran Bretagna,Scandinavia;EUROPA;FANTERIA
+Gran Bretagna;Islanda,Scandinavia,Europa Occidentale,Europa Settentrionale;EUROPA;CAVALLERIA
+Scandinavia;Islanda,Gran Bretagna,Europa Settentrionale,Ucraina;EUROPA;ARTIGLIERIA
+Europa Occidentale;Gran Bretagna,Europa Settentrionale,Europa Meridionale,Nord Africa;EUROPA;FANTERIA
+Europa Settentrionale;Gran Bretagna,Scandinavia,Europa Occidentale,Ucraina;EUROPA;CAVALLERIA
+Europa Meridionale;Europa Occidentale,Europa Settentrionale,Nord Africa,Medio Oriente,Ucraina;EUROPA;CAVALLERIA
+Ucraina;Europa Meridionale,Europa Settentrionale,Medio Oriente,Scandinavia,Urali,Afghanistan;EUROPA;ARTIGLIERIA
+Nord Africa;Brasile,Europa Meridionale,Europa Occidentale,Egitto,Congo,Africa Orientale;AFRICA;FANTERIA
+Congo;Nord Africa,Africa Orientale,Sud Africa;AFRICA;CAVALLERIA
+Africa Orientale;Congo,Sud Africa,Madagascar,Egitto,Nord Africa;AFRICA;ARTIGLIERIA
+Sud Africa;Congo,Madagascar,Africa Orientale;AFRICA;ARTIGLIERIA
+Madagascar;Africa Orientale,Sud Africa;AFRICA;FANTERIA
+Egitto;Nord Africa,Africa Orientale,Medio Oriente,Europa Meridionale;AFRICA;FANTERIA
+Urali;Ucraina,Afghanistan,Siberia,Cina;ASIA;CAVALLERIA
+Siberia;Urali,Cina,Mongolia,Jacuzia,Čita;ASIA;ARTIGLIERIA
+Čita;Siberia,Kamchatka,Jacuzia,Mongolia;ASIA;FANTERIA
+Kamchatka;Alaska,Jacuzia,Čita,Mongolia,Giappone;ASIA;CAVALLERIA
+Mongolia;Čita,Siberia,Kamchatka, Giappone,Cina;ASIA;ARTIGLIERIA
+Cina;Urali,Siberia,Mongolia,Afghanistan,Medio Oriente,India,Siam;ASIA;CAVALLERIA
+Afghanistan;Urali,Cina,Medio Oriente,Ucraina;ASIA;FANTERIA
+Medio Oriente;Ucraina,Afghanistan,India,Cina,Egitto,Europa Meridionale;ASIA;ARTIGLIERIA
+India;Medio Oriente,Cina,Siam;ASIA;FANTERIA
+Siam;India,Indonesia,Cina;ASIA;ARTIGLIERIA
+Giappone;Kamchatka,Mongolia;ASIA;FANTERIA
+Jacuzia;Kamchatka,Čita,Siberia;ASIA;CAVALLERIA
+Indonesia;Siam,Nuova Guinea,Australia Occidentale;OCEANIA;CAVALLERIA
+Nuova Guinea;Indonesia,Australia Occidentale,Australia Orientale;OCEANIA;CAVALLERIA
+Australia Occidentale;Australia Orientale,Nuova Guinea,Indonesia;OCEANIA;ARTIGLIERIA
+Australia Orientale;Australia Occidentale,Nuova Guinea;OCEANIA;FANTERIA

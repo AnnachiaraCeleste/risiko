@@ -1,7 +1,7 @@
 Devi conquistare la totalità del NORD_AMERICA e dell'OCEANIA;CONTINENTI
 Devi conquistare la totalità dell'EUROPA e dell'OCEANIA più un terzo continente a tua scelta;CONTINENTI
 Devi conquistare la totalità dell'ASIA e dell'AFRICA;CONTINENTI
-Devi conquistare la totalità del NORD AMERICA e dell'AFRICA;CONTINENTI
+Devi conquistare la totalità del NORD_AMERICA e dell'AFRICA;CONTINENTI
 Devi conquistare la totalità dell'EUROPA e del SUD AMERICA più un terzo continente a tua scelta;CONTINENTI
 Devi conquistare la totalità dell'ASIA e del SUD AMERICA;CONTINENTI
 Devi distruggere LE ARMATE BLU, se sei tu stesso, se il giocatore è stato eliminato o se nessuno ha l'armata blu, devi conquistare 24 TERRITORI;ARMATE
