@@ -49,7 +49,7 @@ public class TerritorioDettagliato extends Territorio implements Cloneable {
 
     @Override
     public String toString() {
-        return "TERRITORIO: " + this.getNome().toUpperCase() + "\nconfini: " + confini + "\ncontinente: " + continente + "\ntipo arma: " +this.getArma()+ "\n";
+        return "\nTERRITORIO: " + this.getNome().toUpperCase() + "\nconfini: " + confini + "\ncontinente: " + continente + "\ntipo arma: " +this.getArma()+ "\n";
     }
 
     @Override

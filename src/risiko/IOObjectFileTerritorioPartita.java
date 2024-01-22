@@ -19,7 +19,7 @@ public class IOObjectFileTerritorioPartita extends IOObjectFile<TerritorioPartit
 
     @Override
     public String serialize(TerritorioPartita t) {
-        return t.getNome() + separator + t.getArma() + separator + t.getNomeGiocatore() + separator + t.getNumeroArmate();
+        return t.getNome() + separator + t.getArma() + separator + t.getPasswordGiocatore() + separator + t.getNumeroArmate();
     }
 
     @Override

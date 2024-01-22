@@ -13,19 +13,19 @@ import java.util.ArrayList;
  */
 public class CarteArmiPartita extends Territorio {
 
-    private String nomeGiocatore;
+    private String passwordGiocatore;
 
-    public CarteArmiPartita(String nome, TipoArma arma,String nomeGiocatore) {
+    public CarteArmiPartita(String nome, TipoArma arma,String password) {
         super(nome, arma);
-        this.nomeGiocatore = nomeGiocatore;
+        this.passwordGiocatore = password;
     }
 
-    public String getNomeGiocatore() {
-        return nomeGiocatore;
+    public String getPasswordGiocatore() {
+        return passwordGiocatore;
     }
 
-    public void setNomeGiocatore(String nomeGiocatore) {
-        this.nomeGiocatore = nomeGiocatore;
+    public void setPasswordGiocatore(String passwordGiocatore) {
+        this.passwordGiocatore = passwordGiocatore;
     }
 
 }

@@ -11,20 +11,20 @@ package risiko;
  */
 public class ObiettivoPartita extends Obiettivo{
     private boolean stato;
-    private String nomeProprietario;
+    private String password;
 
-    public ObiettivoPartita(String obiettivo,TipoObiettivo tipoObiettivo,String nomeProprietario,boolean stato) {
+    public ObiettivoPartita(String obiettivo,TipoObiettivo tipoObiettivo,String password,boolean stato) {
         super(obiettivo,tipoObiettivo);
         this.stato=stato;
-        this.nomeProprietario=nomeProprietario;
+        this.password=password;
     }
 
-    public String getNomeProprietario() {
-        return nomeProprietario;
+    public String getPassword() {
+        return password;
     }
 
-    public void setNomeProprietario(String nomeProprietario) {
-        this.nomeProprietario = nomeProprietario;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public boolean getStato() {

@@ -19,7 +19,7 @@ public class IOObjectFileObiettivoPartita extends IOObjectFile<ObiettivoPartita>
     
     @Override
     public String serialize(ObiettivoPartita o) {
-        return o.getObiettivo() + separator +o.getTipoObiettivo()+separator+o.getNomeProprietario()+separator+ o.getStato();
+        return o.getObiettivo() + separator +o.getTipoObiettivo()+separator+o.getPassword()+separator+ o.getStato();
     }
     
     @Override

@@ -20,7 +20,7 @@ public class IOObjectFileCarteArmiPartita extends IOObjectFile<CarteArmiPartita>
 
     @Override
     public String serialize(CarteArmiPartita c) {
-        return c.getNome() + separator + c.getArma() + separator + c.getNomeGiocatore();
+        return c.getNome() + separator + c.getArma() + separator + c.getPasswordGiocatore();
     }
 
     @Override

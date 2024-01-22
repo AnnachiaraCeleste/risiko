@@ -5,9 +5,6 @@
  */
 package risiko;
 
-import java.util.ArrayList;
-import java.util.Objects;
-
 /**
  *
  * @author Annachiara
@@ -17,10 +14,8 @@ public class Giocatore {
     private String nome;
     private Colors colore;
     private int nTruppe;
-    private ArrayList<Territorio> territoriPosseduti;
     private int rinforzi;
     private Obiettivo obiettivo;
-    private ArrayList<TipoArma> listaCarte;
     private final String password;
 
     public Giocatore(String nome, Colors colore, String password) {
@@ -28,6 +23,17 @@ public class Giocatore {
         this.colore = colore;
         this.password = password;
     }
+
+    public Giocatore(Giocatore g) {
+        this.nome = g.nome;
+        this.colore = g.colore;
+        this.nTruppe = g.nTruppe;
+        this.rinforzi = g.rinforzi;
+        this.obiettivo = g.obiettivo;
+        this.password = g.password;
+    }
+
+    
 
     public String getNome() {
         return nome;
@@ -53,6 +59,14 @@ public class Giocatore {
         this.nTruppe = nTruppe;
     }
 
+    public int getRinforzi() {
+        return rinforzi;
+    }
+
+    public void setRinforzi(int rinforzi) {
+        this.rinforzi = rinforzi;
+    }
+
     public String getPassword() {
         return password;
     }
@@ -68,12 +82,10 @@ public class Giocatore {
     public boolean equals(Giocatore g) {
         return g.colore.equals(this.colore);
     }
-    
+
     @Override
     public String toString() {
         return "Giocatore{" + "nome=" + nome + ", colore=" + colore + ", nTruppe=" + nTruppe + ", rinforzi=" + rinforzi + ", obiettivo=" + obiettivo + ", password=" + password + '}';
     }
-
-    
 
 }
