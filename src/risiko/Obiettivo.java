@@ -12,9 +12,19 @@ package risiko;
 public class Obiettivo {
 
     private String obiettivo;
+    private TipoObiettivo tipoObiettivo;
 
-    public Obiettivo(String obiettivo) {
+    public TipoObiettivo getTipoObiettivo() {
+        return tipoObiettivo;
+    }
+
+    public void setTipoObiettivo(TipoObiettivo tipoObiettivo) {
+        this.tipoObiettivo = tipoObiettivo;
+    }
+
+    public Obiettivo(String obiettivo, TipoObiettivo tipoObiettivo) {
         this.obiettivo = obiettivo;
+        this.tipoObiettivo = tipoObiettivo;
     }
 
     public String getObiettivo() {

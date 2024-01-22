@@ -1,0 +1,9 @@
+Afghanistan;China,Medio Oriente,Ucraina,Urali;ASIA;FANTERIA
+Africa del Nord;Brasile,Europa Meridionale,Europa Occidentale,Egitto,Africa Orientale,Congo;AFRICA;FANTERIA
+Africa del Sud;Africa Orientale,Congo,Madagascar;AFRICA;ARTIGLIERIA
+Africa Orientale;Africa del Sud,Congo,Madagascar,Egitto,Africa del Nord;AFRICA;ARTIGLIERIA
+Alaska;Alberta,Kamchatka,Territori del Nord Ovest;NORD_AMERICA;FANTERIA
+Alberta;Alaska,Ontario,Stati Uniti Occidentali,Territori del Nord Ovest;NORD_AMERICA;FANTERIA
+America Centrale;Stati Uniti Orientali,Venezuela,Stati Uniti Occidentali;NORD_AMERICA;CAVALLERIA
+Argentina;Brasile,Perù;SUD_AMERICA;FANTERIA
+Australia Occidentale;Australia Orientale,Indonesia,Nuova Guinea;OCEANIA;ARTIGLIERIA

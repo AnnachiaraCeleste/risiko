@@ -13,8 +13,8 @@ public class ObiettivoPartita extends Obiettivo{
     private boolean stato;
     private String nomeProprietario;
 
-    public ObiettivoPartita(String obiettivo,String nomeProprietario,boolean stato) {
-        super(obiettivo);
+    public ObiettivoPartita(String obiettivo,TipoObiettivo tipoObiettivo,String nomeProprietario,boolean stato) {
+        super(obiettivo,tipoObiettivo);
         this.stato=stato;
         this.nomeProprietario=nomeProprietario;
     }

@@ -19,12 +19,12 @@ public class IOObjectFileObiettivoPartita extends IOObjectFile<ObiettivoPartita>
     
     @Override
     public String serialize(ObiettivoPartita o) {
-        return o.getObiettivo() + separator +o.getNomeProprietario()+separator+ o.getStato();
+        return o.getObiettivo() + separator +o.getTipoObiettivo()+separator+o.getNomeProprietario()+separator+ o.getStato();
     }
     
     @Override
     public ObiettivoPartita deserialize(String[] attributes) {
-        return new ObiettivoPartita(attributes[0], attributes[1],Boolean.getBoolean(attributes[2]));
+        return new ObiettivoPartita(attributes[0], TipoObiettivo.valueOf(attributes[1]),attributes[2],Boolean.getBoolean(attributes[3]));
     }
     
 }

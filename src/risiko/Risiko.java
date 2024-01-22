@@ -19,6 +19,7 @@ public class Risiko {
      * @param args the command line arguments
      */
     public static void main(String[] args) throws IOException {
+         GestionePartita gp = new GestionePartita(5, TipoPartita.CLASSICA);
         System.out.println(TipoContinente.valueOf("AFRICA"));
        IOObjectFileTerritorioDettagliato file = new IOObjectFileTerritorioDettagliato("territori.txt", ";");
         ArrayList<TerritorioDettagliato> lista= file.loadData();
