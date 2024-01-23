@@ -5,17 +5,20 @@
  */
 package risiko;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author Annachiara
  */
 public class Territorio {
+
     private final String nome;
     private final TipoArma arma;
 
-    public Territorio(String nome,TipoArma tipoArma) {
+    public Territorio(String nome, TipoArma tipoArma) {
         this.nome = nome;
-        this.arma=tipoArma;
+        this.arma = tipoArma;
     }
 
     public String getNome() {
@@ -25,6 +28,14 @@ public class Territorio {
     public TipoArma getArma() {
         return arma;
     }
-    
-    
+
+    public static ArrayList<String> splitTerritori(String attributoConfini) {
+        String[] attributes = attributoConfini.split(",");
+        ArrayList<String> listaElementi = new ArrayList<>();
+        for (int i = 0; i < attributes.length; i++) {
+            listaElementi.add(attributes[i]);
+        }
+        return listaElementi;
+    }
+
 }

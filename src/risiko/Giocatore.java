@@ -15,7 +15,6 @@ public class Giocatore {
     private Colors colore;
     private int nTruppe;
     private int rinforzi;
-    private Obiettivo obiettivo;
     private final String password;
 
     public Giocatore(String nome, Colors colore, String password) {
@@ -29,11 +28,8 @@ public class Giocatore {
         this.colore = g.colore;
         this.nTruppe = g.nTruppe;
         this.rinforzi = g.rinforzi;
-        this.obiettivo = g.obiettivo;
         this.password = g.password;
     }
-
-    
 
     public String getNome() {
         return nome;
@@ -71,21 +67,13 @@ public class Giocatore {
         return password;
     }
 
-    public Obiettivo getObiettivo() {
-        return obiettivo;
-    }
-
-    public void setObiettivo(Obiettivo obiettivo) {
-        this.obiettivo = obiettivo;
-    }
-
     public boolean equals(Giocatore g) {
         return g.colore.equals(this.colore);
     }
 
     @Override
     public String toString() {
-        return "Giocatore{" + "nome=" + nome + ", colore=" + colore + ", nTruppe=" + nTruppe + ", rinforzi=" + rinforzi + ", obiettivo=" + obiettivo + ", password=" + password + '}';
+        return "Giocatore{" + "nome=" + nome + ", colore=" + colore + ", nTruppe=" + nTruppe + ", rinforzi=" + rinforzi + ", password=" + password + '}';
     }
 
 }

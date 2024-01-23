@@ -35,5 +35,26 @@ public class Risiko {
         System.out.println(TipoContinente.values()[1].name());
        Obiettivo obiettivo= new Obiettivo("Devi conquistare la totalità del NORD_AMERICA e dell'AFRICA",TipoObiettivo.CONTINENTI);
         System.out.println(obiettivo.getObiettivo().contains(TipoContinente.values()[1].name()));
+        
+        int[] idxTerritori = new int[42];
+        boolean trovato;
+        for (int i = 0; i < idxTerritori.length; i++) {
+            do {
+                idxTerritori[i] = (int) (Math.random() * ( 41 + 1));
+                trovato = false;
+                for (int j = 0; j < i; j++) {
+                    if (idxTerritori[j] == idxTerritori[i]) {
+                        trovato = true;
+                    }
+                }
+            } while (trovato);
+        }
+        for (int i = 0; i < idxTerritori.length; i++) {
+            System.out.println(idxTerritori[i]);
+        }
+       
+        
+        
+        
     }
 }

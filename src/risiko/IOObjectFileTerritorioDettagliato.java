@@ -17,8 +17,8 @@ public class IOObjectFileTerritorioDettagliato extends IOObjectFile<TerritorioDe
     public IOObjectFileTerritorioDettagliato(String fileName, String separator) {
         super(fileName, separator);
     }
-
-    public ArrayList<String> splitConfini(String attributoConfini) {
+/*
+    public ArrayList<String> splitTerritori(String attributoConfini) {
         String[] attributes = attributoConfini.split(",");
         ArrayList<String> listaElementi = new ArrayList<>();
         for (int i = 0; i < attributes.length; i++) {
@@ -26,7 +26,7 @@ public class IOObjectFileTerritorioDettagliato extends IOObjectFile<TerritorioDe
         }
         return listaElementi;
     }
-
+*/
     @Override
     public String serialize(TerritorioDettagliato t) {
         return t.getNome() + separator + t.getSequenzaConfini() + separator + t.getContinente() + separator + t.getArma();
@@ -34,7 +34,7 @@ public class IOObjectFileTerritorioDettagliato extends IOObjectFile<TerritorioDe
 
     @Override
     public TerritorioDettagliato deserialize(String[] attributes) {
-        return new TerritorioDettagliato(attributes[0], splitConfini(attributes[1]),
+        return new TerritorioDettagliato(attributes[0], Territorio.splitTerritori(attributes[1]),
                 TipoContinente.valueOf(attributes[2]), TipoArma.valueOf(attributes[3]));
     }
 }

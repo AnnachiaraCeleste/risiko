@@ -70,11 +70,11 @@ public class GestionePartita {
     private int getLineTerritorioPartita(TipoContinente continente, int indiceControllo) throws IOException {
         boolean continente_trovato = false;
         int line_continente = -1;
-        ArrayList<TerritorioPartita> listaTerritoriPartita = iofTerritorioPartita.loadData();
+        ArrayList<TerritorioPartita> territoriPartita = iofTerritorioPartita.loadData();
         ArrayList<TerritorioDettagliato> listaTerritoriContinente = listaTerritoriDettagliatiContinente(continente);
         // RICERCA PER CHIAVE
-        for (int i = indiceControllo; !continente_trovato && i < listaTerritoriPartita.size(); i++) {
-            if (listaTerritoriPartita.get(i).get.equals(password)) {
+        for (int i = indiceControllo; !continente_trovato && i < territoriPartita.size(); i++) {
+            if (territoriPartita.get(i).get.equals(password)) {
                 continente_trovato = true;
                 line_continente = i;
             }
@@ -112,30 +112,143 @@ public class GestionePartita {
         return iofGiocatorePartita.get(line_giocatore);
     }
 
-    //////////////////////////////FUNZIONI PARTITA//////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////
+    public void addTerritoriPartita() throws IOException {
+        int[] idxTerritori = new int[42];
+        boolean trovato;
+        for (int i = 0; i < idxTerritori.length; i++) {
+            do {
+                idxTerritori[i] = (int) (Math.random() * (41 + 1));
+                trovato = false;
+                for (int j = 0; j < i; j++) {
+                    if (idxTerritori[j] == idxTerritori[i]) {
+                        trovato = true;
+                    }
+                }
+            } while (trovato);
+        }
+        ArrayList<Giocatore> giocatori = iofGiocatorePartita.loadData();
+        ArrayList<TerritorioDettagliato> territoriPartita = iofTerritorioDettagliato.loadData();
+        for (int i = 0, j = 0; i < giocatori.size(); i++) {
+            for (; j < territoriPartita.size() && j < (int) 42 / n_giocatori; j++) {
+                TerritorioPartita territorio = new TerritorioPartita(territoriPartita.get(idxTerritori[j]).getNome(),
+                        territoriPartita.get(idxTerritori[j]).getArma(), giocatori.get(i).getPassword(), 1);
+                iofTerritorioPartita.add(territorio);
+                giocatori.get(i).setRinforzi(numeroArmateIniziali() - 1);
+            }
+            if ((n_giocatori == 4 || n_giocatori == 5) && (i == 0 || i == 1)) {
+                TerritorioPartita territorio = new TerritorioPartita(territoriPartita.get(idxTerritori[j]).getNome(),
+                        territoriPartita.get(idxTerritori[j]).getArma(), giocatori.get(i).getPassword(), 1);
+                iofTerritorioPartita.add(territorio);
+                giocatori.get(i).setRinforzi(numeroArmateIniziali() - 1);
+                j++;
+            }
+
+        }
+    }
+
+    public int numeroArmateIniziali() {
+        return 20 + 5 * (NUMERO_MAX_GIOCATORI - n_giocatori);
+    }
+
+    public void addObiettivi() throws IOException {
+        int[] idxObiettivo = new int[n_giocatori];
+        int x_max;
+        int x_min;
+        if (tipoPartita.equals(TipoPartita.CLASSICA)) {
+            x_max = 13;
+            x_min = 0;
+        } else {
+            x_max = 23;
+            x_min = 14;
+        }
+        boolean trovato;
+        for (int i = 0; i < idxObiettivo.length; i++) {
+            do {
+                idxObiettivo[i] = (int) (Math.random() * (x_max - x_min + 1)) + x_min;
+                trovato = false;
+                for (int j = 0; j < i; j++) {
+                    if (idxObiettivo[j] == idxObiettivo[i]) {
+                        trovato = true;
+                    }
+                }
+            } while (trovato);
+        }
+        ArrayList<Giocatore> giocatori = iofGiocatorePartita.loadData();
+        ArrayList<Obiettivo> listaObiettivi = iofObiettivo.loadData();
+        for (int i = 0; i < giocatori.size(); i++) {
+            ObiettivoPartita obiettivo = new ObiettivoPartita(listaObiettivi.get(idxObiettivo[i]).getObiettivo(),
+                    listaObiettivi.get(idxObiettivo[i]).getTipoObiettivo(), giocatori.get(i).getPassword(), false);
+            iofObiettivoPartita.add(obiettivo);
+        }
+    }
+
+//////////////////////////////FUNZIONI PARTITA//////////////////////////////
     public boolean controlloStatoObiettivoGiocatore(String psw) throws IOException {
-        boolean statoObiettivo = true;
+        boolean statoObiettivo = false;
+        boolean territorioNonPosseduto;
         int line_obiettivo = getLineObiettivoGiocatore(psw);
         Obiettivo obiettivo = (Obiettivo) iofObiettivoPartita.get(line_obiettivo);
         ArrayList<TerritorioPartita> territoriGiocatore = listaTerritoriGiocatorePartita(psw);
         switch (obiettivo.getTipoObiettivo()) {
-            case ARMATE:;
-            case CONTINENTI:
-                for (int i = 0, k = 0; i < TipoContinente.values().length; i++) {
-                    if (obiettivo.getObiettivo().contains(TipoContinente.values()[i].name())) {
-                        ArrayList<TerritorioDettagliato> tContinente = listaTerritoriDettagliatiContinente(TipoContinente.values()[i]);
-                        for (int j = 0; statoObiettivo && j < territoriGiocatore.size(); j++) {
-                            if (!tContinente.contains((Territorio) territoriGiocatore.get(j))) {
-                                statoObiettivo = false;
-                            }
-                        }
-                    }
-                    if (k == 1) {
+            case ARMATE:
+                Colors colore = null;
+                for (int i = 0; i < Colors.values().length; i++) {
+                    if (obiettivo.getObiettivo().contains(Colors.values()[i].name())) {
+                        colore = Colors.values()[i];
                         break;
                     }
                 }
+                if ((colore.equals(iofGiocatorePartita.get(getLineGiocatore(psw)).getColore()) && listaTerritoriColore(colore).isEmpty()) || listaTerritoriGiocatorePartita(psw).size() > 23) {
+                    statoObiettivo = true;
+                }
+                break;
+            case CONTINENTI:
+                territorioNonPosseduto = false;
+                for (int i = 0, k = 0; k != 1 && i < TipoContinente.values().length && !territorioNonPosseduto; i++) {
+                    if (obiettivo.getObiettivo().contains(TipoContinente.values()[i].name())) {
+                        ArrayList<TerritorioDettagliato> tContinente = listaTerritoriDettagliatiContinente(TipoContinente.values()[i]);
+                        k++;
+                        for (int j = 0; !territorioNonPosseduto && j < territoriGiocatore.size(); j++) {
+                            if (!tContinente.contains((Territorio) territoriGiocatore.get(j))) {
+                                territorioNonPosseduto = true;
+                            }
+                        }
+                    }
+                }
+                if (!territorioNonPosseduto) {
+                    statoObiettivo = true;
+                }
+                break;
             case NUMERO_TERRITORI:
+                int nTerritoriValidi = 0;
+                if (obiettivo.getObiettivo().contains("18") && listaTerritoriGiocatorePartita(psw).size() > 17) {
+                    for (int i = 0; i < listaTerritoriGiocatorePartita(psw).size(); i++) {
+                        if (listaTerritoriGiocatorePartita(psw).get(i).getNumeroArmate() > 1) {
+                            nTerritoriValidi++;
+                        }
+                    }
+                    if (nTerritoriValidi > 17) {
+                        statoObiettivo = true;
+                    }
+                } else if (obiettivo.getObiettivo().contains("24") && listaTerritoriGiocatorePartita(psw).size() > 23) {
+                    statoObiettivo = true;
+                }
+                break;
             case TORNEO:
+                territorioNonPosseduto = false;
+                ArrayList<String> territoriDaConquistare = Territorio.splitTerritori(obiettivo.getObiettivo());
+                for (int i = 0; i < listaTerritoriGiocatorePartita(psw).size(); i++) {
+                    for (int j = 0; j < territoriDaConquistare.size(); j++) {
+                        if (!listaTerritoriGiocatorePartita(psw).contains(territoriDaConquistare.get(j))) {
+                            territorioNonPosseduto = true;
+                        }
+                    }
+                }
+                if (!territorioNonPosseduto) {
+                    statoObiettivo = true;
+                }
+                break;
         }
         return statoObiettivo;
     }
@@ -151,6 +264,19 @@ public class GestionePartita {
         return territoriContinente;
     }
 
+    public ArrayList<TerritorioPartita> listaTerritoriColore(Colors colore) throws IOException {
+        ArrayList<Giocatore> giocatori = iofGiocatorePartita.loadData();
+        String psw = "";
+        for (int i = 0; i < giocatori.size(); i++) {
+            if (giocatori.get(i).getColore().equals(colore)) {
+                psw = giocatori.get(i).getPassword();
+                break;
+            }
+        }
+        ArrayList<TerritorioPartita> territoriColore = listaTerritoriGiocatorePartita(psw);
+        return territoriColore;
+    }
+
     public ArrayList<TerritorioPartita> listaTerritoriGiocatorePartita(String password) throws IOException {
         ArrayList<TerritorioPartita> territoriPartita = iofTerritorioPartita.loadData();
         ArrayList<TerritorioPartita> territoriGiocatore = new ArrayList<>();
@@ -160,5 +286,9 @@ public class GestionePartita {
             }
         }
         return territoriGiocatore;
+    }
+    ////////////////////////////////////////////////////////////////////////////
+    public void faseRinforzo(String psw){
+        
     }
 }
