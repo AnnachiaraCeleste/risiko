@@ -66,22 +66,20 @@ public class GestionePartita {
         return line_obiettivo;
     }
 
-    /*
-    private int getLineTerritorioPartita(TipoContinente continente, int indiceControllo) throws IOException {
+    
+    private int getLineTerritorioPartita(String nome) throws IOException {
         boolean continente_trovato = false;
         int line_continente = -1;
         ArrayList<TerritorioPartita> territoriPartita = iofTerritorioPartita.loadData();
-        ArrayList<TerritorioDettagliato> listaTerritoriContinente = listaTerritoriDettagliatiContinente(continente);
         // RICERCA PER CHIAVE
-        for (int i = indiceControllo; !continente_trovato && i < territoriPartita.size(); i++) {
-            if (territoriPartita.get(i).get.equals(password)) {
+        for (int i = 0; !continente_trovato&&i < territoriPartita.size(); i++) {
+            if (territoriPartita.get(i).getNome().equals(nome)) {
                 continente_trovato = true;
                 line_continente = i;
             }
         }
         return line_continente;
     }
-     */
     ///////////////////////// CRUD FUNCTIONS GIOCATORE /////////////////////////
     public void addGiocatore(Giocatore g) throws IOException {
         int line_giocatore = getLineGiocatore(g.getPassword());
@@ -111,7 +109,14 @@ public class GestionePartita {
         }
         return iofGiocatorePartita.get(line_giocatore);
     }
-
+    public TerritorioPartita getTerritorioPartita(String nome) throws IOException{
+        // uso il metodo che ritorna l'indice dell'arraylist
+        int line_territorio = getLineTerritorioPartita(nome);
+        if (line_territorio == -1) {
+            //throw new TerritorioNonRegistrato(psw);
+        }
+        return iofTerritorioPartita.get(line_territorio);
+    }
     ////////////////////////////////////////////////////////////////////////////
     public void addTerritoriPartita() throws IOException {
         int[] idxTerritori = new int[42];
@@ -288,7 +293,73 @@ public class GestionePartita {
         return territoriGiocatore;
     }
     ////////////////////////////////////////////////////////////////////////////
-    public void faseRinforzo(String psw){
+    //inizio turno do ad ogni giocatore il numero di rinforzi in base a territorio
+    //oppure a seconda delle carte ecc...
+    //public int calcolaRinforziTourno(String psw){
         
+    //}
+    
+    /**
+     * 
+     * @param psw
+     * @param nomeTerritorio
+     * @param armate
+     * @return il numero di armate che possono ancora essere posizionate dal giocatore
+     */
+    public int faseRinforzo(String psw,String nomeTerritorio, int armate) throws IOException{
+        if(getGiocatore(psw).getRinforzi()!=0&&getGiocatore(psw).getRinforzi()<=armate){            
+            getTerritorioPartita(nomeTerritorio).setNumeroArmate(armate+getTerritorioPartita(nomeTerritorio).getNumeroArmate());
+        }
+        return getGiocatore(psw).getRinforzi();
     }
+    /*
+    public void calcolaRinforzi() {
+        // Calcola il numero di armate di rinforzo
+        int rinforziTerritori = territoriOccupati / 3;
+        int rinforziContinenti = calcolaRinforziContinenti();
+        int rinforziCarte = calcolaRinforziCarte();
+
+        this.armate = rinforziTerritori + rinforziContinenti + rinforziCarte;
+    }
+
+    private int calcolaRinforziContinenti() {
+        // Calcola i rinforzi extra per i continenti occupati
+        int rinforziContinenti = 0;
+        if (carteTerritoriPosseduti.contains("Australia") || carteTerritoriPosseduti.contains("Oceania")) {
+            rinforziContinenti += 2;
+        }
+        // Aggiungi altri continenti secondo necessità
+        return rinforziContinenti;
+    }
+
+    private int calcolaRinforziCarte() {
+        // Calcola i rinforzi extra per le combinazioni di carte
+        int rinforziCarte = 0;
+
+        // Calcola le combinazioni valide
+        int numeroCannoni = contaCarte("cannone");
+        int numeroFanti = contaCarte("fante");
+        int numeroCavalieri = contaCarte("cavaliere");
+
+        // Calcola i rinforzi per le combinazioni
+        if (numeroCannoni >= 3) {
+            rinforziCarte += 4;
+        }
+        if (numeroFanti >= 3) {
+            rinforziCarte += 6;
+        }
+        if (numeroCavalieri >= 3) {
+            rinforziCarte += 8;
+        }
+        if (numeroCannoni >= 1 && numeroFanti >= 1 && numeroCavalieri >= 1) {
+            rinforziCarte += 10;
+        }
+
+        // Aggiungi 2 armate per ciascuna carta territorio posseduta nella mano
+        rinforziCarte += carteTerritoriPosseduti.size() * 2;
+
+        return rinforziCarte;
+    }
+
+    */
 }
