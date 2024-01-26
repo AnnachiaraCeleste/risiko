@@ -24,7 +24,7 @@ public class IOObjectFileTerritorioPartita extends IOObjectFile<TerritorioPartit
 
     @Override
     public TerritorioPartita deserialize(String[] attributes) {
-        return new TerritorioPartita(attributes[0], TipoArma.valueOf(attributes[1]), attributes[2], Integer.getInteger(attributes[3]));
+        return new TerritorioPartita(attributes[0], TipoArma.valueOf(attributes[1]), attributes[2], Integer.parseInt(attributes[3]));
     }
 
 }

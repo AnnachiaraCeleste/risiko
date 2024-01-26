@@ -6,6 +6,8 @@
 package risiko;
 
 /**
+ * Enum TipoPartita: Classica(ha una durata della partita significativa);
+ * Torneo(dovrebbe durare poco).
  *
  * @author Annachiara
  */

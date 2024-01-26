@@ -11,7 +11,7 @@ import java.util.ArrayList;
  *
  * @author Annachiara
  */
-public class Territorio {
+public class Territorio implements Comparable<Territorio> {
 
     private final String nome;
     private final TipoArma arma;
@@ -27,6 +27,11 @@ public class Territorio {
 
     public TipoArma getArma() {
         return arma;
+    }
+
+    @Override//non funzion??????
+    public int compareTo(Territorio altroTerritorio) {
+        return this.getNome().toUpperCase().compareTo(altroTerritorio.getNome().toUpperCase());
     }
 
     public static ArrayList<String> splitTerritori(String attributoConfini) {

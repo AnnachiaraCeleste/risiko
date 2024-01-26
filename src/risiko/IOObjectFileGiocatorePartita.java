@@ -24,6 +24,6 @@ public class IOObjectFileGiocatorePartita extends IOObjectFile<Giocatore> {
 
     @Override
     public Giocatore deserialize(String[] attributes) {
-        return new Giocatore(attributes[0], Colors.valueOf(attributes[1]), attributes[2]);
+        return new Giocatore(attributes[0], TipoColore.valueOf(attributes[1]), attributes[2]);
     }
 }

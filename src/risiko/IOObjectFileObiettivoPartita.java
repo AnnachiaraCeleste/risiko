@@ -24,7 +24,7 @@ public class IOObjectFileObiettivoPartita extends IOObjectFile<ObiettivoPartita>
     
     @Override
     public ObiettivoPartita deserialize(String[] attributes) {
-        return new ObiettivoPartita(attributes[0], TipoObiettivo.valueOf(attributes[1]),attributes[2],Boolean.getBoolean(attributes[3]));
+        return new ObiettivoPartita(attributes[0], TipoObiettivo.valueOf(attributes[1]),attributes[2],Boolean.parseBoolean(attributes[3]));
     }
     
 }

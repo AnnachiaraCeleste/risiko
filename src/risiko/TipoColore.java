@@ -6,10 +6,17 @@
 package risiko;
 
 /**
- * Enum TipoObiettivo: Armate, Continenti, Numero Territori, Torneo.
+ * Enum TipoColore: elenco dei colori per le armate
  *
  * @author Annachiara
  */
-public enum TipoObiettivo {
-    ARMATE, CONTINENTI, NUMERO_TERRITORI, TORNEO;
+public enum TipoColore {
+    RED,
+    GREEN,
+    BLUE,
+    YELLOW,
+    MAGENTA,
+    CYAN,
+    WHITE,
+    BLACK;
 }

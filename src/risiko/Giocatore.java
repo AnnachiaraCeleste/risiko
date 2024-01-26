@@ -12,12 +12,13 @@ package risiko;
 public class Giocatore {
 
     private String nome;
-    private Colors colore;
+    private TipoColore colore;
     private int nTruppe;
     private int rinforzi;
     private final String password;
+    private int nTerritoriConquistatiPerTurno;
 
-    public Giocatore(String nome, Colors colore, String password) {
+    public Giocatore(String nome, TipoColore colore, String password) {
         this.nome = nome;
         this.colore = colore;
         this.password = password;
@@ -39,11 +40,11 @@ public class Giocatore {
         this.nome = nome;
     }
 
-    public Colors getColore() {
+    public TipoColore getColore() {
         return colore;
     }
 
-    public void setColore(Colors colore) {
+    public void setColore(TipoColore colore) {
         this.colore = colore;
     }
 
@@ -65,6 +66,14 @@ public class Giocatore {
 
     public String getPassword() {
         return password;
+    }
+
+    public int getNTerritoriConquistatiPerTurno() {
+        return nTerritoriConquistatiPerTurno;
+    }
+
+    public void setNTerritoriConquistatiPerTurno(int nTerritoriConquistatiPerTurno) {
+            this.nTerritoriConquistatiPerTurno = nTerritoriConquistatiPerTurno;
     }
 
     public boolean equals(Giocatore g) {

@@ -3,13 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package risiko;
+package exceptions;
 
 /**
- * Enum TipoObiettivo: Armate, Continenti, Numero Territori, Torneo.
  *
  * @author Annachiara
  */
-public enum TipoObiettivo {
-    ARMATE, CONTINENTI, NUMERO_TERRITORI, TORNEO;
+public class RisikoExceptions extends Exception{
+    
 }

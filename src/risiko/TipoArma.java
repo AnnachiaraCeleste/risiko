@@ -6,14 +6,15 @@
 package risiko;
 
 /**
+ * Classe TipoArma: FANTERIA, CAVALLERIA, ARTIGLIERIA.
  *
  * @author Annachiara
  */
-public enum TipoArma{
+public enum TipoArma {
     FANTERIA,
     CAVALLERIA,
     ARTIGLIERIA;
-    
+
     public static String listOfCostants() {
         TipoArma[] values = TipoArma.values();
         String res = "";
@@ -24,5 +25,5 @@ public enum TipoArma{
         res += values[i];
         return res;
     }
-    
+
 }

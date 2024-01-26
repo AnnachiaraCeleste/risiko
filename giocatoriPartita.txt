@@ -1,0 +1,4 @@
+cele;BLUE;ddd
+chiara;RED;ccc
+Anna;MAGENTA;bbb
+Celly;WHITE;aaa

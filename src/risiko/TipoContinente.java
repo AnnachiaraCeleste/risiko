@@ -6,6 +6,9 @@
 package risiko;
 
 /**
+ * Enum TipoContinente(ASIA,AFRICA,EUROPA,NORD_AMERICA,SUD_AMERICA,OCEANIA):
+ * assegna ad ogni continente il numero di armate da assegnare per il rinforzo
+ * delle truppe
  *
  * @author Annachiara
  */
@@ -27,4 +30,3 @@ public enum TipoContinente {
         return numeroArmateAssegnate;
     }
 }
-
