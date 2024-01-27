@@ -18,10 +18,11 @@ public class Giocatore {
     private final String password;
     private int nTerritoriConquistatiPerTurno;
 
-    public Giocatore(String nome, TipoColore colore, String password) {
+    public Giocatore(String nome, TipoColore colore, String password,int rinforzi) {
         this.nome = nome;
         this.colore = colore;
         this.password = password;
+        this.rinforzi=rinforzi;
     }
 
     public Giocatore(Giocatore g) {

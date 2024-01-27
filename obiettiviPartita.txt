@@ -1,4 +1,4 @@
-Devi distruggere LE ARMATE ROSSE, se sei tu stesso, se il giocatore è stato eliminato o se nessuno ha l'armata rossa, devi conquistare 24 TERRITORI;ARMATE;ddd;false
-Devi conquistare la totalità dell'EUROPA e dell'OCEANIA più un terzo continente a tua scelta;CONTINENTI;ccc;false
-Devi distruggere LE ARMATE BLU, se sei tu stesso, se il giocatore è stato eliminato o se nessuno ha l'armata blu, devi conquistare 24 TERRITORI;ARMATE;bbb;false
-Devi conquistare la totalità dell'EUROPA e del SUD AMERICA più un terzo continente a tua scelta;CONTINENTI;aaa;false
+Devi conquistare la totalità dell'EUROPA e dell'OCEANIA più un terzo continente a tua scelta;CONTINENTI;ddd;false
+Devi distruggere LE ARMATE ROSSE, se sei tu stesso, se il giocatore è stato eliminato o se nessuno ha l'armata rossa, devi conquistare 24 TERRITORI;ARMATE;ccc;false
+Devi conquistare la totalità dell'ASIA e del SUD AMERICA;CONTINENTI;bbb;false
+Devi distruggere LE ARMATE GIALLE, se sei tu stesso, se il giocatore è stato eliminato o se nessuno ha l'armata gialla, devi conquistare 24 TERRITORI;ARMATE;aaa;false

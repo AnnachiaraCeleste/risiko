@@ -53,12 +53,11 @@ public class Risiko {
         System.out.println("----------------------------");*/
         GestionePartita gp = new GestionePartita(4, TipoPartita.CLASSICA);
         
-        try{
-        gp.getTerritorioPartita("Argentina").setNumeroArmate(11);
-        gp.faseAttacco("Argentina", "Brasile", 3, 1);
-        }catch(RisikoExceptions ex){
-            System.out.println(ex);
-        }
+        gp.getTerritorioPartita("Argentina");
+        gp.faseSpostamento("Argentina", "Gran Bretagna", 4);
+        
+        System.out.println(gp.getGiocatore("ccc").getRinforzi());
+        //gp.faseAttacco("Argentina", "Brasile", 3, 1);
 
     }
 }

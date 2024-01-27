@@ -12,18 +12,18 @@ import iofiles.IOObjectFile;
  * @author Annachiara
  */
 public class IOObjectFileGiocatorePartita extends IOObjectFile<Giocatore> {
-
+    
     public IOObjectFileGiocatorePartita(String fileName, String separator) {
         super(fileName, separator);
     }
-
+    
     @Override
     public String serialize(Giocatore g) {
-        return g.getNome() + separator + g.getColore() + separator + g.getPassword(); //To change body of generated methods, choose Tools | Templates.
+        return g.getNome() + separator + g.getColore() + separator + g.getPassword() + separator + g.getRinforzi(); 
     }
-
+    
     @Override
     public Giocatore deserialize(String[] attributes) {
-        return new Giocatore(attributes[0], TipoColore.valueOf(attributes[1]), attributes[2]);
+        return new Giocatore(attributes[0], TipoColore.valueOf(attributes[1]), attributes[2], Integer.parseInt(attributes[3]));
     }
 }

@@ -336,9 +336,9 @@ public class GestionePartita {
         }
         ArrayList<Giocatore> giocatori = iofGiocatorePartita.loadData();
         ArrayList<TerritorioDettagliato> territoriPartita = iofTerritorioDettagliato.loadData();
-        
-        for (int i = 0,j=0; i < giocatori.size(); i++) {            
-            for (int k=0; j < territoriPartita.size() && k<((int) 42 / n_giocatori); k++,j++) {
+
+        for (int i = 0, j = 0; i < giocatori.size(); i++) {
+            for (int k = 0; j < territoriPartita.size() && k < ((int) 42 / n_giocatori); k++, j++) {
                 TerritorioPartita territorio = new TerritorioPartita(territoriPartita.get(idxTerritori[j]).getNome(),
                         territoriPartita.get(idxTerritori[j]).getArma(), giocatori.get(i).getPassword(), 1);
                 addTerritorioPartita(territorio);
@@ -352,9 +352,10 @@ public class GestionePartita {
                 j++;
             }
         }
-        
-        ArrayList<TerritorioPartita> territoriAssegnati=iofTerritorioPartita.loadData();
+
+        ArrayList<TerritorioPartita> territoriAssegnati = iofTerritorioPartita.loadData();
         Collections.sort(territoriAssegnati);
+        iofGiocatorePartita.saveData(giocatori);
         iofTerritorioPartita.saveData(territoriAssegnati);
     }
 
@@ -609,8 +610,12 @@ public class GestionePartita {
      * giocatore
      */
     public int faseRinforzo(String psw, String nomeTerritorio, int armate) throws IOException {
-        getTerritorioPartita(nomeTerritorio).setNumeroArmate(armate + getTerritorioPartita(nomeTerritorio).getNumeroArmate());
-        getGiocatore(psw).setRinforzi(getGiocatore(psw).getRinforzi() - armate);
+        ArrayList<TerritorioPartita> territori = iofTerritorioPartita.loadData();
+        ArrayList<Giocatore> giocatori = iofGiocatorePartita.loadData();
+        territori.get(getLineTerritorioPartita(nomeTerritorio)).setNumeroArmate(armate + getTerritorioPartita(nomeTerritorio).getNumeroArmate());
+        giocatori.get(getLineGiocatore(psw)).setRinforzi(getGiocatore(psw).getRinforzi() - armate);
+        iofTerritorioPartita.saveData(territori);
+        iofGiocatorePartita.saveData(giocatori);
         return getGiocatore(psw).getRinforzi();
     }
 
@@ -849,16 +854,18 @@ public class GestionePartita {
     public static void stampaDadi(String giocatore, int[] dadi) {
         System.out.print(giocatore + " ha lanciato: ");
         for (int i = 0; i < dadi.length; i++) {
-            System.out.print(dadi[i]+"  ");
+            System.out.print(dadi[i] + "  ");
         }
         System.out.println();
     }
 
     //////////////////////////////FASE SPOSTAMENTI//////////////////////////////
-    public void faseSpostamento(TerritorioPartita territorioPartenza, TerritorioPartita territorioDestinazione, int numeroArmateDaSpostare) throws IOException {
-        if (numeroArmateDaSpostare < territorioPartenza.getNumeroArmate()) {
-            territorioPartenza.setNumeroArmate(territorioPartenza.getNumeroArmate() - numeroArmateDaSpostare);
-            territorioDestinazione.setNumeroArmate(territorioDestinazione.getNumeroArmate() + numeroArmateDaSpostare);
+    public void faseSpostamento(String territorioPartenza, String territorioDestinazione, int numeroArmateDaSpostare) throws IOException {
+        if (numeroArmateDaSpostare < getTerritorioPartita(territorioPartenza).getNumeroArmate()) {
+            ArrayList<TerritorioPartita> territoriPartita = iofTerritorioPartita.loadData();
+            territoriPartita.get(getLineTerritorioPartita(territorioPartenza)).setNumeroArmate(getTerritorioPartita(territorioPartenza).getNumeroArmate() - numeroArmateDaSpostare);
+            territoriPartita.get(getLineTerritorioPartita(territorioDestinazione)).setNumeroArmate(getTerritorioPartita(territorioDestinazione).getNumeroArmate() + numeroArmateDaSpostare);
+            iofTerritorioPartita.saveData(territoriPartita);
         } else {
             // Gestisci il caso in cui il numero di armate da spostare non è valido
         }
