@@ -1,42 +1,42 @@
-Afghanistan;FANTERIA;ddd;1
-Africa Orientale;ARTIGLIERIA;ccc;1
-Alaska;FANTERIA;ddd;1
-Alberta;FANTERIA;aaa;1
-America Centrale;CAVALLERIA;bbb;1
-Argentina;FANTERIA;ccc;17
-Australia Occidentale;ARTIGLIERIA;ccc;1
-Australia Orientale;FANTERIA;ccc;1
-Brasile;ARTIGLIERIA;bbb;1
-Cina;CAVALLERIA;ccc;1
-Congo;CAVALLERIA;bbb;1
-Egitto;FANTERIA;aaa;1
-Europa Meridionale;CAVALLERIA;aaa;1
-Europa Occidentale;FANTERIA;bbb;1
-Europa Settentrionale;CAVALLERIA;ccc;1
-Giappone;FANTERIA;ddd;1
-Gran Bretagna;CAVALLERIA;ccc;5
-Groenlandia;CAVALLERIA;ddd;1
-India;FANTERIA;ddd;1
-Indonesia;CAVALLERIA;ccc;1
-Islanda;FANTERIA;ccc;1
-Jacuzia;CAVALLERIA;ddd;1
-Kamchatka;CAVALLERIA;aaa;1
-Madagascar;FANTERIA;aaa;1
-Medio Oriente;ARTIGLIERIA;ddd;1
-Mongolia;ARTIGLIERIA;ddd;1
-Nord Africa;FANTERIA;bbb;1
-Nuova Guinea;CAVALLERIA;aaa;1
-Ontario;CAVALLERIA;ddd;1
-Perù;CAVALLERIA;ddd;1
-Quebec;ARTIGLIERIA;bbb;1
-Scandinavia;ARTIGLIERIA;aaa;1
-Siam;ARTIGLIERIA;ccc;1
-Siberia;ARTIGLIERIA;ddd;1
-Stati Uniti Occidentali;FANTERIA;aaa;1
-Stati Uniti Orientali;ARTIGLIERIA;bbb;1
-Sud Africa;ARTIGLIERIA;bbb;1
-Territori del Nord-Ovest;ARTIGLIERIA;aaa;1
-Ucraina;ARTIGLIERIA;bbb;1
-Urali;CAVALLERIA;ccc;1
-Venezuela;ARTIGLIERIA;bbb;1
-Čita;FANTERIA;aaa;1
+Afghanistan;FANTERIA;brk;1
+Africa Orientale;ARTIGLIERIA;brk;1
+Alaska;FANTERIA;brk;1
+Alberta;FANTERIA;brk;1
+America Centrale;CAVALLERIA;brk;1
+Argentina;FANTERIA;brk;7
+Australia Occidentale;ARTIGLIERIA;brk;1
+Australia Orientale;FANTERIA;brk;1
+Brasile;ARTIGLIERIA;brk;1
+Cina;CAVALLERIA;brk;1
+Congo;CAVALLERIA;brk;1
+Egitto;FANTERIA;brk;1
+Europa Meridionale;CAVALLERIA;brk;1
+Europa Occidentale;FANTERIA;brk;1
+Europa Settentrionale;CAVALLERIA;brk;1
+Giappone;FANTERIA;brk;1
+Gran Bretagna;CAVALLERIA;brk;9
+Groenlandia;CAVALLERIA;brk;1
+India;FANTERIA;brk;1
+Indonesia;CAVALLERIA;brk;1
+Islanda;FANTERIA;brk;1
+Jacuzia;CAVALLERIA;brk;1
+Kamchatka;CAVALLERIA;brk;1
+Madagascar;FANTERIA;brk;1
+Medio Oriente;ARTIGLIERIA;brk;1
+Mongolia;ARTIGLIERIA;brk;1
+Nord Africa;FANTERIA;brk;1
+Nuova Guinea;CAVALLERIA;brk;1
+Ontario;CAVALLERIA;brk;1
+Perù;CAVALLERIA;brk;1
+Quebec;ARTIGLIERIA;brk;1
+Scandinavia;ARTIGLIERIA;brk;1
+Siam;ARTIGLIERIA;brk;1
+Siberia;ARTIGLIERIA;brk;1
+Stati Uniti Occidentali;FANTERIA;brk;1
+Stati Uniti Orientali;ARTIGLIERIA;brk;1
+Sud Africa;ARTIGLIERIA;brk;1
+Territori del Nord-Ovest;ARTIGLIERIA;brk;1
+Ucraina;ARTIGLIERIA;brk;1
+Urali;CAVALLERIA;brk;1
+Venezuela;ARTIGLIERIA;brk;1
+Čita;FANTERIA;brk;1

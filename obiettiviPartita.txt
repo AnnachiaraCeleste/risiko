@@ -1,4 +1,1 @@
-Devi conquistare la totalità dell'EUROPA e dell'OCEANIA più un terzo continente a tua scelta;CONTINENTI;ddd;false
-Devi distruggere LE ARMATE ROSSE, se sei tu stesso, se il giocatore è stato eliminato o se nessuno ha l'armata rossa, devi conquistare 24 TERRITORI;ARMATE;ccc;false
-Devi conquistare la totalità dell'ASIA e del SUD AMERICA;CONTINENTI;bbb;false
-Devi distruggere LE ARMATE GIALLE, se sei tu stesso, se il giocatore è stato eliminato o se nessuno ha l'armata gialla, devi conquistare 24 TERRITORI;ARMATE;aaa;false
+Devi conquistare 18 TERRITORI ed occupare ciascuno di essi con ALMENO DUE ARMATE;NUMERO_TERRITORI;brk;false

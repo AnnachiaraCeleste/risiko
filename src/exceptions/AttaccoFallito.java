@@ -9,8 +9,7 @@ package exceptions;
  * eccezione da lanciare nel caso in cui il giocatore stia tentando di attaccare
  * un territorio non confinante, nel caso in cui stia cercando di attaccare da
  * un territorio che possiede un numero di armate troppo basso o che possiede
- * lui stesso, se sta provando ad attaccare con un numero di armate superiore
- * rispetto a quelle che possiede.
+ * lui stesso.
  *
  * @author Annachiara
  */

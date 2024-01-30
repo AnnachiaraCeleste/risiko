@@ -1,30 +1,10 @@
 package risiko;
 
 import exceptions.*;
-import exceptions.GiocatoreGiaRegistrato;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
-import exceptions.AttaccoFallito;
-import risiko.CarteArmiPartita;
-import risiko.Giocatore;
-import risiko.IOObjectFileCarteArmiPartita;
-import risiko.IOObjectFileGiocatorePartita;
-import risiko.IOObjectFileObiettivo;
-import risiko.IOObjectFileObiettivoPartita;
-import risiko.IOObjectFileTerritorioDettagliato;
-import risiko.IOObjectFileTerritorioPartita;
-import risiko.Obiettivo;
-import risiko.ObiettivoPartita;
-import risiko.Territorio;
-import risiko.TerritorioDettagliato;
-import risiko.TerritorioPartita;
-import risiko.TipoArma;
-import risiko.TipoColore;
-import risiko.TipoContinente;
-import risiko.TipoPartita;
+
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -60,6 +40,7 @@ public class GestionePartita {
         iofObiettivo = new IOObjectFileObiettivo("obiettivi.txt", SEPARATOR);
     }
 
+    //////////////////////////////////GET LINE//////////////////////////////////
     /**
      * GET LINE GIOCATORE: Metodo che ricerca (per password) e restituisce la
      * riga del file in cui è presente un certo giocatore
@@ -225,94 +206,105 @@ public class GestionePartita {
         if (line_giocatore != -1 || line_colore != -1) {
             throw new GiocatoreGiaRegistrato(g.getPassword());
         }
-        // aggiungo l'auto all'arraylist
         iofGiocatorePartita.add(g);
     }
 
-    public void removeGiocatore(String psw) throws IOException {
+    public void removeGiocatore(String psw) throws IOException, GiocatoreNonRegistrato, ObiettivoNonRegistrato {
         // ricerca del giocatore
         int line_giocatore = getLineGiocatore(psw);
         if (line_giocatore == -1) {
-            //throw new GiocatoreNonRegistrato();
+            throw new GiocatoreNonRegistrato(psw);
+        }
+        int line_obiettivo = getLineObiettivoPartita(psw);
+        if (line_obiettivo == -1) {
+            throw new ObiettivoNonRegistrato(psw);
         }
 
         // ora rimuovo il giocatore
+        iofObiettivoPartita.remove(line_obiettivo);
         iofGiocatorePartita.remove(line_giocatore);
     }
 
-    public Giocatore getGiocatore(String psw) throws IOException {
+    public Giocatore getGiocatore(String psw) throws IOException, GiocatoreNonRegistrato {
         // uso il metodo che ritorna l'indice dell'arraylist
         int line_giocatore = getLineGiocatore(psw);
         if (line_giocatore == -1) {
-            //throw new GiocatoreNonRegistrato(psw);
+            throw new GiocatoreNonRegistrato(psw);
         }
         return iofGiocatorePartita.get(line_giocatore);
     }
 
-    public void addCartaArmiPartita(CarteArmiPartita c) throws IOException {
+    public void addCartaArmiPartita(CarteArmiPartita c) throws IOException, CartaGiaRegistrata {
         int line_carta = getLineCarteArmiPartita(c.getNome());
         if (line_carta != -1) {
-            // throw new GiocatoreGiaRegistrato(g.getNome());
+            throw new CartaGiaRegistrata(c.getNome(),c.getArma());
         }
-        // aggiungo l'auto all'arraylist
         iofCarteArmiPartita.add(c);
     }
 
-    public void removeCartaArmiPartita(String psw, TipoArma a) throws IOException {
+    public void removeCartaArmiPartita(String psw, TipoArma a) throws IOException, CartaNonRegistrataPSWNome {
         int line_carta = getLineCarteArmiPartita(psw, a);
         if (line_carta != -1) {
-            // throw new GiocatoreGiaRegistrato(g.getNome());
+            throw new CartaNonRegistrataPSWNome(psw,a);
         }
-
-        // ora rimuovo il giocatore
         iofCarteArmiPartita.remove(line_carta);
     }
 
-    public CarteArmiPartita getCartaArmiPartita(String nome) throws IOException {
+    public CarteArmiPartita getCartaArmiPartita(String nome) throws IOException, CartaNonRegistrataTerritorio {
         int line_carta = getLineCarteArmiPartita(nome);
         if (line_carta != -1) {
-            // throw new GiocatoreGiaRegistrato(g.getNome());
+            throw new CartaNonRegistrataTerritorio(nome);
         }
         return iofCarteArmiPartita.get(line_carta);
     }
 
-    public void addTerritorioPartita(TerritorioPartita t) throws IOException {
+    public void addTerritorioPartita(TerritorioPartita t) throws IOException, TerritorioGiaRegistrato {
         // uso il metodo che ritorna l'indice dell'arraylist
         int line_territorio = getLineTerritorioPartita(t.getNome());
         if (line_territorio == -1) {
-            //throw new TerritorioNonRegistrato(psw);
+            throw new TerritorioGiaRegistrato(t.getNome());
         }
         iofTerritorioPartita.add(t);
     }
 
-    public TerritorioPartita getTerritorioPartita(String nome) throws IOException {
+    public TerritorioPartita getTerritorioPartita(String nome) throws IOException, TerritorioNonRegistrato {
         // uso il metodo che ritorna l'indice dell'arraylist
         int line_territorio = getLineTerritorioPartita(nome);
         if (line_territorio == -1) {
-            //throw new TerritorioNonRegistrato(psw);
+            throw new TerritorioNonRegistrato(nome);
         }
         return iofTerritorioPartita.get(line_territorio);
     }
 
-    public void addObiettivoPartita(ObiettivoPartita o) throws IOException {
+    public void addObiettivoPartita(ObiettivoPartita o) throws IOException, ObiettivoGiaRegistrato {
         // uso il metodo che ritorna l'indice dell'arraylist
         int line_obiettivo = getLineObiettivoPartita(o.getPassword());
         if (line_obiettivo == -1) {
-            //throw new TerritorioNonRegistrato(psw);
+            throw new ObiettivoGiaRegistrato(o.getPassword());
         }
         iofObiettivoPartita.add(o);
     }
 
-    public TerritorioDettagliato getTerritorioDettagliato(String nome) throws IOException {
+    public void removeObiettivoPartita(String psw) throws IOException, ObiettivoNonRegistrato {
+        // ricerca del giocatore
+        int line_obiettivo = getLineObiettivoPartita(psw);
+        if (line_obiettivo == -1) {
+            throw new ObiettivoNonRegistrato(psw);
+        }
+        // ora rimuovo il giocatore
+        iofObiettivoPartita.remove(line_obiettivo);
+    }
+
+    public TerritorioDettagliato getTerritorioDettagliato(String nome) throws IOException, TerritorioNonRegistrato {
         // uso il metodo che ritorna l'indice dell'arraylist
         int line_territorio = getLineTerritorioDettagliato(nome);
         if (line_territorio == -1) {
-            //throw new TerritorioNonRegistrato(psw);
+            throw new TerritorioNonRegistrato(nome);
         }
         return iofTerritorioDettagliato.get(line_territorio);
     }
 
-    ////////////////////////////////////////////////////////////////////////////
+    ///////////////////////FASI SETTAGGIO PARTITA///////////////////////////////
     /**
      * ADD TERRITORI PARTITA: metodo per assegnare ad ogni giocatore un numero
      * opportuno di territori in modo randomico ad inizio partita (viene
@@ -320,7 +312,7 @@ public class GestionePartita {
      *
      * @throws IOException
      */
-    public void addTerritoriPartita() throws IOException {
+    public void addTerritoriPartita() throws IOException, TerritorioGiaRegistrato {
         int[] idxTerritori = new int[42];
         boolean trovato;
         for (int i = 0; i < idxTerritori.length; i++) {
@@ -376,7 +368,7 @@ public class GestionePartita {
      *
      * @throws IOException
      */
-    public void addObiettivi() throws IOException {
+    public void addObiettivi() throws IOException, ObiettivoGiaRegistrato {
         int[] idxObiettivo = new int[n_giocatori];
         int x_max;
         int x_min;
@@ -403,9 +395,300 @@ public class GestionePartita {
         ArrayList<Obiettivo> listaObiettivi = iofObiettivo.loadData();
         for (int i = 0; i < giocatori.size(); i++) {
             ObiettivoPartita obiettivo = new ObiettivoPartita(listaObiettivi.get(idxObiettivo[i]).getObiettivo(),
-                    listaObiettivi.get(idxObiettivo[i]).getTipoObiettivo(), giocatori.get(i).getPassword(), false);
+                    listaObiettivi.get(idxObiettivo[i]).getTipoObiettivo(), giocatori.get(i).getPassword());
             addObiettivoPartita(obiettivo);
         }
+    }
+
+//////////////////////////////FUNZIONI PARTITA//////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////
+    /////////////////////////// FASE RINFORZO //////////////////////////////////
+    /**
+     * FASE RINFORZO: metodo che aggiunge un numero specifico di rinforzi a un
+     * territorio specifico e riduce il numero di rinforzi disponibili per il
+     * giocatore.
+     *
+     * @param psw del giocatore da ricercare
+     * @param nomeTerritorio del territorio su cui aggiungere le rinforzi
+     * @param rinforzi numero di rinforzi da aggiungere al territorio e da
+     * rimuovere al numero di rinforzi disponibili
+     * @return il numero rimanente di rinforzi che possono essere posizionate
+     * dal giocatore
+     * @exception IOException
+     * @exception GiocatoreNonRegistrato
+     */
+    public int faseRinforzo(String psw, String nomeTerritorio, int rinforzi) throws IOException, GiocatoreNonRegistrato, TerritorioNonRegistrato {
+        ArrayList<TerritorioPartita> territori = iofTerritorioPartita.loadData();
+        ArrayList<Giocatore> giocatori = iofGiocatorePartita.loadData();
+        if (giocatori.get(getLineGiocatore(psw)).getRinforzi() >= rinforzi) {
+            territori.get(getLineTerritorioPartita(nomeTerritorio)).setNumeroArmate(rinforzi + getTerritorioPartita(nomeTerritorio).getNumeroArmate());
+            giocatori.get(getLineGiocatore(psw)).setRinforzi(getGiocatore(psw).getRinforzi() - rinforzi);
+            iofTerritorioPartita.saveData(territori);
+            iofGiocatorePartita.saveData(giocatori);
+        }
+        return getGiocatore(psw).getRinforzi();
+    }
+
+    /**
+     * CALCOLA RINFORZI: metodo che calcola il numero di rinforzi totale che un
+     * giocatore riceverà nella fase di rinforzo. Il calcolo dipende dal numero
+     * di territori occupati, territori occupati, i continenti conquistati e le
+     * combinazioni di carte.
+     *
+     * @param psw del giocatore da ricercare
+     * @throws IOException
+     */
+    public void calcolaRinforzi(String psw) throws IOException, CartaNonRegistrataPSWNome {
+        // Calcola il numero di armate di rinforzo
+        ArrayList<TerritorioPartita> territoriOccupati = listaTerritoriGiocatorePartita(psw);
+        int rinforziTerritori = territoriOccupati.size() / 3;
+        int rinforziContinenti = 0;
+        for (int i = 0; i < 6; i++) {
+            ArrayList<TerritorioDettagliato> tContinente = listaTerritoriDettagliatiContinente(TipoContinente.values()[i]);
+            boolean continenteConquistato = true;
+            for (int j = 0; j < tContinente.size(); j++) {
+                if (!territoriOccupati.contains(tContinente.get(j))) {
+                    continenteConquistato = false;
+                    break;  // Se almeno un territorio non è occupato, esce dal ciclo
+                }
+            }
+            if (continenteConquistato) {
+                switch (TipoContinente.values()[i]) {
+                    case OCEANIA,SUD_AMERICA:
+                        rinforziContinenti += TipoContinente.OCEANIA.getNumeroArmateAssegnate();
+                        break;
+                    case AFRICA:
+                        rinforziContinenti += TipoContinente.AFRICA.getNumeroArmateAssegnate();
+                        break;
+                    case EUROPA, NORD_AMERICA:
+                        rinforziContinenti += TipoContinente.EUROPA.getNumeroArmateAssegnate();
+                        break;
+                    case ASIA:
+                        rinforziContinenti += TipoContinente.ASIA.getNumeroArmateAssegnate();
+                        break;
+                }
+            }
+        }
+        int rinforziCarte = calcolaRinforziCarte(psw);
+        ArrayList<Giocatore> giocatori = iofGiocatorePartita.loadData();
+        giocatori.get(getLineGiocatore(psw)).setRinforzi(rinforziTerritori + rinforziContinenti + rinforziCarte);
+        iofGiocatorePartita.saveData(giocatori);
+    }
+
+    /**
+     * CALCOLA RINFORZI CARTE: metodo che calcola i rinforzi basati sulle
+     * combinazioni di carte possedute dal giocatore. (combinazioni di
+     * artiglieria, fanteria, cavalleria e carte territorio; Le carte utilizzate
+     * per ottenere rinforzi vengono poi rimosse)
+     *
+     * @param psw del giocatore da ricercare
+     * @return il numero di rinforzi ottenuti
+     * @throws IOException
+     */
+    private int calcolaRinforziCarte(String psw) throws IOException, CartaNonRegistrataPSWNome {
+        // Calcola i rinforzi extra per le combinazioni di carte
+        int rinforziCarte = 0;
+        ArrayList<CarteArmiPartita> carteGiocatore = listaCarteGiocatorePartita(psw);
+        // Calcola le combinazioni valide
+        int numeroArtiglieria = contaCartePerTipo(TipoArma.ARTIGLIERIA, psw);
+        int numeroFanteria = contaCartePerTipo(TipoArma.FANTERIA, psw);
+        int numeroCavalleria = contaCartePerTipo(TipoArma.CAVALLERIA, psw);
+        // Aggiungi 2 armate per ciascuna carta territorio posseduta nella mano
+        rinforziCarte += contaCartaUgaleTerritorioPosseduto(psw) * 2;
+        // Calcola i rinforzi per le combinazioni
+        if (numeroArtiglieria >= 3) {
+            rinforziCarte += 4;
+            rimuoviCarteRinforziUsate(psw, TipoArma.ARTIGLIERIA, 3);
+        }
+        if (numeroFanteria >= 3) {
+            rinforziCarte += 6;
+            rimuoviCarteRinforziUsate(psw, TipoArma.FANTERIA, 3);
+        }
+        if (numeroCavalleria >= 3) {
+            rinforziCarte += 8;
+            rimuoviCarteRinforziUsate(psw, TipoArma.CAVALLERIA, 3);
+        }
+        if (numeroArtiglieria >= 1 && numeroFanteria >= 1 && numeroCavalleria >= 1) {
+            rinforziCarte += 10;
+            rimuoviCarteRinforziUsate(psw, TipoArma.ARTIGLIERIA, 1);
+
+            rimuoviCarteRinforziUsate(psw, TipoArma.FANTERIA, 1);
+            rimuoviCarteRinforziUsate(psw, TipoArma.CAVALLERIA, 1);
+        }
+        return rinforziCarte;
+    }
+
+    /**
+     * RIMUOVI CARTE RINFORZI USATE: Questo metodo rimuove un numero specificato
+     * di carte di un certo tipo utilizzate per ottenere dei rinforzi
+     *
+     * @param psw del giocatore da ricercare
+     * @param a tipo di arma da eliminare
+     * @param n numero di carte da rimuovere
+     * @throws IOException
+     */
+    private void rimuoviCarteRinforziUsate(String psw, TipoArma a, int n) throws IOException, CartaNonRegistrataPSWNome {
+        for (int i = 0; i < n; i++) {
+            removeCartaArmiPartita(psw, a);
+        }
+    }
+
+    /**
+     * CONTA CARTE UGUALE TERRITORIO POSSEDUTO: metodo che conta il numero di
+     * carte territorio che un giocatore ha, e che corrispondono a territori da
+     * lui posseduti.
+     *
+     * @param psw del giocatore da ricercare
+     * @return numero di carte che soddisfa la condizione spiegate
+     * @throws IOException
+     */
+    private int contaCartaUgaleTerritorioPosseduto(String psw) throws IOException {
+        ArrayList<CarteArmiPartita> carteGiocatore = listaCarteGiocatorePartita(psw);
+        ArrayList<TerritorioPartita> tgiocatore = listaTerritoriGiocatorePartita(psw);
+        int nCarte = 0;
+        for (int i = 0; i < carteGiocatore.size(); i++) {
+            if (tgiocatore.contains(carteGiocatore.get(i))) {
+                nCarte++;
+            }
+        }
+        return nCarte;
+    }
+
+    /**
+     * CONTA CARTE PER TIPO: metodo che conta il numero di carte per tipoCarta
+     * possedute da un giocatore
+     *
+     * @param t elenco tipoCarta da ricercare
+     * @param psw del giocatore da ricercare
+     * @return numero di carte del tipo richiesto da un certo giocatore
+     * @throws IOException
+     */
+    private int contaCartePerTipo(TipoArma t, String psw) throws IOException {
+        ArrayList<CarteArmiPartita> carteGiocatore = listaCarteGiocatorePartita(psw);
+        int nTipoCarte = 0;
+        for (int i = 0; i < carteGiocatore.size(); i++) {
+            if (carteGiocatore.get(i).getArma().equals(t)) {
+                nTipoCarte++;
+            }
+        }
+        return nTipoCarte;
+    }
+
+    ////////////////////////////////////FASE ATTACCO////////////////////////////
+    /**
+     * CONTROLLO FASE DI ATTACCO: metodo per controllare la fase di attacco da
+     * un territorio di un giocatore ad un'altro
+     *
+     * @param territorioAttaccante territorio di chi attacca
+     * @param territorioDifensore territorio che deve difendersi
+     * @throws IOException
+     * @throws AttaccoFallito
+     */
+    public void controlloFaseAttacco(String territorioAttaccante, String territorioDifensore) throws IOException, AttaccoFallito, TerritorioNonRegistrato {
+        ArrayList<String> confini = Territorio.splitTerritori(getTerritorioDettagliato(territorioAttaccante).getSequenzaConfini());
+        if (!confini.contains(territorioDifensore) || getTerritorioPartita(territorioAttaccante).getNumeroArmate() == 1
+                || listaTerritoriGiocatorePartita(getTerritorioPartita(territorioAttaccante).getPasswordGiocatore()).contains(territorioDifensore)) {
+            throw new AttaccoFallito(territorioAttaccante, getTerritorioDettagliato(territorioAttaccante).getSequenzaConfini());
+        }
+    }
+
+    /**
+     * FASE ATTACCO: metodo per l'attacco di un territorio: vengono lanciati i
+     * dadi per ogni giocatore e vengono confrontati in ordine decrescente
+     *
+     * @param territorioAttaccante territorio di partenza dal quale si vuole
+     * effettuare l'attacco
+     * @param territorioDifensore territorio che subisce l'attacco
+     * @throws IOException
+     * @throws AttaccoFallito
+     */
+    public void faseAttacco(String territorioAttaccante, String territorioDifensore) throws IOException, AttaccoFallito, SpostamentoFallito, GiocatoreNonRegistrato, ObiettivoNonRegistrato, TerritorioNonRegistrato {
+        // Attaccante lancia i dadi
+        controlloFaseAttacco(territorioAttaccante, territorioDifensore);
+        int armateAttaccante, armateDifensore;
+        ArrayList<TerritorioPartita> territori = iofTerritorioPartita.loadData();
+        int idx_attacc = getLineTerritorioPartita(territorioAttaccante);
+        int idx_diff = getLineTerritorioPartita(territorioDifensore);
+        if (territori.get(idx_attacc).getNumeroArmate() > 3) {
+            armateAttaccante = 3;
+        } else if (territori.get(idx_attacc).getNumeroArmate() == 3) {
+            armateAttaccante = 2;
+        } else {
+            armateAttaccante = 1;
+        }
+        int[] attaccanteDadi = lancioDadi(armateAttaccante);
+        ordinamentoDadi(attaccanteDadi);
+        stampaDadi("Attaccante", attaccanteDadi);//stampa dei dadi lanciati
+        if (territori.get(idx_diff).getNumeroArmate() > 3) {
+            armateDifensore = 3;
+        } else {
+            armateDifensore = territori.get(idx_diff).getNumeroArmate();
+        }
+        // Difensore dichiara il numero di dadi
+        int[] difensoreDadi = lancioDadi(armateDifensore);
+        ordinamentoDadi(difensoreDadi);
+        stampaDadi("Difensore", difensoreDadi);//stampa dei dadi lanciati
+        // Confronto dei punteggi dei dadi
+        int confronti = Math.min(attaccanteDadi.length, difensoreDadi.length);//math min per gestire il confronto tra i dadi
+        //controlloTruppeTerritorio: se true si blocca il ciclo senza controllare tutti i dadi
+        for (int i = 0; !controlloTruppeTerritorio(territorioAttaccante, territorioDifensore) || i < confronti; i++) {
+            if (attaccanteDadi[i] > difensoreDadi[i]) {
+                territori.get(idx_diff).setNumeroArmate(territori.get(idx_diff).getNumeroArmate() - 1);
+            } else if (attaccanteDadi[i] <= difensoreDadi[i]) {
+                territori.get(idx_attacc).setNumeroArmate(territori.get(idx_attacc).getNumeroArmate() - 1);
+            }
+            iofTerritorioPartita.saveData(territori);
+        }
+    }
+
+    /**
+     * CONTROLLO TRUPPE TERRITORIO: metodo che controlla il numero di truppe
+     * presenti su un territorio appena attaccato; se sono pari a 0 allora il
+     * giocatore ha conquistato il territorio ed è necessario eseguire un
+     * aggiornamento del territorio che viene assegnato al giocatore che ha
+     * vinto
+     *
+     * @param territorioAttaccante territorio di partenza dal quale si vuole
+     * effettuare l'attacco
+     * @param territorioDifensore territorio che subisce l'attacco
+     * @return true se il territorio è stato conquistato
+     * @throws IOException
+     */
+    private boolean controlloTruppeTerritorio(String territorioAttaccante, String territorioDifensore) throws IOException, SpostamentoFallito, GiocatoreNonRegistrato, ObiettivoNonRegistrato, TerritorioNonRegistrato {
+        ArrayList<TerritorioPartita> territori = iofTerritorioPartita.loadData();
+        ArrayList<Giocatore> giocatori = iofGiocatorePartita.loadData();
+        //indice attaccante
+        int idx_attacc = getLineTerritorioPartita(territorioAttaccante);
+        //indice difensore
+        int idx_dif = getLineTerritorioPartita(territorioDifensore);
+        boolean territorioConquistato = false;
+        //se nArmate>3 sposto 3 carri armati
+        //se il numero di armate del difensore =0 devo spostare alcune truppe
+        if (territori.get(idx_dif).getNumeroArmate() == 0) {
+            territorioConquistato = true;
+            String pswRemove = territori.get(idx_dif).getPasswordGiocatore();
+            //cambio la password del giocatore
+            territori.get(idx_dif).setPasswordGiocatore(territori.get(idx_attacc).getPasswordGiocatore());
+            //aumento il numero di territori conquistati dal giocatore in questo turno
+            giocatori.get(getLineGiocatore(territori.get(idx_attacc).getPasswordGiocatore())).setNTerritoriConquistatiPerTurno(giocatori.get(getLineGiocatore(
+                    territori.get(idx_attacc).getPasswordGiocatore())).getNTerritoriConquistatiPerTurno() + 1);
+            //se il giocatore non ha più territori lo rimuvo dalla lista dei giocatori e il suo obiettivo
+            iofGiocatorePartita.saveData(giocatori);
+            if (listaCarteGiocatorePartita(pswRemove).isEmpty()) {
+                removeGiocatore(pswRemove);
+            }
+            int nArmateVincenti;//numero di armate da assagnare al territorio
+            if (territori.get(idx_attacc).getNumeroArmate() > 3) {
+                nArmateVincenti = 3;
+            } else if (territori.get(idx_attacc).getNumeroArmate() == 3) {
+                nArmateVincenti = 2;
+            } else {
+                nArmateVincenti = 1;
+            }
+            iofTerritorioPartita.saveData(territori);
+            faseSpostamento(territorioAttaccante, territorioDifensore, nArmateVincenti);
+        }
+        return territorioConquistato;
     }
 
     /**
@@ -415,24 +698,47 @@ public class GestionePartita {
      * @param psw del giocatore
      * @throws IOException
      */
-    public void pescaCarta(String psw) throws IOException {
+    public void pescaCarta(String psw) throws IOException, GiocatoreNonRegistrato, CartaGiaRegistrata, CartaNonRegistrataTerritorio{
         if (getGiocatore(psw).getNTerritoriConquistatiPerTurno() > 0) {
-            ArrayList<CarteArmiPartita> carte = iofCarteArmiPartita.loadData();
-            ArrayList<TerritorioDettagliato> territoriDettagliati = iofTerritorioDettagliato.loadData();
+            ArrayList<Giocatore> giocatori = iofGiocatorePartita.loadData();
+            ArrayList<TerritorioDettagliato> territoriDet = iofTerritorioDettagliato.loadData();
             boolean trovato;
             int idxCarta;
             do {
                 idxCarta = (int) (Math.random() * (42 + 1));
                 trovato = false;
-                if (getCartaArmiPartita(territoriDettagliati.get(idxCarta).getNome()) != null) {
+                if (getCartaArmiPartita(territoriDet.get(idxCarta).getNome()) != null) {
                     trovato = true;
                 }
             } while (trovato);
-            getCartaArmiPartita(territoriDettagliati.get(idxCarta).getNome()).setPasswordGiocatore(psw);
-
+            addCartaArmiPartita(new CarteArmiPartita(territoriDet.get(idxCarta).getNome(), territoriDet.get(idxCarta).getArma(), psw));
+            giocatori.get(getLineGiocatore(psw)).setNTerritoriConquistatiPerTurno(0);
+            iofGiocatorePartita.saveData(giocatori);
         }
     }
-//////////////////////////////FUNZIONI PARTITA//////////////////////////////
+
+    //////////////////////////////FASE SPOSTAMENTI//////////////////////////////
+    /**
+     * FASE SPOSTAMENTO: metodo per effettuare lo spostamento delle truppe sui
+     * propri territori
+     *
+     * @param territorioPartenza territorio dal quale si prelevano le truppe da
+     * spostare
+     * @param territorioDestinazione territorio che riceve le armate
+     * @param numeroArmateDaSpostare
+     * @throws IOException
+     * @throws SpostamentoFallito
+     */
+    public void faseSpostamento(String territorioPartenza, String territorioDestinazione, int numeroArmateDaSpostare) throws IOException, SpostamentoFallito, TerritorioNonRegistrato {
+        if (!getTerritorioPartita(territorioPartenza).getPasswordGiocatore().equals(getTerritorioPartita(territorioDestinazione).getPasswordGiocatore())
+                || numeroArmateDaSpostare >= getTerritorioPartita(territorioPartenza).getNumeroArmate() || getTerritorioPartita(territorioPartenza).getNumeroArmate() == 1) {
+            throw new SpostamentoFallito(territorioPartenza);
+        }
+        ArrayList<TerritorioPartita> territoriPartita = iofTerritorioPartita.loadData();
+        territoriPartita.get(getLineTerritorioPartita(territorioPartenza)).setNumeroArmate(getTerritorioPartita(territorioPartenza).getNumeroArmate() - numeroArmateDaSpostare);
+        territoriPartita.get(getLineTerritorioPartita(territorioDestinazione)).setNumeroArmate(getTerritorioPartita(territorioDestinazione).getNumeroArmate() + numeroArmateDaSpostare);
+        iofTerritorioPartita.saveData(territoriPartita);
+    }
 
     /**
      * CONTROLLO STATO OBIETTIVO GIOCATORE: metodo che controlla se il giocatore
@@ -442,10 +748,9 @@ public class GestionePartita {
      * conquistare.
      *
      * @param psw del giocatore
-     * @return true se ha completato quanto richiesto altrimenti false
      * @throws IOException
      */
-    public boolean controlloStatoObiettivoGiocatore(String psw) throws IOException {
+    public void controlloStatoObiettivoGiocatore(String psw) throws IOException, FinePartita, GiocatoreNonRegistrato {
         boolean statoObiettivo = false;
         boolean territorioNonPosseduto;
         int line_obiettivo = getLineObiettivoPartita(psw);
@@ -511,9 +816,13 @@ public class GestionePartita {
                 }
                 break;
         }
-        return statoObiettivo;
+        if (statoObiettivo) {
+            throw new FinePartita(getGiocatore(psw).getNome(), obiettivo.getObiettivo());
+        }
     }
 
+    //------------------------------------------------------------------------//
+    //-----------------------------FUNZIONI UTILS-----------------------------//
     /**
      * LISTA TERRITORI DETTAGLIATI PER CONTINENTE: restituisce la lista di
      * territori di un dato continente
@@ -537,7 +846,7 @@ public class GestionePartita {
     /**
      * LISTA TERRITORI PER COLORE: restituisce la lista di territori che ha un
      * un dato dipo di colore dell'armata
-     *
+     * 
      * @param colore colore armata
      * @return un arraylist di territori partita di una certa armata
      * @throws IOException
@@ -595,241 +904,11 @@ public class GestionePartita {
         return cartePartita;
     }
 
-    ////////////////////////////////////////////////////////////////////////////
-    /////////////////////////// FASE RINFORZO //////////////////////////////////
     /**
-     * FASE RINFORZO: metodo che aggiunge un numero specifico di armate a un
-     * territorio specifico e riduce il numero di rinforzi disponibili per il
-     * giocatore.
+     * ORDINAMENTO DADI: insertion sort dei dadi in ordine decrescente
      *
-     * @param psw del giocatore da ricercare
-     * @param nomeTerritorio del territorio su cui aggiungere le armate
-     * @param armate numero di armate da aggiungere al territorio e da rimuovere
-     * al numero di rinforzi disponibili
-     * @return il numero rimanente di armate che possono essere posizionate dal
-     * giocatore
+     * @param a array con i valori del lancio dei dadi
      */
-    public int faseRinforzo(String psw, String nomeTerritorio, int armate) throws IOException {
-        ArrayList<TerritorioPartita> territori = iofTerritorioPartita.loadData();
-        ArrayList<Giocatore> giocatori = iofGiocatorePartita.loadData();
-        territori.get(getLineTerritorioPartita(nomeTerritorio)).setNumeroArmate(armate + getTerritorioPartita(nomeTerritorio).getNumeroArmate());
-        giocatori.get(getLineGiocatore(psw)).setRinforzi(getGiocatore(psw).getRinforzi() - armate);
-        iofTerritorioPartita.saveData(territori);
-        iofGiocatorePartita.saveData(giocatori);
-        return getGiocatore(psw).getRinforzi();
-    }
-
-    /**
-     * CALCOLA RINFORZI: metodo che calcola il numero di rinforzi totale che un
-     * giocatore riceverà nella fase di rinforzo. Il calcolo dipende dal numero
-     * di territori occupati, territori occupati, i continenti conquistati e le
-     * combinazioni di carte.
-     *
-     * @param psw del giocatore da ricercare
-     * @throws IOException
-     */
-    public void calcolaRinforzi(String psw) throws IOException {
-        // Calcola il numero di armate di rinforzo
-        ArrayList<TerritorioPartita> territoriOccupati = listaTerritoriGiocatorePartita(psw);
-        int rinforziTerritori = territoriOccupati.size() / 3;
-        int rinforziContinenti = 0;
-        for (int i = 0; i < 6; i++) {
-            ArrayList<TerritorioDettagliato> tContinente = listaTerritoriDettagliatiContinente(TipoContinente.values()[i]);
-            boolean continenteConquistato = true;
-            for (int j = 0; j < tContinente.size(); j++) {
-                if (!territoriOccupati.contains(tContinente.get(j))) {
-                    continenteConquistato = false;
-                    break;  // Se almeno un territorio non è occupato, esce dal ciclo
-                }
-            }
-            if (continenteConquistato) {
-                switch (TipoContinente.values()[i]) {
-                    case OCEANIA,SUD_AMERICA:
-                        rinforziContinenti += TipoContinente.OCEANIA.getNumeroArmateAssegnate();
-                        break;
-                    case AFRICA:
-                        rinforziContinenti += TipoContinente.AFRICA.getNumeroArmateAssegnate();
-                        break;
-                    case EUROPA, NORD_AMERICA:
-                        rinforziContinenti += TipoContinente.EUROPA.getNumeroArmateAssegnate();
-                        break;
-                    case ASIA:
-                        rinforziContinenti += TipoContinente.ASIA.getNumeroArmateAssegnate();
-                        break;
-                }
-            }
-        }
-        int rinforziCarte = calcolaRinforziCarte(psw);
-        getGiocatore(psw).setnTruppe(rinforziTerritori + rinforziContinenti + rinforziCarte);
-    }
-
-    /**
-     * CALCOLA RINFORZI CARTE: metodo che calcola i rinforzi basati sulle
-     * combinazioni di carte possedute dal giocatore. (combinazioni di
-     * artiglieria, fanteria, cavalleria e carte territorio; Le carte utilizzate
-     * per ottenere rinforzi vengono poi rimosse)
-     *
-     * @param psw del giocatore da ricercare
-     * @return il numero di rinforzi ottenuti
-     * @throws IOException
-     */
-    private int calcolaRinforziCarte(String psw) throws IOException {
-        // Calcola i rinforzi extra per le combinazioni di carte
-        int rinforziCarte = 0;
-        ArrayList<CarteArmiPartita> carteGiocatore = listaCarteGiocatorePartita(psw);
-        // Calcola le combinazioni valide
-        int numeroArtiglieria = contaCartePerTipo(TipoArma.ARTIGLIERIA, psw);
-        int numeroFanteria = contaCartePerTipo(TipoArma.FANTERIA, psw);
-        int numeroCavalleria = contaCartePerTipo(TipoArma.CAVALLERIA, psw);
-        // Aggiungi 2 armate per ciascuna carta territorio posseduta nella mano
-        rinforziCarte += contaCartaUgaleTerritorioPosseduto(psw) * 2;
-        // Calcola i rinforzi per le combinazioni
-        if (numeroArtiglieria >= 3) {
-            rinforziCarte += 4;
-            rimuoviCarteRinforziUsate(psw, TipoArma.ARTIGLIERIA, 3);
-        }
-        if (numeroFanteria >= 3) {
-            rinforziCarte += 6;
-            rimuoviCarteRinforziUsate(psw, TipoArma.FANTERIA, 3);
-        }
-        if (numeroCavalleria >= 3) {
-            rinforziCarte += 8;
-            rimuoviCarteRinforziUsate(psw, TipoArma.CAVALLERIA, 3);
-        }
-        if (numeroArtiglieria >= 1 && numeroFanteria >= 1 && numeroCavalleria >= 1) {
-            rinforziCarte += 10;
-            rimuoviCarteRinforziUsate(psw, TipoArma.ARTIGLIERIA, 1);
-
-            rimuoviCarteRinforziUsate(psw, TipoArma.FANTERIA, 1);
-            rimuoviCarteRinforziUsate(psw, TipoArma.CAVALLERIA, 1);
-        }
-        return rinforziCarte;
-    }
-
-    /**
-     * RIMUOVI CARTE RINFORZI USATE: Questo metodo rimuove un numero specificato
-     * di carte di un certo tipo utilizzate per ottenere dei rinforzi
-     *
-     * @param psw del giocatore da ricercare
-     * @param a tipo di arma da eliminare
-     * @param n numero di carte da rimuovere
-     * @throws IOException
-     */
-    private void rimuoviCarteRinforziUsate(String psw, TipoArma a, int n) throws IOException {
-        for (int i = 0; i < n; i++) {
-            removeCartaArmiPartita(psw, a);
-        }
-    }
-
-    /**
-     * CONTA CARTE UGUALE TERRITORIO POSSEDUTO: metodo che conta il numero di
-     * carte territorio che un giocatore ha, e che corrispondono a territori da
-     * lui posseduti.
-     *
-     * @param psw del giocatore da ricercare
-     * @return numero di carte che soddisfa la condizione spiegate
-     * @throws IOException
-     */
-    private int contaCartaUgaleTerritorioPosseduto(String psw) throws IOException {
-        ArrayList<CarteArmiPartita> carteGiocatore = listaCarteGiocatorePartita(psw);
-        ArrayList<TerritorioPartita> tgiocatore = listaTerritoriGiocatorePartita(psw);
-        int nCarte = 0;
-        for (int i = 0; i < carteGiocatore.size(); i++) {
-            if (tgiocatore.contains(carteGiocatore.get(i))) {
-                nCarte++;
-            }
-        }
-        return nCarte;
-    }
-
-    /**
-     * CONTA CARTE PER TIPO: metodo che conta il numero di carte per tipoCarta
-     * possedute da un giocatore
-     *
-     * @param t elenco tipoCarta da ricercare
-     * @param psw del giocatore da ricercare
-     * @return numero di carte del tipo richiesto da un certo giocatore
-     * @throws IOException
-     */
-    private int contaCartePerTipo(TipoArma t, String psw) throws IOException {
-        ArrayList<CarteArmiPartita> carteGiocatore = listaCarteGiocatorePartita(psw);
-        int nTipoCarte = 0;
-        for (int i = 0; i < carteGiocatore.size(); i++) {
-            if (carteGiocatore.get(i).getArma().equals(t)) {
-                nTipoCarte++;
-            }
-        }
-        return nTipoCarte;
-    }
-
-    ////////////////////////////////////FASE ATTACCO////////////////////////////
-    /**
-     * CONTROLLO FASE DI ATTACCO: metodo per controllare la fase di attacco da
-     * un territorio di un giocatore ad un'altro
-     *
-     * @param territorioAttaccante territorio di chi attacca
-     * @param territorioDifensore territorio che deve difendersi
-     * @param armateAttaccante numero di armate dell'attaccante
-     * @throws IOException
-     * @throws AttaccoFallito
-     */
-    public void controlloFaseAttacco(String territorioAttaccante, String territorioDifensore, int armateAttaccante) throws IOException, AttaccoFallito {
-        ArrayList<String> confini = Territorio.splitTerritori(getTerritorioDettagliato(territorioAttaccante).getSequenzaConfini());
-        if (!confini.contains(territorioDifensore) || getTerritorioPartita(territorioAttaccante).getNumeroArmate() == 1
-                || listaTerritoriGiocatorePartita(getTerritorioPartita(territorioAttaccante).getPasswordGiocatore()).contains(territorioDifensore)
-                || armateAttaccante > getTerritorioPartita(territorioAttaccante).getNumeroArmate()) {
-            throw new AttaccoFallito(territorioAttaccante, getTerritorioDettagliato(territorioAttaccante).getSequenzaConfini());
-        }
-    }
-
-    public void faseAttacco(String territorioAttaccante, String territorioDifensore, int armateAttaccante, int armateDifensore) throws IOException, AttaccoFallito {
-        // Attaccante lancia i dadi
-        controlloFaseAttacco(territorioAttaccante, territorioDifensore, armateAttaccante);
-        if (armateAttaccante > 3 || armateDifensore > 3) {
-            armateAttaccante = 3;
-            armateDifensore = 3;
-        }
-        int[] attaccanteDadi = lancioDadi(armateAttaccante);
-        ordinamentoDadi(attaccanteDadi);
-        stampaDadi("Attaccante", attaccanteDadi);
-        // Difensore dichiara il numero di dadi
-        int[] difensoreDadi = lancioDadi(armateDifensore);
-        ordinamentoDadi(difensoreDadi);
-        stampaDadi("Difensore", difensoreDadi);
-        // Confronto dei punteggi dei dadi
-        int confronti = Math.min(attaccanteDadi.length, difensoreDadi.length);//math min per gestire il confronto tra i dadi
-        for (int i = 0; i < confronti; i++) {
-            if (attaccanteDadi[i] > difensoreDadi[i]) {
-                getTerritorioPartita(territorioDifensore).setNumeroArmate(getTerritorioPartita(territorioDifensore).getNumeroArmate() - 1);
-                controlloTruppeTerritorio(territorioDifensore, territorioAttaccante);
-            } else if (attaccanteDadi[i] <= difensoreDadi[i]) {
-                getTerritorioPartita(territorioAttaccante).setNumeroArmate(getTerritorioPartita(territorioDifensore).getNumeroArmate() - 1);
-                controlloTruppeTerritorio(territorioAttaccante, territorioDifensore);
-            }
-        }
-        //bisogna salvare le modifiche sul fileeeee!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-
-    }
-
-    private void controlloTruppeTerritorio(String territorioConquistato, String territorioAttaccante) throws IOException {
-        int nArmatePerdenti = getTerritorioPartita(territorioConquistato).getNumeroArmate();
-        if (nArmatePerdenti == 0) {
-            String pswRemove = getTerritorioPartita(territorioConquistato).getPasswordGiocatore();
-            getTerritorioPartita(territorioConquistato).setPasswordGiocatore(getTerritorioPartita(territorioAttaccante).getPasswordGiocatore());
-            Giocatore g = getGiocatore(getTerritorioPartita(territorioAttaccante).getPasswordGiocatore());
-            g.setNTerritoriConquistatiPerTurno(g.getNTerritoriConquistatiPerTurno() + 1);
-            getTerritorioPartita(territorioAttaccante).setNumeroArmate(getTerritorioPartita(territorioAttaccante).getNumeroArmate() - 1);
-            getTerritorioPartita(territorioConquistato).setNumeroArmate(1);
-            if (listaCarteGiocatorePartita(pswRemove).isEmpty()) {
-                removeGiocatore(pswRemove);
-            }
-            //per semplificare il gioco viene assegnato al territorio conquistato una armata da quello vincitore
-            if (controlloStatoObiettivoGiocatore(getTerritorioPartita(territorioAttaccante).getPasswordGiocatore())) {
-                //eccezione che ferma il gioco perchè il giocatore ha raggiunto il suo obiettivo
-            }
-        }
-    }
-
     private static void ordinamentoDadi(int[] a) {
         for (int i = 1; i < a.length; i++) {
             for (int j = i; j > 0; j--) {
@@ -843,6 +922,12 @@ public class GestionePartita {
 
     }
 
+    /**
+     * LANCIO DADI: metodo per generare un numero preciso di interi
+     *
+     * @param numDadi quantità di numeri da generare
+     * @return array di int
+     */
     private int[] lancioDadi(int numDadi) {
         int[] risultati = new int[numDadi];
         for (int i = 0; i < numDadi; i++) {
@@ -851,6 +936,12 @@ public class GestionePartita {
         return risultati;
     }
 
+    /**
+     * STAMPA DADI: metodo per stampare a console i dadi lanciati
+     *
+     * @param giocatore che effettua il lancio
+     * @param dadi array di interi
+     */
     public static void stampaDadi(String giocatore, int[] dadi) {
         System.out.print(giocatore + " ha lanciato: ");
         for (int i = 0; i < dadi.length; i++) {
@@ -858,19 +949,4 @@ public class GestionePartita {
         }
         System.out.println();
     }
-
-    //////////////////////////////FASE SPOSTAMENTI//////////////////////////////
-    public void faseSpostamento(String territorioPartenza, String territorioDestinazione, int numeroArmateDaSpostare) throws IOException {
-        if (numeroArmateDaSpostare < getTerritorioPartita(territorioPartenza).getNumeroArmate()) {
-            ArrayList<TerritorioPartita> territoriPartita = iofTerritorioPartita.loadData();
-            territoriPartita.get(getLineTerritorioPartita(territorioPartenza)).setNumeroArmate(getTerritorioPartita(territorioPartenza).getNumeroArmate() - numeroArmateDaSpostare);
-            territoriPartita.get(getLineTerritorioPartita(territorioDestinazione)).setNumeroArmate(getTerritorioPartita(territorioDestinazione).getNumeroArmate() + numeroArmateDaSpostare);
-            iofTerritorioPartita.saveData(territoriPartita);
-        } else {
-            // Gestisci il caso in cui il numero di armate da spostare non è valido
-        }
-    }
-    //------------------------------------------------------------------------//
-    //-----------------------------FUNZIONI UTILS-----------------------------//
-
 }

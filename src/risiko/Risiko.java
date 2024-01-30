@@ -10,6 +10,9 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import exceptions.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author Annachiara
@@ -19,7 +22,7 @@ public class Risiko {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
 
         /*
         System.out.println(TipoContinente.valueOf("AFRICA"));
@@ -51,13 +54,35 @@ public class Risiko {
          // Stampa l'intestazione della tabella
         System.out.printf("%-20s%-15s\n", "Nome Territorio", "Numero Armate");
         System.out.println("----------------------------");*/
-        GestionePartita gp = new GestionePartita(4, TipoPartita.CLASSICA);
-        
-        gp.getTerritorioPartita("Argentina");
+        /*
+        GestionePartita gp = new GestionePartita(1, TipoPartita.CLASSICA);
+        try {
+            
+            
+             gp.getTerritorioPartita("Argentina");
         gp.faseSpostamento("Argentina", "Gran Bretagna", 4);
-        
-        System.out.println(gp.getGiocatore("ccc").getRinforzi());
-        //gp.faseAttacco("Argentina", "Brasile", 3, 1);
+        } catch (IOException ex) {
+            Logger.getLogger(Risiko.class.getName()).log(Level.SEVERE, null, ex);       
+        } catch (SpostamentoFallito ex) {
+            Logger.getLogger(Risiko.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
+        */
+        //gp.faseAttacco("Argentina", "Brasile", 3, 1);
+        System.out.println(" ___  ___  ________  ___                                     \n" +
+"|\\  \\|\\  \\|\\   __  \\|\\  \\                                    \n" +
+"\\ \\  \\\\\\  \\ \\  \\|\\  \\ \\  \\                                   \n" +
+" \\ \\   __  \\ \\   __  \\ \\  \\                                  \n" +
+"  \\ \\  \\ \\  \\ \\  \\ \\  \\ \\  \\                                 \n" +
+"   \\ \\__\\ \\__\\ \\__\\ \\__\\ \\__\\                                \n" +
+" ___\\|__|\\___|____|_________| _________  ________  ___       \n" +
+"|\\  \\    /  /|\\  \\|\\   ___  \\|\\___   ___\\\\   __  \\|\\  \\      \n" +
+"\\ \\  \\  /  / | \\  \\ \\  \\\\ \\  \\|___ \\  \\_\\ \\  \\|\\  \\ \\  \\     \n" +
+" \\ \\  \\/  / / \\ \\  \\ \\  \\\\ \\  \\   \\ \\  \\ \\ \\  \\\\\\  \\ \\  \\    \n" +
+"  \\ \\    / /   \\ \\  \\ \\  \\\\ \\  \\   \\ \\  \\ \\ \\  \\\\\\  \\ \\__\\   \n" +
+"   \\ \\__/ /     \\ \\__\\ \\__\\\\ \\__\\   \\ \\__\\ \\ \\_______\\|__|   \n" +
+"    \\|__|/       \\|__|\\|__| \\|__|    \\|__|  \\|_______|   ___ \n" +
+"                                                        |\\__\\\n" +
+"                                                        \\|__|");
     }
 }

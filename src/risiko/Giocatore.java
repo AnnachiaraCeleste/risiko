@@ -12,23 +12,22 @@ package risiko;
 public class Giocatore {
 
     private String nome;
-    private TipoColore colore;
-    private int nTruppe;
+    private TipoColore colore;//serve per l'interfaccia
     private int rinforzi;
     private final String password;
-    private int nTerritoriConquistatiPerTurno;
+    private int nTConquistatiPerTurno;
 
-    public Giocatore(String nome, TipoColore colore, String password,int rinforzi) {
+    public Giocatore(String nome, TipoColore colore, String password,int rinforzi,int tConquistati) {
         this.nome = nome;
         this.colore = colore;
         this.password = password;
         this.rinforzi=rinforzi;
+        this.nTConquistatiPerTurno=tConquistati;
     }
 
     public Giocatore(Giocatore g) {
         this.nome = g.nome;
         this.colore = g.colore;
-        this.nTruppe = g.nTruppe;
         this.rinforzi = g.rinforzi;
         this.password = g.password;
     }
@@ -49,14 +48,6 @@ public class Giocatore {
         this.colore = colore;
     }
 
-    public int getnTruppe() {
-        return nTruppe;
-    }
-
-    public void setnTruppe(int nTruppe) {
-        this.nTruppe = nTruppe;
-    }
-
     public int getRinforzi() {
         return rinforzi;
     }
@@ -70,20 +61,25 @@ public class Giocatore {
     }
 
     public int getNTerritoriConquistatiPerTurno() {
-        return nTerritoriConquistatiPerTurno;
+        return nTConquistatiPerTurno;
     }
 
     public void setNTerritoriConquistatiPerTurno(int nTerritoriConquistatiPerTurno) {
-            this.nTerritoriConquistatiPerTurno = nTerritoriConquistatiPerTurno;
+            this.nTConquistatiPerTurno = nTerritoriConquistatiPerTurno;
     }
-
+    /**
+     * EQUALS per colore
+     * @param g
+     * @return 
+     */
     public boolean equals(Giocatore g) {
         return g.colore.equals(this.colore);
     }
+    
 
     @Override
     public String toString() {
-        return "Giocatore{" + "nome=" + nome + ", colore=" + colore + ", nTruppe=" + nTruppe + ", rinforzi=" + rinforzi + ", password=" + password + '}';
+        return "Giocatore{" + "nome=" + nome + ", colore=" + colore + ", rinforzi=" + rinforzi + ", password=" + password + '}';
     }
 
 }

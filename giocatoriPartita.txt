@@ -1,4 +1,1 @@
-cele;BLUE;ddd;29
-chiara;RED;ccc;19
-Anna;MAGENTA;bbb;29
-Celly;WHITE;aaa;29
+anna;BLUE;brk;44

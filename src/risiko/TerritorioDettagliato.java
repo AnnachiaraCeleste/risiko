@@ -11,7 +11,7 @@ import java.util.ArrayList;
  *
  * @author Annachiara
  */
-public class TerritorioDettagliato extends Territorio implements Cloneable {
+public class TerritorioDettagliato extends Territorio {
 
     private final ArrayList<String> confini;
     private final TipoContinente continente;
@@ -50,12 +50,6 @@ public class TerritorioDettagliato extends Territorio implements Cloneable {
     @Override
     public String toString() {
         return "\nTERRITORIO: " + this.getNome().toUpperCase() + "\nconfini: " + confini + "\ncontinente: " + continente + "\ntipo arma: " +this.getArma()+ "\n";
-    }
-
-    @Override
-    protected Object clone() throws CloneNotSupportedException {
-        TerritorioDettagliato clonedTerritorio = (TerritorioDettagliato) super.clone();
-        return clonedTerritorio;
     }
 
 }
