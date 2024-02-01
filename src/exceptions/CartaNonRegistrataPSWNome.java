@@ -5,7 +5,7 @@
  */
 package exceptions;
 
-import risiko.TipoArma;
+import enums.TipoArma;
 
 /**
  * eccezione da lanciare nel caso in cui si stia ricercando una carta

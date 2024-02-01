@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package risiko;
+package enums;
 
 /**
  * Enum TipoContinente(ASIA,AFRICA,EUROPA,NORD_AMERICA,SUD_AMERICA,OCEANIA):

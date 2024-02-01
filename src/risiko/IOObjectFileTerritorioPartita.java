@@ -5,6 +5,8 @@
  */
 package risiko;
 
+import enums.TipoArma;
+import model.TerritorioPartita;
 import iofiles.IOObjectFile;
 
 /**

@@ -5,6 +5,8 @@
  */
 package risiko;
 
+import enums.TipoArma;
+import model.CarteArmiPartita;
 import iofiles.IOObjectFile;
 import java.util.ArrayList;
 

@@ -5,6 +5,10 @@
  */
 package risiko;
 
+import enums.TipoContinente;
+import enums.TipoArma;
+import model.TerritorioDettagliato;
+import model.Territorio;
 import iofiles.IOObjectFile;
 import java.util.ArrayList;
 

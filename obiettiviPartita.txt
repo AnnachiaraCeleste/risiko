@@ -1,1 +1,3 @@
-Devi conquistare 18 TERRITORI ed occupare ciascuno di essi con ALMENO DUE ARMATE;NUMERO_TERRITORI;brk;false
+Australia Orientale,Indonesia,Nuova Guinea,Gran Bretagna,Islanda,Europa Settentrionale,Scandinavia;TORNEO;Anna3@
+Congo,Africa Orientale,Egitto,Madagascar,Africa del Nord,Africa meridionale;TORNEO;Pit6@
+Colombia,Nuova Guinea,Scandinavia,Cina,Sudafrica,Mongolia,Argentina;TORNEO;Dave5@

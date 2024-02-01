@@ -1,1 +1,3 @@
-anna;BLUE;brk;44
+Anna;RED;Anna3@;0;0
+Pit;GREEN;Pit6@;21;0
+Dave;CYAN;Dave5@;21;0

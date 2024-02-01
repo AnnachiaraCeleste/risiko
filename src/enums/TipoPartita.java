@@ -3,20 +3,19 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package risiko;
+package enums;
 
 /**
- * Classe TipoArma: FANTERIA, CAVALLERIA, ARTIGLIERIA.
+ * Enum TipoPartita: Classica(ha una durata della partita significativa);
+ * Torneo(dovrebbe durare poco).
  *
  * @author Annachiara
  */
-public enum TipoArma {
-    FANTERIA,
-    CAVALLERIA,
-    ARTIGLIERIA;
-
+public enum TipoPartita {
+    CLASSICA, TORNEO;
+    
     public static String listOfCostants() {
-        TipoArma[] values = TipoArma.values();
+        TipoPartita[] values = TipoPartita.values();
         String res = "";
         int i;
         for (i = 0; i < values.length - 1; i++) {
@@ -25,5 +24,4 @@ public enum TipoArma {
         res += values[i];
         return res;
     }
-
 }

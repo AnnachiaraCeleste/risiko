@@ -1,9 +1,26 @@
-package risiko;
+package utils;
 
+import model.CarteArmiPartita;
+import model.TerritorioDettagliato;
+import model.TerritorioPartita;
+import model.ObiettivoPartita;
+import model.Obiettivo;
+import model.Giocatore;
+import model.Territorio;
 import exceptions.*;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
+import risiko.IOObjectFileCarteArmiPartita;
+import risiko.IOObjectFileGiocatorePartita;
+import risiko.IOObjectFileObiettivo;
+import risiko.IOObjectFileObiettivoPartita;
+import risiko.IOObjectFileTerritorioDettagliato;
+import risiko.IOObjectFileTerritorioPartita;
+import enums.TipoArma;
+import enums.TipoColore;
+import enums.TipoContinente;
+import enums.TipoPartita;
 
 
 /*
@@ -19,8 +36,8 @@ public class GestionePartita {
 
     private static final int NUMERO_MIN_GIOCATORI = 3;
     private static final int NUMERO_MAX_GIOCATORI = 6;
-    private final int n_giocatori;
-    private final TipoPartita tipoPartita;
+    private int n_giocatori;
+    private TipoPartita tipoPartita;
     private IOObjectFileGiocatorePartita iofGiocatorePartita;
     private IOObjectFileObiettivoPartita iofObiettivoPartita;
     private IOObjectFileCarteArmiPartita iofCarteArmiPartita;
@@ -28,6 +45,55 @@ public class GestionePartita {
     private IOObjectFileTerritorioDettagliato iofTerritorioDettagliato;
     private IOObjectFileObiettivo iofObiettivo;
     private static final String SEPARATOR = ";";
+
+    public int getNUMERO_MIN_GIOCATORI() {
+        return NUMERO_MIN_GIOCATORI;
+    }
+
+    public int getNUMERO_MAX_GIOCATORI() {
+        return NUMERO_MAX_GIOCATORI;
+    }
+
+    public int getN_giocatori() {
+        return n_giocatori;
+    }
+
+    public void setN_giocatori(int n_giocatori) {
+        this.n_giocatori = n_giocatori;
+    }
+
+    public TipoPartita getTipoPartita() {
+        return tipoPartita;
+    }
+
+    public void setTipoPartita(TipoPartita tipoPartita) {
+        this.tipoPartita = tipoPartita;
+    }
+
+    public IOObjectFileGiocatorePartita getIofGiocatorePartita() {
+        return iofGiocatorePartita;
+    }
+
+    public IOObjectFileObiettivoPartita getIofObiettivoPartita() {
+        return iofObiettivoPartita;
+    }
+
+    public IOObjectFileCarteArmiPartita getIofCarteArmiPartita() {
+        return iofCarteArmiPartita;
+    }
+
+    public IOObjectFileTerritorioPartita getIofTerritorioPartita() {
+        return iofTerritorioPartita;
+    }
+
+    public GestionePartita() {
+        iofGiocatorePartita = new IOObjectFileGiocatorePartita("giocatoriPartita.txt", SEPARATOR);
+        iofObiettivoPartita = new IOObjectFileObiettivoPartita("obiettiviPartita.txt", SEPARATOR);
+        iofCarteArmiPartita = new IOObjectFileCarteArmiPartita("carteArmiPartita.txt", SEPARATOR);
+        iofTerritorioPartita = new IOObjectFileTerritorioPartita("territoriPartita.txt", SEPARATOR);
+        iofTerritorioDettagliato = new IOObjectFileTerritorioDettagliato("territori.txt", SEPARATOR);
+        iofObiettivo = new IOObjectFileObiettivo("obiettivi.txt", SEPARATOR);
+    }
 
     public GestionePartita(int n_giocatori, TipoPartita tipoPartita) {
         this.n_giocatori = n_giocatori;
@@ -40,6 +106,15 @@ public class GestionePartita {
         iofObiettivo = new IOObjectFileObiettivo("obiettivi.txt", SEPARATOR);
     }
 
+    @Override
+    public String toString() {
+        return "-----------------------------\n"
+                + "DETTAGLI PARTITA:\n"
+                + "-----------------------------\n"
+                + "numero giocatori: " + n_giocatori + "\ntipo partita: " + tipoPartita + "\n"
+                + "-----------------------------\n";
+    }
+
     //////////////////////////////////GET LINE//////////////////////////////////
     /**
      * GET LINE GIOCATORE: Metodo che ricerca (per password) e restituisce la
@@ -49,7 +124,7 @@ public class GestionePartita {
      * @return indice della riga del file
      * @throws IOException
      */
-    private int getLineGiocatore(String password) throws IOException {
+    public int getLineGiocatore(String password) throws IOException {
         boolean giocatore_trovato = false;
         int line_giocatore = -1;
         ArrayList<Giocatore> listaGiocatori = iofGiocatorePartita.loadData();
@@ -71,7 +146,7 @@ public class GestionePartita {
      * @return indice della riga del file
      * @throws IOException
      */
-    private int getLineGiocatore(TipoColore colore) throws IOException {
+    public int getLineGiocatore(TipoColore colore) throws IOException {
         boolean giocatore_trovato = false;
         int line_giocatore = -1;
         ArrayList<Giocatore> listaGiocatori = iofGiocatorePartita.loadData();
@@ -93,7 +168,7 @@ public class GestionePartita {
      * @return indice della riga del file
      * @throws IOException
      */
-    private int getLineObiettivoPartita(String psw) throws IOException {
+    public int getLineObiettivoPartita(String psw) throws IOException {
         boolean obiettivo_trovato = false;
         int line_obiettivo = -1;
         ArrayList<ObiettivoPartita> listaObiettivi = iofObiettivoPartita.loadData();
@@ -115,7 +190,7 @@ public class GestionePartita {
      * @return indice della riga del file
      * @throws IOException
      */
-    private int getLineTerritorioPartita(String nome) throws IOException {
+    public int getLineTerritorioPartita(String nome) throws IOException {
         boolean territorio_trovato = false;
         int line_territorio = -1;
         ArrayList<TerritorioPartita> territoriPartita = iofTerritorioPartita.loadData();
@@ -138,7 +213,7 @@ public class GestionePartita {
      * @return indice della riga del file
      * @throws IOException
      */
-    private int getLineTerritorioDettagliato(String nome) throws IOException {
+    public int getLineTerritorioDettagliato(String nome) throws IOException {
         boolean territorio_trovato = false;
         int line_territorio = -1;
         ArrayList<TerritorioDettagliato> territoriDettagliati = iofTerritorioDettagliato.loadData();
@@ -161,7 +236,7 @@ public class GestionePartita {
      * @return indice della riga del file
      * @throws IOException
      */
-    private int getLineCarteArmiPartita(String nome) throws IOException {
+    public int getLineCarteArmiPartita(String nome) throws IOException {
         boolean carta_trovata = false;
         int line_carta = -1;
         ArrayList<CarteArmiPartita> cartePartita = iofCarteArmiPartita.loadData();
@@ -185,7 +260,7 @@ public class GestionePartita {
      * @return indice della riga del file
      * @throws IOException
      */
-    private int getLineCarteArmiPartita(String psw, TipoArma t) throws IOException {
+    public int getLineCarteArmiPartita(String psw, TipoArma t) throws IOException {
         boolean carta_trovata = false;
         int line_carta = -1;
         ArrayList<CarteArmiPartita> cartePartita = iofCarteArmiPartita.loadData();
@@ -206,7 +281,9 @@ public class GestionePartita {
         if (line_giocatore != -1 || line_colore != -1) {
             throw new GiocatoreGiaRegistrato(g.getPassword());
         }
+        g.setRinforzi(numeroArmateIniziali());
         iofGiocatorePartita.add(g);
+
     }
 
     public void removeGiocatore(String psw) throws IOException, GiocatoreNonRegistrato, ObiettivoNonRegistrato {
@@ -237,7 +314,7 @@ public class GestionePartita {
     public void addCartaArmiPartita(CarteArmiPartita c) throws IOException, CartaGiaRegistrata {
         int line_carta = getLineCarteArmiPartita(c.getNome());
         if (line_carta != -1) {
-            throw new CartaGiaRegistrata(c.getNome(),c.getArma());
+            throw new CartaGiaRegistrata(c.getNome(), c.getArma());
         }
         iofCarteArmiPartita.add(c);
     }
@@ -245,7 +322,7 @@ public class GestionePartita {
     public void removeCartaArmiPartita(String psw, TipoArma a) throws IOException, CartaNonRegistrataPSWNome {
         int line_carta = getLineCarteArmiPartita(psw, a);
         if (line_carta != -1) {
-            throw new CartaNonRegistrataPSWNome(psw,a);
+            throw new CartaNonRegistrataPSWNome(psw, a);
         }
         iofCarteArmiPartita.remove(line_carta);
     }
@@ -261,7 +338,7 @@ public class GestionePartita {
     public void addTerritorioPartita(TerritorioPartita t) throws IOException, TerritorioGiaRegistrato {
         // uso il metodo che ritorna l'indice dell'arraylist
         int line_territorio = getLineTerritorioPartita(t.getNome());
-        if (line_territorio == -1) {
+        if (line_territorio != -1) {
             throw new TerritorioGiaRegistrato(t.getNome());
         }
         iofTerritorioPartita.add(t);
@@ -279,7 +356,7 @@ public class GestionePartita {
     public void addObiettivoPartita(ObiettivoPartita o) throws IOException, ObiettivoGiaRegistrato {
         // uso il metodo che ritorna l'indice dell'arraylist
         int line_obiettivo = getLineObiettivoPartita(o.getPassword());
-        if (line_obiettivo == -1) {
+        if (line_obiettivo != -1) {
             throw new ObiettivoGiaRegistrato(o.getPassword());
         }
         iofObiettivoPartita.add(o);
@@ -334,13 +411,13 @@ public class GestionePartita {
                 TerritorioPartita territorio = new TerritorioPartita(territoriPartita.get(idxTerritori[j]).getNome(),
                         territoriPartita.get(idxTerritori[j]).getArma(), giocatori.get(i).getPassword(), 1);
                 addTerritorioPartita(territorio);
-                giocatori.get(i).setRinforzi(numeroArmateIniziali() - 1);
+                giocatori.get(i).setRinforzi(giocatori.get(i).getRinforzi() - 1);
             }
             if ((n_giocatori == 4 || n_giocatori == 5) && (i == 0 || i == 1 && j < territoriPartita.size())) {
                 TerritorioPartita territorio = new TerritorioPartita(territoriPartita.get(idxTerritori[j]).getNome(),
                         territoriPartita.get(idxTerritori[j]).getArma(), giocatori.get(i).getPassword(), 1);
                 addTerritorioPartita(territorio);
-                giocatori.get(i).setRinforzi(numeroArmateIniziali() - 1);
+                giocatori.get(i).setRinforzi(giocatori.get(i).getRinforzi() - 1);
                 j++;
             }
         }
@@ -414,18 +491,26 @@ public class GestionePartita {
      * rimuovere al numero di rinforzi disponibili
      * @return il numero rimanente di rinforzi che possono essere posizionate
      * dal giocatore
-     * @exception IOException
-     * @exception GiocatoreNonRegistrato
+     * @throws IOException
+     * @throws GiocatoreNonRegistrato
+     * @throws TerritorioNonRegistrato
+     * @throws TerritorioNonPosseduto
+     * @throws NMaxTruppeRinforzoRaggiunto
      */
-    public int faseRinforzo(String psw, String nomeTerritorio, int rinforzi) throws IOException, GiocatoreNonRegistrato, TerritorioNonRegistrato {
+    public int faseRinforzo(String psw, String nomeTerritorio, int rinforzi) throws IOException,
+            GiocatoreNonRegistrato, TerritorioNonRegistrato, TerritorioNonPosseduto, NMaxTruppeRinforzoRaggiunto {
         ArrayList<TerritorioPartita> territori = iofTerritorioPartita.loadData();
         ArrayList<Giocatore> giocatori = iofGiocatorePartita.loadData();
-        if (giocatori.get(getLineGiocatore(psw)).getRinforzi() >= rinforzi) {
-            territori.get(getLineTerritorioPartita(nomeTerritorio)).setNumeroArmate(rinforzi + getTerritorioPartita(nomeTerritorio).getNumeroArmate());
-            giocatori.get(getLineGiocatore(psw)).setRinforzi(getGiocatore(psw).getRinforzi() - rinforzi);
-            iofTerritorioPartita.saveData(territori);
-            iofGiocatorePartita.saveData(giocatori);
+        if (!listaTerritoriGiocatorePartita(psw).contains(getTerritorioPartita(nomeTerritorio))) {
+            throw new TerritorioNonPosseduto(nomeTerritorio);
         }
+        if (giocatori.get(getLineGiocatore(psw)).getRinforzi() < rinforzi) {
+            throw new NMaxTruppeRinforzoRaggiunto(rinforzi);
+        }
+        territori.get(getLineTerritorioPartita(nomeTerritorio)).setNumeroArmate(rinforzi + getTerritorioPartita(nomeTerritorio).getNumeroArmate());
+        giocatori.get(getLineGiocatore(psw)).setRinforzi(getGiocatore(psw).getRinforzi() - rinforzi);
+        iofTerritorioPartita.saveData(territori);
+        iofGiocatorePartita.saveData(giocatori);
         return getGiocatore(psw).getRinforzi();
     }
 
@@ -584,10 +669,13 @@ public class GestionePartita {
      * @throws IOException
      * @throws AttaccoFallito
      */
-    public void controlloFaseAttacco(String territorioAttaccante, String territorioDifensore) throws IOException, AttaccoFallito, TerritorioNonRegistrato {
+    public void controlloFaseAttacco(String psw, String territorioAttaccante, String territorioDifensore) throws IOException, AttaccoFallito, TerritorioNonRegistrato, TerritorioNonPosseduto {
         ArrayList<String> confini = Territorio.splitTerritori(getTerritorioDettagliato(territorioAttaccante).getSequenzaConfini());
+        if (!listaTerritoriGiocatorePartita(psw).contains(territorioAttaccante)) {
+            throw new TerritorioNonPosseduto(territorioAttaccante);
+        }
         if (!confini.contains(territorioDifensore) || getTerritorioPartita(territorioAttaccante).getNumeroArmate() == 1
-                || listaTerritoriGiocatorePartita(getTerritorioPartita(territorioAttaccante).getPasswordGiocatore()).contains(territorioDifensore)) {
+                || listaTerritoriGiocatorePartita(psw).contains(territorioDifensore)) {
             throw new AttaccoFallito(territorioAttaccante, getTerritorioDettagliato(territorioAttaccante).getSequenzaConfini());
         }
     }
@@ -602,9 +690,9 @@ public class GestionePartita {
      * @throws IOException
      * @throws AttaccoFallito
      */
-    public void faseAttacco(String territorioAttaccante, String territorioDifensore) throws IOException, AttaccoFallito, SpostamentoFallito, GiocatoreNonRegistrato, ObiettivoNonRegistrato, TerritorioNonRegistrato {
+    public void faseAttacco(String psw, String territorioAttaccante, String territorioDifensore) throws IOException, AttaccoFallito, SpostamentoFallito, GiocatoreNonRegistrato, ObiettivoNonRegistrato, TerritorioNonRegistrato, TerritorioNonPosseduto {
         // Attaccante lancia i dadi
-        controlloFaseAttacco(territorioAttaccante, territorioDifensore);
+        controlloFaseAttacco(psw, territorioAttaccante, territorioDifensore);
         int armateAttaccante, armateDifensore;
         ArrayList<TerritorioPartita> territori = iofTerritorioPartita.loadData();
         int idx_attacc = getLineTerritorioPartita(territorioAttaccante);
@@ -698,7 +786,7 @@ public class GestionePartita {
      * @param psw del giocatore
      * @throws IOException
      */
-    public void pescaCarta(String psw) throws IOException, GiocatoreNonRegistrato, CartaGiaRegistrata, CartaNonRegistrataTerritorio{
+    public void pescaCarta(String psw) throws IOException, GiocatoreNonRegistrato, CartaGiaRegistrata, CartaNonRegistrataTerritorio {
         if (getGiocatore(psw).getNTerritoriConquistatiPerTurno() > 0) {
             ArrayList<Giocatore> giocatori = iofGiocatorePartita.loadData();
             ArrayList<TerritorioDettagliato> territoriDet = iofTerritorioDettagliato.loadData();
@@ -750,7 +838,7 @@ public class GestionePartita {
      * @param psw del giocatore
      * @throws IOException
      */
-    public void controlloStatoObiettivoGiocatore(String psw) throws IOException, FinePartita, GiocatoreNonRegistrato {
+    public void controlloStatoObiettivoGiocatore(String psw) throws IOException, FinePartita, GiocatoreNonRegistrato, TerritorioNonRegistrato {
         boolean statoObiettivo = false;
         boolean territorioNonPosseduto;
         int line_obiettivo = getLineObiettivoPartita(psw);
@@ -806,7 +894,7 @@ public class GestionePartita {
                 ArrayList<String> territoriDaConquistare = Territorio.splitTerritori(obiettivo.getObiettivo());
                 for (int i = 0; i < listaTerritoriGiocatorePartita(psw).size(); i++) {
                     for (int j = 0; j < territoriDaConquistare.size(); j++) {
-                        if (!listaTerritoriGiocatorePartita(psw).contains(territoriDaConquistare.get(j))) {
+                        if (!listaTerritoriGiocatorePartita(psw).contains(getTerritorioPartita(territoriDaConquistare.get(j)))) {
                             territorioNonPosseduto = true;
                         }
                     }
@@ -823,6 +911,17 @@ public class GestionePartita {
 
     //------------------------------------------------------------------------//
     //-----------------------------FUNZIONI UTILS-----------------------------//
+    /**
+     * LISTA TERRITORI PARTITA: restituisce la lista di tutti i territori della
+     * partita
+     *
+     * @return un ArrayList di TerritoriPartita
+     * @throws IOException
+     */
+    public ArrayList<TerritorioPartita> listaTerritoriPartita() throws IOException {
+        return iofTerritorioPartita.loadData();
+    }
+
     /**
      * LISTA TERRITORI DETTAGLIATI PER CONTINENTE: restituisce la lista di
      * territori di un dato continente
@@ -846,7 +945,7 @@ public class GestionePartita {
     /**
      * LISTA TERRITORI PER COLORE: restituisce la lista di territori che ha un
      * un dato dipo di colore dell'armata
-     * 
+     *
      * @param colore colore armata
      * @return un arraylist di territori partita di una certa armata
      * @throws IOException
@@ -948,5 +1047,15 @@ public class GestionePartita {
             System.out.print(dadi[i] + "  ");
         }
         System.out.println();
+    }
+
+    
+
+    public void listaTerritori(ArrayList<TerritorioPartita> lista) {
+        System.out.println("***************************************");
+        for (int i = 0; i < lista.size(); i++) {
+            System.out.println(lista.get(i));
+        }
+        System.out.println("***************************************");
     }
 }

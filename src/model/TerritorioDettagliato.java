@@ -3,9 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package risiko;
+package model;
 
+import model.Territorio;
 import java.util.ArrayList;
+import enums.TipoArma;
+import enums.TipoContinente;
 
 /**
  *

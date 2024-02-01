@@ -3,9 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package risiko;
+package model;
 
 import java.util.ArrayList;
+import enums.TipoArma;
 
 /**
  *
@@ -29,7 +30,7 @@ public class Territorio implements Comparable<Territorio> {
         return arma;
     }
 
-    @Override//non funzion??????
+    @Override
     public int compareTo(Territorio altroTerritorio) {
         return this.getNome().toUpperCase().compareTo(altroTerritorio.getNome().toUpperCase());
     }

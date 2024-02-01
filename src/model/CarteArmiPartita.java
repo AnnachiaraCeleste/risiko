@@ -3,9 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package risiko;
+package model;
 
+import model.Territorio;
 import java.util.ArrayList;
+import enums.TipoArma;
 
 /**
  *
@@ -26,6 +28,11 @@ public class CarteArmiPartita extends Territorio {
 
     public void setPasswordGiocatore(String passwordGiocatore) {
         this.passwordGiocatore = passwordGiocatore;
+    }
+
+    @Override
+    public String toString() {
+        return "{Territorio="+getNome()+" Arma="+getArma()+" pswGiocatore=" + passwordGiocatore + '}';
     }
 
 }

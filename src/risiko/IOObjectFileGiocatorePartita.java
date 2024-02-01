@@ -5,6 +5,8 @@
  */
 package risiko;
 
+import enums.TipoColore;
+import model.Giocatore;
 import iofiles.IOObjectFile;
 
 /**

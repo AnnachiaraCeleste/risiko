@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package risiko;
+package enums;
 
 /**
  * Enum TipoColore: elenco dei colori per le armate
@@ -19,4 +19,15 @@ public enum TipoColore {
     CYAN,
     WHITE,
     BLACK;
+    
+    public static String listOfCostantsColore() {
+        TipoColore[] values = TipoColore.values();
+        String res = "";
+        int i;
+        for (i = 0; i < values.length - 1; i++) {
+            res += values[i].name() + ", ";
+        }
+        res += values[i];
+        return res;
+    }
 }

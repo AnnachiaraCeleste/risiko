@@ -5,6 +5,8 @@
  */
 package risiko;
 
+import enums.TipoObiettivo;
+import model.Obiettivo;
 import iofiles.IOObjectFile;
 
 /**
