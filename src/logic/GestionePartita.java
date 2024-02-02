@@ -1,4 +1,4 @@
-package utils;
+package logic;
 
 import model.CarteArmiPartita;
 import model.TerritorioDettagliato;
@@ -11,12 +11,12 @@ import exceptions.*;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
-import risiko.IOObjectFileCarteArmiPartita;
-import risiko.IOObjectFileGiocatorePartita;
-import risiko.IOObjectFileObiettivo;
-import risiko.IOObjectFileObiettivoPartita;
-import risiko.IOObjectFileTerritorioDettagliato;
-import risiko.IOObjectFileTerritorioPartita;
+import data.IOObjectFileCarteArmiPartita;
+import data.IOObjectFileGiocatorePartita;
+import data.IOObjectFileObiettivo;
+import data.IOObjectFileObiettivoPartita;
+import data.IOObjectFileTerritorioDettagliato;
+import data.IOObjectFileTerritorioPartita;
 import enums.TipoArma;
 import enums.TipoColore;
 import enums.TipoContinente;

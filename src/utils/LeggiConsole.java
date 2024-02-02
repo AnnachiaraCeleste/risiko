@@ -13,7 +13,7 @@ import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.Territorio;
-import utils.GestionePartita;
+import logic.GestionePartita;
 import checkfunctions.*;
 import exceptions.GiocatoreNonRegistrato;
 import java.util.ArrayList;

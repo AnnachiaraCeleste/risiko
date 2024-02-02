@@ -11,7 +11,7 @@ import utils.LeggiConsole;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import utils.GestionePartita;
+import logic.GestionePartita;
 import exceptions.*;
 import model.*;
 import ioconsole.*;

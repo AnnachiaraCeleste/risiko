@@ -3,13 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package utils;
+package userinterface;
 
 import enums.TipoColore;
 import enums.TipoObiettivo;
 import enums.TipoPartita;
 import java.io.IOException;
 import userinterface.TestPartita;
+import logic.GestionePartita;
 
 
 
