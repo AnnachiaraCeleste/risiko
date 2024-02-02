@@ -96,34 +96,18 @@ public class LeggiConsole {
 
     private boolean checkTerritorioPosseduto(String psw, String txt) throws IOException {
         try {
-            return gp.listaTerritoriGiocatorePartita(psw).contains(gp.getTerritorioPartita(txt));
-        } catch (TerritorioNonRegistrato ex) {
-            return true;
-        }
-    }
-
-    protected String getTerritorioAttaccante(String psw, String messaggio, String messaggioErrore) throws IOException {
-        Scanner scan = new Scanner(System.in);
-        System.out.println(messaggio);
-        String txt;
-        do {
-            txt = scan.nextLine();
-            if (!checkTerritorioEsistente(txt) || !checkTerritorioPosseduto(psw, txt) || !checkArmateAttacco(txt) || checkTerritoriCircostantiNonPosseduti(psw, txt)) {
-                System.out.println(messaggioErrore);
+            for (int i = 0; i < gp.listaTerritoriGiocatorePartita(psw).size(); i++) {
+                if (gp.listaTerritoriGiocatorePartita(psw).get(i).equals(gp.getTerritorioPartita(txt))) {
+                    return true;
+                }
             }
-        } while (!checkTerritorioEsistente(txt) || !checkTerritorioPosseduto(psw, txt) || !checkArmateAttacco(txt) || checkTerritoriCircostantiNonPosseduti(psw, txt));
-        return txt;
-    }
-
-    private boolean checkArmateAttacco(String txt) throws IOException {
-        try {
-            return gp.getTerritorioPartita(txt).getNumeroArmate() != 1;
         } catch (TerritorioNonRegistrato ex) {
-            return false;
+            Logger.getLogger(LeggiConsole.class.getName()).log(Level.SEVERE, null, ex);
         }
+        return false;
     }
 
-    protected String getTerritorioDifensore(String psw, String tAttacc, String messaggio, String messaggioErrore) throws IOException, TerritorioNonRegistrato {
+    protected String getTerritorioAttaccante(String psw, String messaggio, String messaggioErrore) throws IOException, TerritorioNonRegistrato {
         Scanner scan = new Scanner(System.in);
         System.out.println(messaggio);
         String txt;
@@ -131,7 +115,34 @@ public class LeggiConsole {
             txt = scan.nextLine();
             if (!checkTerritorioEsistente(txt)) {
                 System.out.println(messaggioErrore + " Il territorio non esiste.");
-            } else if (!checkTerritorioPosseduto(psw, txt) || !checkTerritorioConfinante(tAttacc, txt)) {
+            } else if (!checkTerritorioPosseduto(psw, txt)) {
+                System.out.println(messaggioErrore + " Il territorio non è posseduto");
+            } else if (!checkArmateAttacco(txt)) {
+                System.out.println(messaggioErrore + " Il territorio non ha abbastanza armate per eseguire l'attacco");
+            } else if (checkTerritoriCircostantiNonPosseduti(psw, txt)) {
+                System.out.println(messaggioErrore + " I confini di questo territorio sono già tuoi possedimenti");
+            }
+        } while (!checkTerritorioEsistente(txt) || !checkTerritorioPosseduto(psw, txt) || !checkArmateAttacco(txt) || checkTerritoriCircostantiNonPosseduti(psw, txt));
+        return txt;
+    }
+
+    private boolean checkArmateAttacco(String txt) throws IOException {
+        try {
+            return gp.getTerritorioPartita(txt).getNumeroArmate() > 1;
+        } catch (TerritorioNonRegistrato ex) {
+            return false;
+        }
+    }
+
+    protected String getTerritorioDifensore(String psw, String tAttacc, String messaggio, String messaggioErrore) throws IOException, TerritorioNonRegistrato {
+        Scanner scan = new Scanner(System.in);
+        String txt;
+        do {
+            System.out.println(messaggio);
+            txt = scan.nextLine();
+            if (!checkTerritorioEsistente(txt)) {
+                System.out.println(messaggioErrore + " Il territorio non esiste.");
+            } else if (checkTerritorioPosseduto(psw, txt) || !checkTerritorioConfinante(tAttacc, txt)) {
                 System.out.println(messaggioErrore + " " + gp.getTerritorioDettagliato(tAttacc).getSequenzaConfini());
             }
         } while (!checkTerritorioEsistente(txt) || checkTerritorioPosseduto(psw, txt) || !checkTerritorioConfinante(tAttacc, txt));
@@ -149,16 +160,15 @@ public class LeggiConsole {
 
     private boolean checkTerritoriCircostantiNonPosseduti(String psw, String txt) throws IOException {
         try {
-            // Ottieni la lista dei territori confinanti
-            ArrayList<String> confinanti = Territorio.splitTerritori(gp.getTerritorioDettagliato(txt).getSequenzaConfini());
+
+            ArrayList<String> tConfinanti = Territorio.splitTerritori(gp.getTerritorioDettagliato(txt).getSequenzaConfini());
             // Verifica se tutti i territori circostanti sono posseduti dal giocatore
-            for (int i = 0; i < confinanti.size(); i++) {
-                String confinante = confinanti.get(i);
-                if (!gp.listaTerritoriGiocatorePartita(psw).contains(gp.getTerritorioPartita(confinante))) {
-                    return true; // Almeno un territorio circostante non è posseduto, restituisci true
+            for (int i = 0; i < tConfinanti.size(); i++) {
+                if (!checkTerritorioPosseduto(psw, tConfinanti.get(i))) {
+                    return false; // Almeno un territorio circostante non è posseduto
                 }
             }
-            return false; // Tutti i territori circostanti sono posseduti, restituisci false
+            return true; // Tutti i territori circostanti sono posseduti
         } catch (TerritorioNonRegistrato ex) {
             return false;
         }
@@ -202,6 +212,55 @@ public class LeggiConsole {
             }
         } while (!EnumParser.checkTipoPartita(txt));
         return TipoPartita.valueOf(txt);
+    }
+
+    protected String getTerritorioPartenza(String psw, String messaggio, String messaggioErrore) throws IOException {
+        Scanner scan = new Scanner(System.in);
+        System.out.println(messaggio);
+        String txt;
+        do {
+            txt = scan.nextLine();
+            if (!checkTerritorioEsistente(txt)) {
+                System.out.println(messaggioErrore + " Il territorio non esiste.");
+            } else if (!checkTerritorioPosseduto(psw, txt)) {
+                System.out.println(messaggioErrore + " Il territorio non è posseduto");
+            } else if (!checkArmateAttacco(txt)) {
+                System.out.println(messaggioErrore + " Il territorio non ha abbastanza armate per eseguire lo spostamento");
+            }
+        } while (!checkTerritorioEsistente(txt) || !checkTerritorioPosseduto(psw, txt) || !checkArmateAttacco(txt));
+        return txt;
+    }
+
+    protected String getTerritorioDestinazione(String psw, String tPartenza, String messaggio, String messaggioErrore) throws IOException {
+        Scanner scan = new Scanner(System.in);
+        System.out.println(messaggio);
+        String txt;
+        do {
+            txt = scan.nextLine();
+            if (!checkTerritorioEsistente(txt)) {
+                System.out.println(messaggioErrore + " Il territorio non esiste.");
+            } else if (!checkTerritorioPosseduto(psw, txt)) {
+                System.out.println(messaggioErrore + " Il territorio non è posseduto");
+            } else if (txt.equals(tPartenza)) {
+                System.out.println(messaggioErrore + " Il territorio inserito è uguale a quello dal quale vuoi spostare le armate");
+            }
+        } while (!checkTerritorioEsistente(txt) || !checkTerritorioPosseduto(psw, txt) || txt.equals(tPartenza));
+        return txt;
+    }
+
+    protected int getTruppeSpostamento(String psw, String tPartenza, String messaggio, String messaggioErrore) throws IOException, TerritorioNonRegistrato {
+        Scanner scan = new Scanner(System.in);
+        System.out.println(messaggio);
+        String txt;
+        do {
+            txt = scan.nextLine();
+            if (!checkfunctions.NumParser.checkIntPositivo(txt)) {
+                System.out.println(messaggioErrore + " Inserisci un intero positivo.");
+            } else if (Integer.parseInt(txt) >= gp.getTerritorioPartita(tPartenza).getNumeroArmate()) {
+                System.out.println(messaggioErrore + " Stai cercando di spostare più truppe di quante ce ne sono sul territorio.");
+            }
+        } while (!checkfunctions.NumParser.checkIntPositivo(txt) || Integer.parseInt(txt) >= gp.getTerritorioPartita(tPartenza).getNumeroArmate());
+        return Integer.parseInt(txt);
     }
 
 }

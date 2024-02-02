@@ -15,9 +15,7 @@ public enum TipoColore {
     GREEN,
     BLUE,
     YELLOW,
-    MAGENTA,
-    CYAN,
-    WHITE,
+    PURPLE,
     BLACK;
     
     public static String listOfCostantsColore() {

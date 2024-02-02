@@ -1,42 +1,42 @@
-Afghanistan;FANTERIA;Pit6@;22
-Africa Orientale;ARTIGLIERIA;Anna3@;22
-Alaska;FANTERIA;Anna3@;22
-Alberta;FANTERIA;Dave5@;1
-America Centrale;CAVALLERIA;Anna3@;1
-Argentina;FANTERIA;Pit6@;1
-Australia Occidentale;ARTIGLIERIA;Dave5@;1
-Australia Orientale;FANTERIA;Pit6@;1
-Brasile;ARTIGLIERIA;Dave5@;1
-Cina;CAVALLERIA;Anna3@;1
-Cita;FANTERIA;Dave5@;1
-Congo;CAVALLERIA;Pit6@;1
-Egitto;FANTERIA;Dave5@;1
-Europa Meridionale;CAVALLERIA;Pit6@;1
-Europa Occidentale;FANTERIA;Pit6@;1
-Europa Settentrionale;CAVALLERIA;Anna3@;1
-Giappone;FANTERIA;Pit6@;1
-Gran Bretagna;CAVALLERIA;Anna3@;1
-Groenlandia;CAVALLERIA;Dave5@;1
-India;FANTERIA;Anna3@;1
-Indonesia;CAVALLERIA;Dave5@;1
-Islanda;FANTERIA;Anna3@;1
-Jacuzia;CAVALLERIA;Pit6@;1
-Kamchatka;CAVALLERIA;Dave5@;1
-Madagascar;FANTERIA;Dave5@;1
-Medio Oriente;ARTIGLIERIA;Dave5@;1
-Mongolia;ARTIGLIERIA;Pit6@;1
-Nord Africa;FANTERIA;Anna3@;1
-Nuova Guinea;CAVALLERIA;Pit6@;1
-Ontario;CAVALLERIA;Anna3@;1
-Peru;CAVALLERIA;Pit6@;1
-Quebec;ARTIGLIERIA;Dave5@;1
-Scandinavia;ARTIGLIERIA;Dave5@;1
-Siam;ARTIGLIERIA;Anna3@;4
-Siberia;ARTIGLIERIA;Pit6@;1
-Stati Uniti Occidentali;FANTERIA;Anna3@;1
-Stati Uniti Orientali;ARTIGLIERIA;Anna3@;1
-Sud Africa;ARTIGLIERIA;Anna3@;11
-Territori del Nord-Ovest;ARTIGLIERIA;Pit6@;1
-Ucraina;ARTIGLIERIA;Dave5@;1
-Urali;CAVALLERIA;Pit6@;1
-Venezuela;ARTIGLIERIA;Dave5@;1
+Afghanistan;FANTERIA;Francy8@;1
+Africa Orientale;ARTIGLIERIA;Anele4@;14
+Alaska;FANTERIA;Annac9@;1
+Alberta;FANTERIA;Francy8@;1
+America Centrale;CAVALLERIA;Anele4@;1
+Argentina;FANTERIA;Annac9@;1
+Australia Occidentale;ARTIGLIERIA;Annac9@;1
+Australia Orientale;FANTERIA;Annac9@;1
+Brasile;ARTIGLIERIA;Anele4@;1
+Cina;CAVALLERIA;Anele4@;1
+Cita;FANTERIA;Anele4@;1
+Congo;CAVALLERIA;Anele4@;1
+Egitto;FANTERIA;Annac9@;1
+Europa Meridionale;CAVALLERIA;Annac9@;1
+Europa Occidentale;FANTERIA;Annac9@;1
+Europa Settentrionale;CAVALLERIA;Francy8@;1
+Giappone;FANTERIA;Francy8@;1
+Gran Bretagna;CAVALLERIA;Francy8@;1
+Groenlandia;CAVALLERIA;Francy8@;1
+India;FANTERIA;Anele4@;1
+Indonesia;CAVALLERIA;Annac9@;1
+Islanda;FANTERIA;Francy8@;1
+Jacuzia;CAVALLERIA;Francy8@;1
+Kamchatka;CAVALLERIA;Anele4@;1
+Madagascar;FANTERIA;Anele4@;1
+Medio Oriente;ARTIGLIERIA;Anele4@;1
+Mongolia;ARTIGLIERIA;Annac9@;1
+Nord Africa;FANTERIA;Annac9@;1
+Nuova Guinea;CAVALLERIA;Annac9@;1
+Ontario;CAVALLERIA;Anele4@;1
+Peru;CAVALLERIA;Francy8@;1
+Quebec;ARTIGLIERIA;Anele4@;1
+Scandinavia;ARTIGLIERIA;Anele4@;1
+Siam;ARTIGLIERIA;Annac9@;1
+Siberia;ARTIGLIERIA;Anele4@;1
+Stati Uniti Occidentali;FANTERIA;Francy8@;1
+Stati Uniti Orientali;ARTIGLIERIA;Francy8@;1
+Sud Africa;ARTIGLIERIA;Anele4@;1
+Territori del Nord-Ovest;ARTIGLIERIA;Anele4@;1
+Ucraina;ARTIGLIERIA;Anele4@;1
+Urali;CAVALLERIA;Annac9@;1
+Venezuela;ARTIGLIERIA;Francy8@;1

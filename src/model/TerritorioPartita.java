@@ -12,12 +12,12 @@ import enums.TipoArma;
  *
  * @author Annachiara
  */
-public class TerritorioPartita extends CarteArmiPartita {
+public class TerritorioPartita extends CarteArmiPartita{
 
     private int numeroArmate;
 
-    public TerritorioPartita(String nome, TipoArma arma,String password, int numeroArmate ) {
-        super(nome,arma,password);
+    public TerritorioPartita(String nome, TipoArma arma, String password, int numeroArmate) {
+        super(nome, arma, password);
         this.numeroArmate = numeroArmate;
     }
 
@@ -34,29 +34,8 @@ public class TerritorioPartita extends CarteArmiPartita {
         return this.getNome() + " {truppe: " + numeroArmate + '}';
     }
 
-    @Override
-    public int hashCode() {
-        int hash = 3;
-        hash = 59 * hash + this.numeroArmate;
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final TerritorioPartita other = (TerritorioPartita) obj;
-        if (this.numeroArmate != other.numeroArmate) {
-            return false;
-        }
-        return true;
+    public boolean equals(TerritorioPartita obj) {
+        return this.getNome().equals(obj.getNome());
     }
 
 }

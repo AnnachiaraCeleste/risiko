@@ -5,6 +5,7 @@
  */
 package utils;
 
+import enums.TipoColore;
 import enums.TipoObiettivo;
 import enums.TipoPartita;
 import java.io.IOException;
@@ -27,7 +28,7 @@ public class Risiko{
 
         GestionePartita gp = new GestionePartita();
         TestPartita tp = new TestPartita(gp);
-
+        
         System.out.println("  _____    _____    _____   _____   _  __   ____  \n"
                 + " |  __ \\  |_   _|  / ____| |_   _| | |/ /  / __ \\ \n"
                 + " | |__) |   | |   | (___     | |   | ' /  | |  | |\n"
@@ -36,7 +37,7 @@ public class Risiko{
                 + " |_|  \\_\\ |_____| |_____/  |_____| |_|\\_\\  \\____/ ");
 
         if (!iofiles.ReadFile.getAllLines(gp.getIofGiocatorePartita().getFileName()).isEmpty()) {
-            System.out.println("VUOI CONTINUARE LA PARTITA INIZIATA?");
+            System.out.println("\n\n VUOI CONTINUARE LA PARTITA INIZIATA?");
             if (!tp.scelta()) {
                 iofiles.WriteFile.clearAllLines(gp.getIofGiocatorePartita().getFileName());
                 iofiles.WriteFile.clearAllLines(gp.getIofObiettivoPartita().getFileName());
@@ -44,7 +45,7 @@ public class Risiko{
                 iofiles.WriteFile.clearAllLines(gp.getIofCarteArmiPartita().getFileName());
                 tp.inizioPartita();
             } else {
-                if (gp.getIofObiettivoPartita().get(1).getTipoObiettivo().equals(TipoObiettivo.TORNEO)) {
+                if (gp.getIofObiettivoPartita().get(0).getTipoObiettivo().equals(TipoObiettivo.TORNEO)) {
                     gp.setTipoPartita(TipoPartita.TORNEO);
                 } else {
                     gp.setTipoPartita(TipoPartita.CLASSICA);
@@ -55,7 +56,6 @@ public class Risiko{
             tp.inizioPartita();
         }
         System.out.println(gp);
-
         for (int i = 0;i < gp.getN_giocatori(); i++) {
             String psw = tp.getPassword(i);
             System.out.println("E' IL TURNO DEL GIOCATORE: " + tp.ricercaGiocatore(psw));

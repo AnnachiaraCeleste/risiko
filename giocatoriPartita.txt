@@ -1,3 +1,3 @@
-Anna;RED;Anna3@;0;0
-Pit;GREEN;Pit6@;21;0
-Dave;CYAN;Dave5@;21;0
+Elena;RED;Anele4@;0;4
+Anna;GREEN;Annac9@;21;0
+Francy;BLUE;Francy8@;21;0

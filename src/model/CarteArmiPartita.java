@@ -8,6 +8,7 @@ package model;
 import model.Territorio;
 import java.util.ArrayList;
 import enums.TipoArma;
+import java.util.Objects;
 
 /**
  *
@@ -17,7 +18,7 @@ public class CarteArmiPartita extends Territorio {
 
     private String passwordGiocatore;
 
-    public CarteArmiPartita(String nome, TipoArma arma,String password) {
+    public CarteArmiPartita(String nome, TipoArma arma, String password) {
         super(nome, arma);
         this.passwordGiocatore = password;
     }
@@ -32,7 +33,26 @@ public class CarteArmiPartita extends Territorio {
 
     @Override
     public String toString() {
-        return "{Territorio="+getNome()+" Arma="+getArma()+" pswGiocatore=" + passwordGiocatore + '}';
+        return "{Territorio=" + getNome() + " Arma=" + getArma() + " pswGiocatore=" + passwordGiocatore + '}';
+    }
+
+    
+
+    public boolean equals(CarteArmiPartita obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final CarteArmiPartita other = (CarteArmiPartita) obj;
+        if (!Objects.equals(this.getNome(), other.getNome())) {
+            return false;
+        }
+        return true;
     }
 
 }

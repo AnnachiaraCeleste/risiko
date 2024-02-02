@@ -7,6 +7,7 @@ package model;
 
 import java.util.ArrayList;
 import enums.TipoArma;
+import java.util.Objects;
 
 /**
  *
@@ -35,12 +36,22 @@ public class Territorio implements Comparable<Territorio> {
         return this.getNome().toUpperCase().compareTo(altroTerritorio.getNome().toUpperCase());
     }
 
+    public boolean equals(Territorio t) {
+        if (!Objects.equals(this.nome, t.nome)) {
+            return false;
+        }
+        if (this.arma != t.arma) {
+            return false;
+        }
+        return true;
+    }
+
     public static ArrayList<String> splitTerritori(String attributoConfini) {
         String[] attributes = attributoConfini.split(",");
         ArrayList<String> listaElementi = new ArrayList<>();
         for (int i = 0; i < attributes.length; i++) {
-            listaElementi.add(attributes[i]);
-        }
+            listaElementi.add(attributes[i].trim());
+        }//.trim()toglie li spazi all'inizio e alla fine
         return listaElementi;
     }
 
