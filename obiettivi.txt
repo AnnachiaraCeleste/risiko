@@ -12,13 +12,13 @@ Devi distruggere LE ARMATE RED, se sei tu stesso, se il giocatore è stato elimi
 Devi distruggere LE ARMATE YELLOW, se sei tu stesso, se il giocatore è stato eliminato o se nessuno ha l'armata gialla, devi conquistare 24 TERRITORI;ARMATE
 Devi conquistare 18 TERRITORI ed occupare ciascuno di essi con ALMENO DUE ARMATE;NUMERO_TERRITORI
 Devi conquistare 24 TERRITORI a tua scelta;NUMERO_TERRITORI
-Cina,Sud Africa,Mongolia,Colombia,Scandinavia,Venezuela;TORNEO
-Australia Orientale,Indonesia,Nuova Guinea,Gran Bretagna,Islanda,Europa Settentrionale,Scandinavia;TORNEO
-Congo,Africa Orientale,Egitto,Madagascar,Africa del Nord,Africa meridionale;TORNEO
-Afghanistan,Cina,India,Čita,Giappone,Kamchatka,Medio Oriente,Mongolia;TORNEO
-Argentina,Brasile,Perù,Venezuela,Groenlandia,Territori del Nord Ovest,Ontario;TORNEO
-Sudafrica,Nuova Guinea,Kamchatka,Venezuela,India,Argentina,Scandinavia;TORNEO
-Siberia,Europa,Kamchatka,Ucraina,Brasile,Groenlandia,Giappone;TORNEO
-Colombia,Nuova Guinea,Scandinavia,Cina,Sudafrica,Mongolia,Argentina;TORNEO
-Indonesia,Perù,Alaska,Siberia,Madagascar,Cina,Ucraina;TORNEO
-Sudafrica,Nuova Guinea,Venezuela,Scandinavia,Europa,Cina,Alaska;TORNEO
+Cina,Sud Africa,Mongolia,Scandinavia,Argentina,Europa Settentrionale;TORNEO
+Australia Orientale,Indonesia,Nuova Guinea,Gran Bretagna,Europa Meridionale,Europa Occidentale;TORNEO
+Congo,Africa Orientale,Egitto,Madagascar,Nord Africa,Sud Africa;TORNEO
+Afghanistan,Quebec,India,Jacuzia,Giappone,Cita;TORNEO
+Argentina,Alberta,Peru,Siam,Groenlandia,Australia Occidentale;TORNEO
+Sud Africa,Nuova Guinea,Kamchatka,India,Argentina,Scandinavia;TORNEO
+Siberia,Ontario,Kamchatka,Ucraina,Groenlandia,Madagascar;TORNEO
+Venezuela,Nuova Guinea,Scandinavia,Cina,Sud Africa,Mongolia;TORNEO
+Indonesia,Peru,Alaska,Siberia,Cina,Ucraina;TORNEO
+Congo,Nuova Guinea,Venezuela,Scandinavia,Europa Occidentale,Stati Uniti Orientali;TORNEO

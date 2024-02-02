@@ -58,6 +58,8 @@ public class Risiko{
         System.out.println(gp);
         for (int i = 0;i < gp.getN_giocatori(); i++) {
             String psw = tp.getPassword(i);
+            System.out.println("================================================"
+                    + "=============================================");
             System.out.println("E' IL TURNO DEL GIOCATORE: " + tp.ricercaGiocatore(psw));
             tp.turnoDiGioco(psw);
         }

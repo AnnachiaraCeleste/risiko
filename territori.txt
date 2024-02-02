@@ -28,7 +28,7 @@ Urali;Ucraina,Afghanistan,Siberia,Cina;ASIA;CAVALLERIA
 Siberia;Urali,Cina,Mongolia,Jacuzia,Cita;ASIA;ARTIGLIERIA
 Cita;Siberia,Kamchatka,Jacuzia,Mongolia;ASIA;FANTERIA
 Kamchatka;Alaska,Jacuzia,Cita,Mongolia,Giappone;ASIA;CAVALLERIA
-Mongolia;Cita,Siberia,Kamchatka, Giappone,Cina;ASIA;ARTIGLIERIA
+Mongolia;Cita,Siberia,Kamchatka,Giappone,Cina;ASIA;ARTIGLIERIA
 Cina;Urali,Siberia,Mongolia,Afghanistan,Medio Oriente,India,Siam;ASIA;CAVALLERIA
 Afghanistan;Urali,Cina,Medio Oriente,Ucraina;ASIA;FANTERIA
 Medio Oriente;Ucraina,Afghanistan,India,Cina,Egitto,Europa Meridionale;ASIA;ARTIGLIERIA

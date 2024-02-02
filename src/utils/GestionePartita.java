@@ -327,14 +327,6 @@ public class GestionePartita {
         iofCarteArmiPartita.remove(line_carta);
     }
 
-    public CarteArmiPartita getCartaArmiPartita(String nome) throws IOException, CartaNonRegistrataTerritorio {
-        int line_carta = getLineCarteArmiPartita(nome);
-        if (line_carta == -1) {
-            throw new CartaNonRegistrataTerritorio(nome);
-        }
-        return iofCarteArmiPartita.get(line_carta);
-    }
-
     public void addTerritorioPartita(TerritorioPartita t) throws IOException, TerritorioGiaRegistrato {
         // uso il metodo che ritorna l'indice dell'arraylist
         int line_territorio = getLineTerritorioPartita(t.getNome());
@@ -361,7 +353,21 @@ public class GestionePartita {
         }
         iofObiettivoPartita.add(o);
     }
-
+    /**
+     * 
+     * @param psw
+     * @return
+     * @throws IOException
+     * @throws ObiettivoNonRegistrato 
+     */
+    public ObiettivoPartita getObiettivoPartita(String psw) throws IOException, ObiettivoNonRegistrato{
+        // uso il metodo che ritorna l'indice dell'arraylist
+        int line_obiettivo = getLineObiettivoPartita(psw);
+        if (line_obiettivo== -1) {
+            throw new ObiettivoNonRegistrato(psw);
+        }
+        return iofObiettivoPartita.get(line_obiettivo);
+    }
     public void removeObiettivoPartita(String psw) throws IOException, ObiettivoNonRegistrato {
         // ricerca del giocatore
         int line_obiettivo = getLineObiettivoPartita(psw);
@@ -826,6 +832,9 @@ public class GestionePartita {
      *
      * @param psw del giocatore
      * @throws IOException
+     * @throws exceptions.GiocatoreNonRegistrato
+     * @throws exceptions.CartaGiaRegistrata
+     * @throws exceptions.CartaNonRegistrataTerritorio
      */
     public void pescaCarta(String psw) throws IOException, GiocatoreNonRegistrato, CartaGiaRegistrata, CartaNonRegistrataTerritorio {
         if (getGiocatore(psw).getNTerritoriConquistatiPerTurno() > 0) {
@@ -834,12 +843,9 @@ public class GestionePartita {
             boolean trovato;
             int idxCarta;
             do {
-                idxCarta = (int) (Math.random() * (42 + 1));
-                trovato = false;
-                if (getCartaArmiPartita(territoriDet.get(idxCarta).getNome()) != null) {
-                    trovato = true;
-                }
-            } while (trovato);
+                idxCarta = (int) (Math.random() * (42));
+                trovato = getLineCarteArmiPartita(territoriDet.get(idxCarta).getNome()) ==-1;                
+            } while (!trovato);
             addCartaArmiPartita(new CarteArmiPartita(territoriDet.get(idxCarta).getNome(), territoriDet.get(idxCarta).getArma(), psw));
             giocatori.get(getLineGiocatore(psw)).setNTerritoriConquistatiPerTurno(0);
             iofGiocatorePartita.saveData(giocatori);
@@ -881,11 +887,11 @@ public class GestionePartita {
      * @param psw del giocatore
      * @throws IOException
      */
-    public void controlloStatoObiettivoGiocatore(String psw) throws IOException, FinePartita, GiocatoreNonRegistrato, TerritorioNonRegistrato {
+    public void controlloStatoObiettivoGiocatore(String psw) throws IOException, FinePartita, GiocatoreNonRegistrato, TerritorioNonRegistrato, ObiettivoNonRegistrato {
         boolean statoObiettivo = false;
         boolean territorioNonPosseduto;
         int line_obiettivo = getLineObiettivoPartita(psw);
-        Obiettivo obiettivo = (Obiettivo) iofObiettivoPartita.get(line_obiettivo);
+        Obiettivo obiettivo = (Obiettivo) getObiettivoPartita(psw);
         ArrayList<TerritorioPartita> territoriGiocatore = listaTerritoriGiocatorePartita(psw);
         switch (obiettivo.getTipoObiettivo()) {
             case ARMATE:
@@ -948,7 +954,7 @@ public class GestionePartita {
                     boolean territorioPresente = false;
                     for (int j = 0; j < territoriDaConquistare.size(); j++) {
                         TerritorioPartita territorioDaConquistare = getTerritorioPartita(territoriDaConquistare.get(j));
-                        if (territorioGiocatore.equals(territorioDaConquistare)) {
+                        if (territorioGiocatore.getNome().equals(territoriDaConquistare.get(j))) {
                             territorioPresente = true;
                             break;  // Se trova il territorio, esce dal ciclo interno
                         }

@@ -15,6 +15,7 @@ import utils.GestionePartita;
 import exceptions.*;
 import model.*;
 import ioconsole.*;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -42,6 +43,7 @@ public class TestPartita extends LeggiConsole {
             public void run() {
                 // Azioni da eseguire quando scade il tempo dell'attacco
                 timerScaduto = true;
+                timer.cancel();  // Ferma il timer dopo l'esecuzione
             }
         }, 120000);
     }
@@ -100,6 +102,7 @@ public class TestPartita extends LeggiConsole {
         try {
             while (gp.getGiocatore(psw).getRinforzi() > 0) {
                 stampaTerritori(gp.listaTerritoriGiocatorePartita(psw));
+                stampaObiettivoPersonale(psw);
                 System.out.println("Numero Rinforzi: " + gp.getGiocatore(psw).getRinforzi());
                 String territorio = getTerritorioRinforzo(psw, "INSERISCI IL NOME DEL TERRITORIO AL QUALE VUOI AGGIUNGERE LE TRUPPE", "IL VALORE INSERITO NON E' ACCETTABILE");
                 int truppeRinforzo = getTruppeRinforzo(psw, "INSERISCI IL NUMERO DI TRUPPE DA AGGIUNGERE AL TERRITORIO", "IL VALORE INSERITO NON E' ACCETTABILE. INSERISCI UN INTERO");
@@ -118,6 +121,7 @@ public class TestPartita extends LeggiConsole {
             try {
                 do {
                     stampaTerritoriFaseAttacco(gp.listaTerritoriPartita(), gp.listaTerritoriGiocatorePartita(psw));
+                    stampaObiettivoPersonale(psw);
                     if (timerScaduto) {
                         break;
                     }
@@ -179,6 +183,13 @@ public class TestPartita extends LeggiConsole {
     public void stampaTerritoriFaseAttacco(ArrayList<TerritorioPartita> lista1, ArrayList<TerritorioPartita> lista2) {
         GestionePartita.stampaListaTerritoriFaseAttacco(lista1, lista2);
     }
+    public void stampaObiettivoPersonale(String psw) {
+        try {
+            System.out.println(gp.getObiettivoPartita(psw));
+        } catch (IOException | ObiettivoNonRegistrato ex) {
+            Logger.getLogger(TestPartita.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 
     private void faseSpostamento(String psw) {
         System.out.println("VUOI CONTINUARE CON LA FASE DI SPOSTAMENTO(true) OPPURE PASSARE IL TURNO(false)?");
@@ -186,8 +197,10 @@ public class TestPartita extends LeggiConsole {
             if (scelta()) {
                 avviaTimer();
                 System.out.println("!!! IL TIMER E' PARTITO !!! hai a disposizione ancora 2 minuti !!!");
+                boolean scelta;
                 do {
                     stampaTerritori(gp.listaTerritoriGiocatorePartita(psw));
+                    stampaObiettivoPersonale(psw);
                     if (timerScaduto) {
                         break;
                     }
@@ -203,16 +216,18 @@ public class TestPartita extends LeggiConsole {
                     if (!timerScaduto) {
                         gp.faseSpostamento(territorioPartenza, territorioDestinazione, truppe);
                     }
-                } while (!timerScaduto);
+                    System.out.println("VUOI CONTINUARE A SPOSTARE LE TUE TRUPPE(true) OPPURE PASSARE IL TURNO(false)");
+                    scelta=scelta();
+                } while (!timerScaduto&&scelta);
                 interrompiTimer();
                 System.out.println("TERRITORI AGGIORNATI DOPO LA FASE DI SPOSTAMENTO:");
                 stampaTerritori(gp.listaTerritoriGiocatorePartita(psw));
                 System.out.println("\n");
             }
-            gp.controlloStatoObiettivoGiocatore(psw);
             gp.calcolaRinforzi(psw);
+            gp.controlloStatoObiettivoGiocatore(psw);
         } catch (IOException | RisikoExceptions ex) {
             Logger.getLogger(TestPartita.class.getName()).log(Level.SEVERE, null, ex);
-        } 
+        }
     }
 }
