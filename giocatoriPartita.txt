@@ -1,0 +1,2 @@
+Anna;GREEN;Sdr3@;0;2
+Fre;RED;FRe3@;19;0

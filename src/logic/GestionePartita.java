@@ -34,7 +34,7 @@ import enums.TipoPartita;
  */
 public class GestionePartita {
 
-    private static final int NUMERO_MIN_GIOCATORI = 3;
+    private static final int NUMERO_MIN_GIOCATORI = 2;
     private static final int NUMERO_MAX_GIOCATORI = 6;
     private int n_giocatori;
     private TipoPartita tipoPartita;
@@ -263,10 +263,10 @@ public class GestionePartita {
     public int getLineCarteArmiPartita(String psw, TipoArma t) throws IOException {
         boolean carta_trovata = false;
         int line_carta = -1;
-        ArrayList<CarteArmiPartita> cartePartita = iofCarteArmiPartita.loadData();
+        ArrayList<CarteArmiPartita> cartePartita = listaCarteGiocatorePartita(psw);
         // RICERCA PER CHIAVE
         for (int i = 0; !carta_trovata && i < cartePartita.size(); i++) {
-            if (cartePartita.get(i).getPasswordGiocatore().equals(psw) && cartePartita.get(i).getArma().equals(t)) {
+            if (cartePartita.get(i).getArma().equals(t)) {
                 carta_trovata = true;
                 line_carta = i;
             }
@@ -321,7 +321,7 @@ public class GestionePartita {
 
     public void removeCartaArmiPartita(String psw, TipoArma a) throws IOException, CartaNonRegistrataPSWNome {
         int line_carta = getLineCarteArmiPartita(psw, a);
-        if (line_carta != -1) {
+        if (line_carta == -1) {
             throw new CartaNonRegistrataPSWNome(psw, a);
         }
         iofCarteArmiPartita.remove(line_carta);
@@ -353,21 +353,23 @@ public class GestionePartita {
         }
         iofObiettivoPartita.add(o);
     }
+
     /**
-     * 
+     *
      * @param psw
      * @return
      * @throws IOException
-     * @throws ObiettivoNonRegistrato 
+     * @throws ObiettivoNonRegistrato
      */
-    public ObiettivoPartita getObiettivoPartita(String psw) throws IOException, ObiettivoNonRegistrato{
+    public ObiettivoPartita getObiettivoPartita(String psw) throws IOException, ObiettivoNonRegistrato {
         // uso il metodo che ritorna l'indice dell'arraylist
         int line_obiettivo = getLineObiettivoPartita(psw);
-        if (line_obiettivo== -1) {
+        if (line_obiettivo == -1) {
             throw new ObiettivoNonRegistrato(psw);
         }
         return iofObiettivoPartita.get(line_obiettivo);
     }
+
     public void removeObiettivoPartita(String psw) throws IOException, ObiettivoNonRegistrato {
         // ricerca del giocatore
         int line_obiettivo = getLineObiettivoPartita(psw);
@@ -617,7 +619,6 @@ public class GestionePartita {
         if (numeroArtiglieria >= 1 && numeroFanteria >= 1 && numeroCavalleria >= 1) {
             rinforziCarte += 10;
             rimuoviCarteRinforziUsate(psw, TipoArma.ARTIGLIERIA, 1);
-
             rimuoviCarteRinforziUsate(psw, TipoArma.FANTERIA, 1);
             rimuoviCarteRinforziUsate(psw, TipoArma.CAVALLERIA, 1);
         }
@@ -844,7 +845,7 @@ public class GestionePartita {
             int idxCarta;
             do {
                 idxCarta = (int) (Math.random() * (42));
-                trovato = getLineCarteArmiPartita(territoriDet.get(idxCarta).getNome()) ==-1;                
+                trovato = getLineCarteArmiPartita(territoriDet.get(idxCarta).getNome()) == -1;
             } while (!trovato);
             addCartaArmiPartita(new CarteArmiPartita(territoriDet.get(idxCarta).getNome(), territoriDet.get(idxCarta).getArma(), psw));
             giocatori.get(getLineGiocatore(psw)).setNTerritoriConquistatiPerTurno(0);
@@ -866,8 +867,8 @@ public class GestionePartita {
      */
     public void faseSpostamento(String territorioPartenza, String territorioDestinazione, int numeroArmateDaSpostare) throws IOException, SpostamentoFallito, TerritorioNonRegistrato {
         if (!getTerritorioPartita(territorioPartenza).getPasswordGiocatore().equals(getTerritorioPartita(territorioDestinazione).getPasswordGiocatore())
-               ||getTerritorioPartita(territorioPartenza).equals(getTerritorioPartita(territorioDestinazione))|| 
-                numeroArmateDaSpostare >= getTerritorioPartita(territorioPartenza).getNumeroArmate() 
+                || getTerritorioPartita(territorioPartenza).equals(getTerritorioPartita(territorioDestinazione))
+                || numeroArmateDaSpostare >= getTerritorioPartita(territorioPartenza).getNumeroArmate()
                 || getTerritorioPartita(territorioPartenza).getNumeroArmate() == 1) {
             throw new SpostamentoFallito(territorioPartenza);
         }
@@ -890,8 +891,7 @@ public class GestionePartita {
     public void controlloStatoObiettivoGiocatore(String psw) throws IOException, FinePartita, GiocatoreNonRegistrato, TerritorioNonRegistrato, ObiettivoNonRegistrato {
         boolean statoObiettivo = false;
         boolean territorioNonPosseduto;
-        int line_obiettivo = getLineObiettivoPartita(psw);
-        Obiettivo obiettivo = (Obiettivo) getObiettivoPartita(psw);
+        ObiettivoPartita obiettivo = getObiettivoPartita(psw);
         ArrayList<TerritorioPartita> territoriGiocatore = listaTerritoriGiocatorePartita(psw);
         switch (obiettivo.getTipoObiettivo()) {
             case ARMATE:
@@ -902,7 +902,7 @@ public class GestionePartita {
                         break;
                     }
                 }
-                if ((colore.equals(iofGiocatorePartita.get(getLineGiocatore(psw)).getColore()) && listaTerritoriColore(colore).isEmpty()) || listaTerritoriGiocatorePartita(psw).size() > 23) {
+                if (getLineGiocatore(colore)==-1 &&((colore.equals(iofGiocatorePartita.get(getLineGiocatore(psw)).getColore()) && listaTerritoriColore(colore).isEmpty())|| listaTerritoriGiocatorePartita(psw).size() > 23)) {
                     statoObiettivo = true;
                 }
                 break;
@@ -933,41 +933,34 @@ public class GestionePartita {
                 break;
             case NUMERO_TERRITORI:
                 int nTerritoriValidi = 0;
-                if (obiettivo.getObiettivo().contains("18") && listaTerritoriGiocatorePartita(psw).size() > 17) {
-                    for (int i = 0; i < listaTerritoriGiocatorePartita(psw).size(); i++) {
-                        if (listaTerritoriGiocatorePartita(psw).get(i).getNumeroArmate() > 1) {
+                if (obiettivo.getObiettivo().contains("18") && territoriGiocatore.size() > 17) {
+                    for (int i = 0; i < territoriGiocatore.size(); i++) {
+                        if (territoriGiocatore.get(i).getNumeroArmate() > 1) {
                             nTerritoriValidi++;
                         }
                     }
                     if (nTerritoriValidi > 17) {
                         statoObiettivo = true;
                     }
-                } else if (obiettivo.getObiettivo().contains("24") && listaTerritoriGiocatorePartita(psw).size() > 23) {
+                } else if (obiettivo.getObiettivo().contains("24") && territoriGiocatore.size() > 23) {
                     statoObiettivo = true;
                 }
                 break;
             case TORNEO:
-                territorioNonPosseduto = false;
+                statoObiettivo = true;
                 ArrayList<String> territoriDaConquistare = Territorio.splitTerritori(obiettivo.getObiettivo());
-                for (int i = 0; i < listaTerritoriGiocatorePartita(psw).size(); i++) {
-                    TerritorioPartita territorioGiocatore = listaTerritoriGiocatorePartita(psw).get(i);
-                    boolean territorioPresente = false;
-                    for (int j = 0; j < territoriDaConquistare.size(); j++) {
-                        TerritorioPartita territorioDaConquistare = getTerritorioPartita(territoriDaConquistare.get(j));
-                        if (territorioGiocatore.getNome().equals(territoriDaConquistare.get(j))) {
-                            territorioPresente = true;
-                            break;  // Se trova il territorio, esce dal ciclo interno
+                for (int i = 0; i < territoriDaConquistare.size(); i++) {
+                    boolean territorioTrovato = false;
+                    for (int j = 0; j < territoriGiocatore.size(); j++) {
+                        if (territoriDaConquistare.get(i).equals(territoriGiocatore.get(j).getNome())) {
+                            territorioTrovato = true;
                         }
                     }
-                    if (!territorioPresente) {
-                        territorioNonPosseduto = true;
-                        break;  // Se trova almeno un territorio non posseduto, esce dal ciclo esterno
+                    if (!territorioTrovato) {
+                        statoObiettivo = false;
+                        break;
                     }
                 }
-                if (!territorioNonPosseduto) {
-                    statoObiettivo = true;
-                }
-                break;
         }
         if (statoObiettivo) {
             throw new FinePartita(getGiocatore(psw).getNome(), obiettivo.getObiettivo());
@@ -1058,14 +1051,14 @@ public class GestionePartita {
      */
     public ArrayList<CarteArmiPartita> listaCarteGiocatorePartita(String password) throws IOException {
         ArrayList<CarteArmiPartita> cartePartita = iofCarteArmiPartita.loadData();
-        ArrayList<TerritorioPartita> carteGiocatore = new ArrayList<>();
+        ArrayList<CarteArmiPartita> carteGiocatore = new ArrayList<>();
         for (int i = 0; i < cartePartita.size(); i++) {
             if (cartePartita.get(i).getPasswordGiocatore().equals(password)) {
-                carteGiocatore.add(carteGiocatore.get(i));
+                carteGiocatore.add(cartePartita.get(i));
             }
         }
         Collections.sort(carteGiocatore);
-        return cartePartita;
+        return carteGiocatore;
     }
 
     /**

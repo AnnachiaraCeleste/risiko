@@ -138,7 +138,7 @@ public class LeggiConsole {
         Scanner scan = new Scanner(System.in);
         String txt;
         do {
-            System.out.println(messaggio);
+            System.out.println(messaggio+" ("+gp.getTerritorioDettagliato(tAttacc).getSequenzaConfini()+")");
             txt = scan.nextLine();
             if (!checkTerritorioEsistente(txt)) {
                 System.out.println(messaggioErrore + " Il territorio non esiste.");

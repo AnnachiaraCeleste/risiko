@@ -42,10 +42,11 @@ public class TestPartita extends LeggiConsole {
             @Override
             public void run() {
                 // Azioni da eseguire quando scade il tempo dell'attacco
+                System.out.println("<<<<IL TIMER E' SCADUTO>>>>>");
                 timerScaduto = true;
                 timer.cancel();  // Ferma il timer dopo l'esecuzione
             }
-        }, 120000);
+        }, 300000);
     }
 
     private void interrompiTimer() {
@@ -55,6 +56,21 @@ public class TestPartita extends LeggiConsole {
     }
 
     ////////////////////////////////////////////////////////////////////////////
+    public void inserisciNumeroGiocatori() {
+        int num = ioconsole.LeggiConsole.getIntInRange("INSERISCI IL NUMERO DI GIOCATORI CHE PARTECIPANO ALLA PARTITA", "IL VALORE INSERITO NON E' ACCETTABILE", gp.getNUMERO_MIN_GIOCATORI() - 1, gp.getNUMERO_MAX_GIOCATORI() + 1);
+        gp.setN_giocatori(num);
+    }
+
+    public void inserisciTipoPartita() {
+        try {
+            TipoPartita t = getTipoPartita("INSERISCI IL TIPO DI PARTITA CHE VUOI EFFETTUARE", "IL VALORE INSERITO NON E' ACCETTABILE");
+            gp.setTipoPartita(t);
+        } catch (IOException ex) {
+            Logger.getLogger(TestPartita.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
+
     public void inizioPartita() {
         inserisciTipoPartita();
         inserisciNumeroGiocatori();
@@ -64,6 +80,13 @@ public class TestPartita extends LeggiConsole {
         try {
             gp.addObiettivi();
             gp.addTerritoriPartita();
+            for (int i = 0; i < gp.getN_giocatori(); i++) {
+                String psw = getPassword(i);
+                System.out.println("================================================"
+                        + "=============================================");
+                System.out.println("E' IL TURNO DEL GIOCATORE: " + ricercaGiocatore(psw));
+                faseRinforzo(getPassword(i));
+            }
         } catch (IOException | RisikoExceptions ex) {
             Logger.getLogger(TestPartita.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -73,6 +96,20 @@ public class TestPartita extends LeggiConsole {
         faseRinforzo(psw);
         faseAttacco(psw);
         faseSpostamento(psw);
+    }
+
+    public void inserisciGiocatore() {
+        String nome = ioconsole.LeggiConsole.getStringNonVuota("INSERISCI IL TUO NOME");
+        try {
+            TipoColore colore = getTipoColore("INSERISCI IL COLORE DELLA TUA ARMATA", "IL VALORE INSERITO NON E' ACCETTABILE");
+            String psw = getPassword("INSERISCI LA TUA PASSWORD IDENTIFICATIVA", "IL VALORE INSERITO NON E' ACCETTABILE \n(più di 8 caratteri, almeno una maiuscola, una minuscola, un numero e un carattere speciale)");
+            gp.addGiocatore(new Giocatore(nome, colore, psw, 0, 0));
+            System.out.println(new Giocatore(nome, colore, psw, 0, 0));
+
+        } catch (IOException | GiocatoreGiaRegistrato ex) {
+            Logger.getLogger(TestPartita.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
     }
 
     public String ricercaGiocatore(String psw) {
@@ -100,6 +137,7 @@ public class TestPartita extends LeggiConsole {
 
     public void faseRinforzo(String psw) {
         try {
+            gp.calcolaRinforzi(psw);
             while (gp.getGiocatore(psw).getRinforzi() > 0) {
                 stampaTerritori(gp.listaTerritoriGiocatorePartita(psw));
                 stampaObiettivoPersonale(psw);
@@ -117,11 +155,14 @@ public class TestPartita extends LeggiConsole {
         System.out.println("VUOI CONTINUARE CON LA FASE DI ATTACCO (true) OPPURE PASSARE ALLO SPOSTAMENTO TRUPPE(false)?");
         if (scelta()) {
             avviaTimer();
-            System.out.println("!!! IL TIMER E' PARTITO !!! hai a disposizione ancora 2 minuti !!!");
+            System.out.println("!!! IL TIMER E' PARTITO !!! (5 minuti)");
+            boolean scelta = false;
             try {
                 do {
-                    stampaTerritoriFaseAttacco(gp.listaTerritoriPartita(), gp.listaTerritoriGiocatorePartita(psw));
-                    stampaObiettivoPersonale(psw);
+                    if (!timerScaduto) {
+                        stampaTerritoriFaseAttacco(gp.listaTerritoriPartita(), gp.listaTerritoriGiocatorePartita(psw));
+                        stampaObiettivoPersonale(psw);
+                    }
                     if (timerScaduto) {
                         break;
                     }
@@ -133,7 +174,11 @@ public class TestPartita extends LeggiConsole {
                     if (!timerScaduto) {
                         gp.faseAttacco(psw, territorioAttaccante, territorioDifensore);
                     }
-                } while (!timerScaduto);
+                    if (!timerScaduto) {
+                        System.out.println("VUOI CONTINUARE AD ATTACCARE(true) OPPURE PASSARE ALLA FASE SUCCESSIVA(false)");
+                        scelta = scelta();
+                    }
+                } while (!timerScaduto && scelta);
                 interrompiTimer();
                 System.out.println("TERRITORI AGGIORNATI DOPO LA FASE DI ATTACCO:");
                 stampaTerritori(gp.listaTerritoriPartita());
@@ -147,35 +192,6 @@ public class TestPartita extends LeggiConsole {
         }
     }
 
-    public void inserisciNumeroGiocatori() {
-        int num = ioconsole.LeggiConsole.getIntInRange("INSERISCI IL NUMERO DI GIOCATORI CHE PARTECIPANO ALLA PARTITA", "IL VALORE INSERITO NON E' ACCETTABILE", gp.getNUMERO_MIN_GIOCATORI() - 1, gp.getNUMERO_MAX_GIOCATORI() + 1);
-        gp.setN_giocatori(num);
-    }
-
-    public void inserisciTipoPartita() {
-        try {
-            TipoPartita t = getTipoPartita("INSERISCI IL TIPO DI PARTITA CHE VUOI EFFETTUARE", "IL VALORE INSERITO NON E' ACCETTABILE");
-            gp.setTipoPartita(t);
-        } catch (IOException ex) {
-            Logger.getLogger(TestPartita.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-    }
-
-    public void inserisciGiocatore() {
-        String nome = ioconsole.LeggiConsole.getStringNonVuota("INSERISCI IL TUO NOME");
-        try {
-            TipoColore colore = getTipoColore("INSERISCI IL COLORE DELLA TUA ARMATA", "IL VALORE INSERITO NON E' ACCETTABILE");
-            String psw = getPassword("INSERISCI LA TUA PASSWORD IDENTIFICATIVA", "IL VALORE INSERITO NON E' ACCETTABILE \n(più di 8 caratteri, almeno una maiuscola, una minuscola, un numero e un carattere speciale)");
-            gp.addGiocatore(new Giocatore(nome, colore, psw, 0, 0));
-            System.out.println(new Giocatore(nome, colore, psw, 0, 0));
-
-        } catch (IOException | GiocatoreGiaRegistrato ex) {
-            Logger.getLogger(TestPartita.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-    }
-
     public void stampaTerritori(ArrayList<TerritorioPartita> lista) {
         GestionePartita.stampaListaTerritori(lista);
     }
@@ -183,6 +199,7 @@ public class TestPartita extends LeggiConsole {
     public void stampaTerritoriFaseAttacco(ArrayList<TerritorioPartita> lista1, ArrayList<TerritorioPartita> lista2) {
         GestionePartita.stampaListaTerritoriFaseAttacco(lista1, lista2);
     }
+
     public void stampaObiettivoPersonale(String psw) {
         try {
             System.out.println(gp.getObiettivoPartita(psw));
@@ -196,7 +213,7 @@ public class TestPartita extends LeggiConsole {
         try {
             if (scelta()) {
                 avviaTimer();
-                System.out.println("!!! IL TIMER E' PARTITO !!! hai a disposizione ancora 2 minuti !!!");
+                System.out.println("!!! IL TIMER E' PARTITO !!! (5 minuti)");
                 boolean scelta;
                 do {
                     stampaTerritori(gp.listaTerritoriGiocatorePartita(psw));
@@ -208,25 +225,32 @@ public class TestPartita extends LeggiConsole {
                     if (timerScaduto) {
                         break;
                     }
-                    int truppe = getTruppeSpostamento(psw, territorioPartenza, "INSERISCI IL NUMERO DI TRUPPE CHE VUOI SPOSTARE DAL TERRITORIO", "IL VALORE INSERITO NON E' ACCETTABILE");
+                    String territorioDestinazione = getTerritorioDestinazione(psw, territorioPartenza, "INSERISCI IL TERRITORIO SU CUI VUOI SPOSTARE LE TRUPPE", "IL VALORE INSERITO NON E' ACCETTABILE");
                     if (timerScaduto) {
                         break;
                     }
-                    String territorioDestinazione = getTerritorioDestinazione(psw, territorioPartenza, "INSERISCI IL TERRITORIO SU CUI VUOI SPOSTARE LE TRUPPE", "IL VALORE INSERITO NON E' ACCETTABILE");
+                    int truppe = getTruppeSpostamento(psw, territorioPartenza, "INSERISCI IL NUMERO DI TRUPPE CHE VUOI SPOSTARE DAL TERRITORIO", "IL VALORE INSERITO NON E' ACCETTABILE");
                     if (!timerScaduto) {
                         gp.faseSpostamento(territorioPartenza, territorioDestinazione, truppe);
                     }
                     System.out.println("VUOI CONTINUARE A SPOSTARE LE TUE TRUPPE(true) OPPURE PASSARE IL TURNO(false)");
-                    scelta=scelta();
-                } while (!timerScaduto&&scelta);
+                    scelta = scelta();
+                } while (!timerScaduto && scelta);
                 interrompiTimer();
                 System.out.println("TERRITORI AGGIORNATI DOPO LA FASE DI SPOSTAMENTO:");
                 stampaTerritori(gp.listaTerritoriGiocatorePartita(psw));
                 System.out.println("\n");
             }
-            gp.calcolaRinforzi(psw);
-            gp.controlloStatoObiettivoGiocatore(psw);
         } catch (IOException | RisikoExceptions ex) {
+            Logger.getLogger(TestPartita.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public void controlloStatoPartita(String psw) throws FinePartita {
+        try {
+            gp.controlloStatoObiettivoGiocatore(psw);
+        } catch (IOException | GiocatoreNonRegistrato | TerritorioNonRegistrato | ObiettivoNonRegistrato ex) {
+
             Logger.getLogger(TestPartita.class.getName()).log(Level.SEVERE, null, ex);
         }
     }

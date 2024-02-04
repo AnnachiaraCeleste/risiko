@@ -27,7 +27,7 @@ public class IOObjectFileCarteArmiPartita extends IOObjectFile<CarteArmiPartita>
 
     @Override
     public CarteArmiPartita deserialize(String[] attributes) {
-        return new CarteArmiPartita(attributes[1], TipoArma.valueOf(attributes[2]), attributes[3]);
+        return new CarteArmiPartita(attributes[0], TipoArma.valueOf(attributes[1]), attributes[2]);
 
     }
 
