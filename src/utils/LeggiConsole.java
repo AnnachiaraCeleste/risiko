@@ -143,7 +143,7 @@ public class LeggiConsole {
             if (!checkTerritorioEsistente(txt)) {
                 System.out.println(messaggioErrore + " Il territorio non esiste.");
             } else if (checkTerritorioPosseduto(psw, txt) || !checkTerritorioConfinante(tAttacc, txt)) {
-                System.out.println(messaggioErrore + " " + gp.getTerritorioDettagliato(tAttacc).getSequenzaConfini());
+                System.out.println(messaggioErrore);
             }
         } while (!checkTerritorioEsistente(txt) || checkTerritorioPosseduto(psw, txt) || !checkTerritorioConfinante(tAttacc, txt));
 
