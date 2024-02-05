@@ -99,7 +99,10 @@ public class TestPartita extends LeggiConsole {
             Logger.getLogger(TestPartita.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
+    /**
+     * TURNO DI GIOCO: metodo che gestisce il turno di gioco di un utente (fase rinforzo, attacco, spostamento)
+     * @param psw del giocatore che esegue il turno
+     */
     public void turnoDiGioco(String psw) {
         faseRinforzo(psw);
         faseAttacco(psw);
