@@ -75,7 +75,10 @@ public class TestPartita extends LeggiConsole {
         }
 
     }
-
+    /**
+     * INIZIO PARTITA: metodo che permette al giocatore di scegliere il tipo partita, il numero dei giocatori, 
+     * permette di inserire i giocatori e di default assegna gli obiettivi e i territori
+     */
     public void inizioPartita() {
         inserisciTipoPartita();
         inserisciNumeroGiocatori();
