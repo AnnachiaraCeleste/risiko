@@ -1,2 +1,0 @@
-Devi distruggere LE ARMATE RED, se sei tu stesso, se il giocatore è stato eliminato o se nessuno ha l'armata rossa, devi conquistare 24 TERRITORI;ARMATE;Sdr3@
-Devi conquistare la totalità del NORD_AMERICA e dell'AFRICA;CONTINENTI;FRe3@

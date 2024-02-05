@@ -286,22 +286,6 @@ public class GestionePartita {
 
     }
 
-    public void removeGiocatore(String psw) throws IOException, GiocatoreNonRegistrato, ObiettivoNonRegistrato {
-        // ricerca del giocatore
-        int line_giocatore = getLineGiocatore(psw);
-        if (line_giocatore == -1) {
-            throw new GiocatoreNonRegistrato(psw);
-        }
-        int line_obiettivo = getLineObiettivoPartita(psw);
-        if (line_obiettivo == -1) {
-            throw new ObiettivoNonRegistrato(psw);
-        }
-
-        // ora rimuovo il giocatore
-        iofObiettivoPartita.remove(line_obiettivo);
-        iofGiocatorePartita.remove(line_giocatore);
-    }
-
     public Giocatore getGiocatore(String psw) throws IOException, GiocatoreNonRegistrato {
         // uso il metodo che ritorna l'indice dell'arraylist
         int line_giocatore = getLineGiocatore(psw);
@@ -354,13 +338,6 @@ public class GestionePartita {
         iofObiettivoPartita.add(o);
     }
 
-    /**
-     *
-     * @param psw
-     * @return
-     * @throws IOException
-     * @throws ObiettivoNonRegistrato
-     */
     public ObiettivoPartita getObiettivoPartita(String psw) throws IOException, ObiettivoNonRegistrato {
         // uso il metodo che ritorna l'indice dell'arraylist
         int line_obiettivo = getLineObiettivoPartita(psw);
@@ -730,15 +707,21 @@ public class GestionePartita {
      * FASE ATTACCO: metodo per l'attacco di un territorio: vengono lanciati i
      * dadi per ogni giocatore e vengono confrontati in ordine decrescente
      *
+     * @param psw
      * @param territorioAttaccante territorio di partenza dal quale si vuole
      * effettuare l'attacco
      * @param territorioDifensore territorio che subisce l'attacco
      * @throws IOException
      * @throws AttaccoFallito
+     * @throws SpostamentoFallito
+     * @throws GiocatoreNonRegistrato
+     * @throws ObiettivoNonRegistrato
+     * @throws TerritorioNonRegistrato
+     * @throws TerritorioNonPosseduto
+     * @throws TerritorioNonConfinante
+     * @throws NMinTruppeAttaccoRaggiunto
      */
     public void faseAttacco(String psw, String territorioAttaccante, String territorioDifensore) throws IOException, AttaccoFallito, SpostamentoFallito, GiocatoreNonRegistrato, ObiettivoNonRegistrato, TerritorioNonRegistrato, TerritorioNonPosseduto, TerritorioNonConfinante, NMinTruppeAttaccoRaggiunto {
-        // Attaccante lancia i dadi
-
         controlloFaseAttacco(psw, territorioAttaccante, territorioDifensore);
         int armateAttaccante, armateDifensore;
         ArrayList<TerritorioPartita> territori = iofTerritorioPartita.loadData();
@@ -799,20 +782,15 @@ public class GestionePartita {
         int idx_dif = getLineTerritorioPartita(territorioDifensore);
         boolean territorioConquistato = false;
         //se nArmate>3 sposto 3 carri armati
-        //se il numero di armate del difensore =0 devo spostare alcune truppe
+        //se il numero di armate del difensore =0 e il territorio è stato conquist devo spostare alcune truppe
         if (territori.get(idx_dif).getNumeroArmate() == 0) {
             territorioConquistato = true;
-            String pswRemove = territori.get(idx_dif).getPasswordGiocatore();
             //cambio la password del giocatore
             territori.get(idx_dif).setPasswordGiocatore(territori.get(idx_attacc).getPasswordGiocatore());
             //aumento il numero di territori conquistati dal giocatore in questo turno
             giocatori.get(getLineGiocatore(territori.get(idx_attacc).getPasswordGiocatore())).setNTerritoriConquistatiPerTurno(giocatori.get(getLineGiocatore(
                     territori.get(idx_attacc).getPasswordGiocatore())).getNTerritoriConquistatiPerTurno() + 1);
-            //se il giocatore non ha più territori lo rimuvo dalla lista dei giocatori e il suo obiettivo
             iofGiocatorePartita.saveData(giocatori);
-            if (listaTerritoriGiocatorePartita(pswRemove).isEmpty()) {
-                removeGiocatore(pswRemove);
-            }
             int nArmateVincenti;//numero di armate da assagnare al territorio
             if (territori.get(idx_attacc).getNumeroArmate() > 3) {
                 nArmateVincenti = 3;
@@ -887,10 +865,13 @@ public class GestionePartita {
      *
      * @param psw del giocatore
      * @throws IOException
+     * @throw FinePartita
+     * @throws GiocatoreNonRegistrato
+     * @throws TerritorioNonRegistrato
+     * @throws ObiettivoNonRegistrato
      */
     public void controlloStatoObiettivoGiocatore(String psw) throws IOException, FinePartita, GiocatoreNonRegistrato, TerritorioNonRegistrato, ObiettivoNonRegistrato {
-        boolean statoObiettivo = false;
-        boolean territorioNonPosseduto;
+        boolean statoObiettivo=false;
         ObiettivoPartita obiettivo = getObiettivoPartita(psw);
         ArrayList<TerritorioPartita> territoriGiocatore = listaTerritoriGiocatorePartita(psw);
         switch (obiettivo.getTipoObiettivo()) {
@@ -902,33 +883,31 @@ public class GestionePartita {
                         break;
                     }
                 }
-                if (getLineGiocatore(colore)==-1 &&((colore.equals(iofGiocatorePartita.get(getLineGiocatore(psw)).getColore()) && listaTerritoriColore(colore).isEmpty())|| listaTerritoriGiocatorePartita(psw).size() > 23)) {
+                if (getLineGiocatore(colore) == -1 && listaTerritoriGiocatorePartita(psw).size() > 23) {
+                    statoObiettivo = true;
+                } else if (listaTerritoriColore(colore).isEmpty() && getLineGiocatore(colore) != -1) {
                     statoObiettivo = true;
                 }
                 break;
             case CONTINENTI:
-                territorioNonPosseduto = false;
-                for (int i = 0, k = 0; k != 1 && i < TipoContinente.values().length && !territorioNonPosseduto; i++) {
+                statoObiettivo=true;
+                for (int i = 0, k = 0; k <2 && i < TipoContinente.values().length; i++) {
                     if (obiettivo.getObiettivo().contains(TipoContinente.values()[i].name())) {
                         ArrayList<TerritorioDettagliato> tContinente = listaTerritoriDettagliatiContinente(TipoContinente.values()[i]);
                         k++;
-                        for (int j = 0; !territorioNonPosseduto && j < territoriGiocatore.size(); j++) {
-                            TerritorioPartita territorioGiocatore = territoriGiocatore.get(j);
-                            boolean territorioPresente = false;
-                            for (int t = 0; t < tContinente.size(); t++) {
-                                if (territorioGiocatore.equals((Territorio) tContinente.get(t))) {
-                                    territorioPresente = true;
-                                    break;
+                        boolean territorioTrovato = false;
+                        for (int j = 0; !territorioTrovato && j < territoriGiocatore.size(); j++) {
+                            for (int l = 0; l < tContinente.size(); l++) {
+                                if (tContinente.get(l).equals((Territorio) territoriGiocatore.get(j))) {
+                                    territorioTrovato = true;
                                 }
                             }
-                            if (!territorioPresente) {
-                                territorioNonPosseduto = true;
+                            if (!territorioTrovato) {
+                                statoObiettivo = false;
+                                break;
                             }
                         }
                     }
-                }
-                if (!territorioNonPosseduto) {
-                    statoObiettivo = true;
                 }
                 break;
             case NUMERO_TERRITORI:
