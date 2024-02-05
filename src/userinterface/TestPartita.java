@@ -56,11 +56,16 @@ public class TestPartita extends LeggiConsole {
     }
 
     ////////////////////////////////////////////////////////////////////////////
+    /**
+    *INSERISCI NUMERO GIOCATORI: metodo che chiede all'utente di inserire un intero ed esegue gli opportuni controlli
+    */
     public void inserisciNumeroGiocatori() {
         int num = ioconsole.LeggiConsole.getIntInRange("INSERISCI IL NUMERO DI GIOCATORI CHE PARTECIPANO ALLA PARTITA", "IL VALORE INSERITO NON E' ACCETTABILE", gp.getNUMERO_MIN_GIOCATORI() - 1, gp.getNUMERO_MAX_GIOCATORI() + 1);
         gp.setN_giocatori(num);
     }
-
+    /**
+    * INSERISCI TIPO PARTITA: metodo che permette all'utende di scegliere il tipo di partita che vuole fare
+    */
     public void inserisciTipoPartita() {
         try {
             TipoPartita t = getTipoPartita("INSERISCI IL TIPO DI PARTITA CHE VUOI EFFETTUARE", "IL VALORE INSERITO NON E' ACCETTABILE");
