@@ -21,13 +21,11 @@ import enums.TipoArma;
 import enums.TipoColore;
 import enums.TipoContinente;
 import enums.TipoPartita;
+import java.time.LocalDate;
 
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
+
 /**
  *
  * @author Annachiara
@@ -38,6 +36,7 @@ public class GestionePartita {
     private static final int NUMERO_MAX_GIOCATORI = 6;
     private int n_giocatori;
     private TipoPartita tipoPartita;
+    private static final LocalDate DATA_PARTITA=LocalDate.now();
     private IOObjectFileGiocatorePartita iofGiocatorePartita;
     private IOObjectFileObiettivoPartita iofObiettivoPartita;
     private IOObjectFileCarteArmiPartita iofCarteArmiPartita;
@@ -111,7 +110,9 @@ public class GestionePartita {
         return "-----------------------------\n"
                 + "DETTAGLI PARTITA:\n"
                 + "-----------------------------\n"
-                + "numero giocatori: " + n_giocatori + "\ntipo partita: " + tipoPartita + "\n"
+                + "data: "+DATA_PARTITA.format(dtformatters.DateTimeIT.DATE)
+                +"\nnumero giocatori: " + n_giocatori 
+                + "\ntipo partita: " + tipoPartita + "\n"
                 + "-----------------------------\n";
     }
 

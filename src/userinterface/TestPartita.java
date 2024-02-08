@@ -42,11 +42,11 @@ public class TestPartita extends LeggiConsole {
             @Override
             public void run() {
                 // Azioni da eseguire quando scade il tempo dell'attacco
-                System.out.println("<<<<IL TIMER E' SCADUTO>>>>>");
+                System.out.println("<<<<IL TIMER E' SCADUTO>>>>");
                 timerScaduto = true;
                 timer.cancel();  // Ferma il timer dopo l'esecuzione
             }
-        }, 300000);
+        }, 180000);
     }
 
     private void interrompiTimer() {
@@ -57,15 +57,18 @@ public class TestPartita extends LeggiConsole {
 
     ////////////////////////////////////////////////////////////////////////////
     /**
-    *INSERISCI NUMERO GIOCATORI: metodo che chiede all'utente di inserire un intero ed esegue gli opportuni controlli
-    */
+     * INSERISCI NUMERO GIOCATORI: metodo che chiede all'utente di inserire un
+     * intero ed esegue gli opportuni controlli
+     */
     public void inserisciNumeroGiocatori() {
         int num = ioconsole.LeggiConsole.getIntInRange("INSERISCI IL NUMERO DI GIOCATORI CHE PARTECIPANO ALLA PARTITA", "IL VALORE INSERITO NON E' ACCETTABILE", gp.getNUMERO_MIN_GIOCATORI() - 1, gp.getNUMERO_MAX_GIOCATORI() + 1);
         gp.setN_giocatori(num);
     }
+
     /**
-    * INSERISCI TIPO PARTITA: metodo che permette all'utende di scegliere il tipo di partita che vuole fare
-    */
+     * INSERISCI TIPO PARTITA: metodo che permette all'utende di scegliere il
+     * tipo di partita che vuole fare
+     */
     public void inserisciTipoPartita() {
         try {
             TipoPartita t = getTipoPartita("INSERISCI IL TIPO DI PARTITA CHE VUOI EFFETTUARE", "IL VALORE INSERITO NON E' ACCETTABILE");
@@ -75,13 +78,16 @@ public class TestPartita extends LeggiConsole {
         }
 
     }
+
     /**
-     * INIZIO PARTITA: metodo che permette al giocatore di scegliere il tipo partita, il numero dei giocatori, 
-     * permette di inserire i giocatori e di default assegna gli obiettivi e i territori
+     * INIZIO PARTITA: metodo che permette al giocatore di scegliere il tipo
+     * partita, il numero dei giocatori, permette di inserire i giocatori e di
+     * default assegna gli obiettivi e i territori
      */
     public void inizioPartita() {
         inserisciTipoPartita();
         inserisciNumeroGiocatori();
+        System.out.println(gp);
         for (int i = 0; i < gp.getN_giocatori(); i++) {
             inserisciGiocatore();
         }
@@ -99,8 +105,11 @@ public class TestPartita extends LeggiConsole {
             Logger.getLogger(TestPartita.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+
     /**
-     * TURNO DI GIOCO: metodo che gestisce il turno di gioco di un utente (fase rinforzo, attacco, spostamento)
+     * TURNO DI GIOCO: metodo che gestisce il turno di gioco di un utente (fase
+     * rinforzo, attacco, spostamento)
+     *
      * @param psw del giocatore che esegue il turno
      */
     public void turnoDiGioco(String psw) {
@@ -166,7 +175,7 @@ public class TestPartita extends LeggiConsole {
         System.out.println("VUOI CONTINUARE CON LA FASE DI ATTACCO (true) OPPURE PASSARE ALLO SPOSTAMENTO TRUPPE(false)?");
         if (scelta()) {
             avviaTimer();
-            System.out.println("!!! IL TIMER E' PARTITO !!! (5 minuti)");
+            System.out.println("!!! IL TIMER E' PARTITO !!! (3 minuti)");
             boolean scelta = false;
             try {
                 do {
@@ -224,7 +233,7 @@ public class TestPartita extends LeggiConsole {
         try {
             if (scelta()) {
                 avviaTimer();
-                System.out.println("!!! IL TIMER E' PARTITO !!! (5 minuti)");
+                System.out.println("!!! IL TIMER E' PARTITO !!! (3 minuti)");
                 boolean scelta;
                 do {
                     stampaTerritori(gp.listaTerritoriGiocatorePartita(psw));

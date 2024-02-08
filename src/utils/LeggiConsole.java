@@ -39,7 +39,7 @@ public class LeggiConsole {
      */
     public static boolean getBoolean(String messaggio, String messaggioErrore) {
         Scanner scan = new Scanner(System.in);
-        System.out.println(messaggio);
+        System.out.print(messaggio+": ");
         String txt;
         do {
             txt = scan.nextLine().toLowerCase();

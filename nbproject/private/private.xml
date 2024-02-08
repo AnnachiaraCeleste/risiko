@@ -12,7 +12,6 @@
             <file>file:/C:/Users/Annachiara/Documents/NetBeansProjects/Risiko/src/utils/EnumParser.java</file>
             <file>file:/C:/Users/Annachiara/Documents/NetBeansProjects/Risiko/src/model/Obiettivo.java</file>
             <file>file:/C:/Users/Annachiara/Documents/NetBeansProjects/Risiko/src/model/Territorio.java</file>
-            <file>file:/C:/Users/Annachiara/Documents/NetBeansProjects/Risiko/territoriPartita.txt</file>
             <file>file:/C:/Users/Annachiara/Documents/NetBeansProjects/Risiko/carteArmiPartita.txt</file>
             <file>file:/C:/Users/Annachiara/Documents/NetBeansProjects/Risiko/obiettivi.txt</file>
             <file>file:/C:/Users/Annachiara/Documents/NetBeansProjects/Risiko/src/enums/TipoArma.java</file>
@@ -23,7 +22,6 @@
             <file>file:/C:/Users/Annachiara/Documents/NetBeansProjects/Risiko/src/exceptions/TerritorioNonPosseduto.java</file>
             <file>file:/C:/Users/Annachiara/Documents/NetBeansProjects/Risiko/src/data/IOObjectFileCarteArmiPartita.java</file>
             <file>file:/C:/Users/Annachiara/Documents/NetBeansProjects/Risiko/src/userinterface/Risiko.java</file>
-            <file>file:/C:/Users/Annachiara/Documents/NetBeansProjects/Risiko/src/userinterface/TestPartita.java</file>
             <file>file:/C:/Users/Annachiara/Documents/NetBeansProjects/Risiko/src/data/IOObjectFileObiettivoPartita.java</file>
             <file>file:/C:/Users/Annachiara/Documents/NetBeansProjects/Risiko/src/model/TerritorioPartita.java</file>
             <file>file:/C:/Users/Annachiara/Documents/NetBeansProjects/Risiko/src/exceptions/FinePartita.java</file>

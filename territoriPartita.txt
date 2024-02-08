@@ -1,0 +1,42 @@
+Afghanistan;FANTERIA;Grenwed8@;1
+Africa Orientale;ARTIGLIERIA;Anna@88;1
+Alaska;FANTERIA;Anna@88;3
+Alberta;FANTERIA;Anna@88;1
+America Centrale;CAVALLERIA;Blue@9;1
+Argentina;FANTERIA;Blue@9;1
+Australia Occidentale;ARTIGLIERIA;Blue@9;1
+Australia Orientale;FANTERIA;Grenwed8@;1
+Brasile;ARTIGLIERIA;Grenwed8@;1
+Cina;CAVALLERIA;Anna@88;1
+Cita;FANTERIA;Grenwed8@;1
+Congo;CAVALLERIA;Grenwed8@;1
+Egitto;FANTERIA;Blue@9;1
+Europa Meridionale;CAVALLERIA;Blue@9;1
+Europa Occidentale;FANTERIA;Anna@88;1
+Europa Settentrionale;CAVALLERIA;Blue@9;1
+Giappone;FANTERIA;Grenwed8@;1
+Gran Bretagna;CAVALLERIA;Blue@9;1
+Groenlandia;CAVALLERIA;Anna@88;1
+India;FANTERIA;Grenwed8@;1
+Indonesia;CAVALLERIA;Anna@88;1
+Islanda;FANTERIA;Anna@88;1
+Jacuzia;CAVALLERIA;Blue@9;1
+Kamchatka;CAVALLERIA;Blue@9;1
+Madagascar;FANTERIA;Grenwed8@;1
+Medio Oriente;ARTIGLIERIA;Blue@9;1
+Mongolia;ARTIGLIERIA;Anna@88;1
+Nord Africa;FANTERIA;Grenwed8@;1
+Nuova Guinea;CAVALLERIA;Grenwed8@;1
+Ontario;CAVALLERIA;Anna@88;1
+Peru;CAVALLERIA;Anna@88;1
+Quebec;ARTIGLIERIA;Anna@88;2
+Scandinavia;ARTIGLIERIA;Grenwed8@;1
+Siam;ARTIGLIERIA;Anna@88;1
+Siberia;ARTIGLIERIA;Grenwed8@;1
+Stati Uniti Occidentali;FANTERIA;Grenwed8@;1
+Stati Uniti Orientali;ARTIGLIERIA;Anna@88;1
+Sud Africa;ARTIGLIERIA;Blue@9;1
+Territori del Nord-Ovest;ARTIGLIERIA;Grenwed8@;1
+Ucraina;ARTIGLIERIA;Blue@9;1
+Urali;CAVALLERIA;Anna@88;1
+Venezuela;ARTIGLIERIA;Blue@9;1
