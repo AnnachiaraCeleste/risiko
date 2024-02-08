@@ -276,6 +276,12 @@ public class GestionePartita {
     }
 
     ///////////////////////// CRUD FUNCTIONS GIOCATORE /////////////////////////
+    /**
+     * ADD GIOCATORE: Metodo che dato un giocatore lo inserisce nel gioco
+     * @param g giocatore che si vuole inserire
+     * @throws IOException
+     * @throws GiocatoreGiaRegistrato 
+     */
     public void addGiocatore(Giocatore g) throws IOException, GiocatoreGiaRegistrato {
         int line_giocatore = getLineGiocatore(g.getPassword());
         int line_colore = getLineGiocatore(g.getColore());
@@ -286,7 +292,14 @@ public class GestionePartita {
         iofGiocatorePartita.add(g);
 
     }
-
+    /**
+     * GET GIOCATORE: Metodo che data una certa password restituisce il giocatore
+     * avente quella password
+     * @param psw identificativa del giocatore
+     * @return giocatore avente una certa password
+     * @throws IOException
+     * @throws GiocatoreNonRegistrato 
+     */
     public Giocatore getGiocatore(String psw) throws IOException, GiocatoreNonRegistrato {
         // uso il metodo che ritorna l'indice dell'arraylist
         int line_giocatore = getLineGiocatore(psw);
@@ -295,7 +308,12 @@ public class GestionePartita {
         }
         return iofGiocatorePartita.get(line_giocatore);
     }
-
+    /**
+     * ADD CARTA ARMI PARTITA: Metodo che aggiunge una carta alla partita
+     * @param c carta da inserire
+     * @throws IOException
+     * @throws CartaGiaRegistrata 
+     */
     public void addCartaArmiPartita(CarteArmiPartita c) throws IOException, CartaGiaRegistrata {
         int line_carta = getLineCarteArmiPartita(c.getNome());
         if (line_carta != -1) {
@@ -303,7 +321,14 @@ public class GestionePartita {
         }
         iofCarteArmiPartita.add(c);
     }
-
+    /**
+     * REMOVE CARTA ARMI PARTITA: Metodo che sottrae una carta a ad un certo
+     * giocatore che viene identificato da una password
+     * @param psw identificativa del giocatore
+     * @param a tipo arma
+     * @throws IOException
+     * @throws CartaNonRegistrataPSWNome 
+     */
     public void removeCartaArmiPartita(String psw, TipoArma a) throws IOException, CartaNonRegistrataPSWNome {
         int line_carta = getLineCarteArmiPartita(psw, a);
         if (line_carta == -1) {
@@ -311,7 +336,12 @@ public class GestionePartita {
         }
         iofCarteArmiPartita.remove(line_carta);
     }
-
+    /**
+     * ADD TERRITORIO PARTITA: Metodo che aggiunge un certo territorio t alla partita
+     * @param t territorio
+     * @throws IOException
+     * @throws TerritorioGiaRegistrato 
+     */
     public void addTerritorioPartita(TerritorioPartita t) throws IOException, TerritorioGiaRegistrato {
         // uso il metodo che ritorna l'indice dell'arraylist
         int line_territorio = getLineTerritorioPartita(t.getNome());
@@ -320,7 +350,14 @@ public class GestionePartita {
         }
         iofTerritorioPartita.add(t);
     }
-
+    /**
+     * GET TERRITORIO PARTITA: Metodo che restituisce il territorio 
+     * della partita sapendo il suo nome
+     * @param nome nome del territorio
+     * @return territorio del nome richiesto
+     * @throws IOException
+     * @throws TerritorioNonRegistrato 
+     */
     public TerritorioPartita getTerritorioPartita(String nome) throws IOException, TerritorioNonRegistrato {
         // uso il metodo che ritorna l'indice dell'arraylist
         int line_territorio = getLineTerritorioPartita(nome);
@@ -329,7 +366,12 @@ public class GestionePartita {
         }
         return iofTerritorioPartita.get(line_territorio);
     }
-
+    /**
+     * ADD OBIETTIVO PARTITA: Metodo che aggiunge alla partita un'obiettivo
+     * @param o obiettivo da aggiungere
+     * @throws IOException
+     * @throws ObiettivoGiaRegistrato 
+     */
     public void addObiettivoPartita(ObiettivoPartita o) throws IOException, ObiettivoGiaRegistrato {
         // uso il metodo che ritorna l'indice dell'arraylist
         int line_obiettivo = getLineObiettivoPartita(o.getPassword());
@@ -338,7 +380,14 @@ public class GestionePartita {
         }
         iofObiettivoPartita.add(o);
     }
-
+    /**
+     * GET OBIETTIVO PARTITA: Metodo che restituisce l'obiettivo di una certa
+     * persona sapendo la password
+     * @param psw identificativo giocatore
+     * @return Obiettivo del giocatore avente una certa password
+     * @throws IOException
+     * @throws ObiettivoNonRegistrato 
+     */
     public ObiettivoPartita getObiettivoPartita(String psw) throws IOException, ObiettivoNonRegistrato {
         // uso il metodo che ritorna l'indice dell'arraylist
         int line_obiettivo = getLineObiettivoPartita(psw);
@@ -347,7 +396,13 @@ public class GestionePartita {
         }
         return iofObiettivoPartita.get(line_obiettivo);
     }
-
+    /**
+     * REMOVE OBIETTIVO PARTITA: Metodo che toglie l'obiettivo di un certo 
+     * giocatore avente una certa password
+     * @param psw identificativo giocatore
+     * @throws IOException
+     * @throws ObiettivoNonRegistrato 
+     */
     public void removeObiettivoPartita(String psw) throws IOException, ObiettivoNonRegistrato {
         // ricerca del giocatore
         int line_obiettivo = getLineObiettivoPartita(psw);
@@ -357,7 +412,14 @@ public class GestionePartita {
         // ora rimuovo il giocatore
         iofObiettivoPartita.remove(line_obiettivo);
     }
-
+    /**
+     * GET TERRITORIO DETTAGLIATO: Metodo che ritorna il territorio
+     * detaggliato sapendo il nome di esso
+     * @param nomenome del territorio che si vuole conoscere
+     * @return territorio dettagliato avente il nome inserito
+     * @throws IOException
+     * @throws TerritorioNonRegistrato 
+     */
     public TerritorioDettagliato getTerritorioDettagliato(String nome) throws IOException, TerritorioNonRegistrato {
         // uso il metodo che ritorna l'indice dell'arraylist
         int line_territorio = getLineTerritorioDettagliato(nome);
@@ -1086,17 +1148,24 @@ public class GestionePartita {
         }
         System.out.println();
     }
-
+    /**
+     * STAMPA LISTA TERRITORI: Metodo che stampa tutti i territori
+     * @param lista lista di tutti i territori
+     */
     public static void stampaListaTerritori(ArrayList<TerritorioPartita> lista) {
-        System.out.println("***************************************");
+        System.out.println("*************");
         for (int i = 0; i < lista.size(); i++) {
             System.out.println(lista.get(i));
         }
-        System.out.println("***************************************");
+        System.out.println("*************");
     }
-
+    /**
+     * STAMPA LISTA TERRITORI FASE ATTACCO: Metodo che stampa la lista di territori con il suo proprietario
+     * @param listaT lista dei territori 
+     * @param listaG lista dei giocatori
+     */
     public static void stampaListaTerritoriFaseAttacco(ArrayList<TerritorioPartita> listaT, ArrayList<TerritorioPartita> listaG) {
-        System.out.println("**************************************************************************");
+        System.out.println("**************************");
         System.out.println("(P=proprietario; T=truppe)");
         for (int i = 0, j = 0; i < listaT.size(); i++) {
             TerritorioPartita t = listaT.get(i);
@@ -1111,6 +1180,6 @@ public class GestionePartita {
                 System.out.println(t.getNome() + " {P: " + t.getPasswordGiocatore() + "; T: " + t.getNumeroArmate() + '}');
             }
         }
-        System.out.println("**************************************************************************");
+        System.out.println("**************************");
     }
 }
