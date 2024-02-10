@@ -1,3 +1,0 @@
-Anna;RED;Anna@88;5;1
-Fre;BLUE;Blue@9;21;0
-JACK;GREEN;Grenwed8@;21;0

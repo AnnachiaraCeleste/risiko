@@ -21,11 +21,15 @@ public class IOObjectFileGiocatorePartita extends IOObjectFile<Giocatore> {
     
     @Override
     public String serialize(Giocatore g) {
-        return g.getNome() + separator + g.getColore() + separator + g.getPassword() + separator + g.getRinforzi()+separator+g.getNTerritoriConquistatiPerTurno(); 
+        return g.getNome() + separator + g.getColore() + separator + g.getPassword() + separator
+                + g.getTruppe() + separator + g.getNTerritoriConquistatiPerTurno() + separator
+                + g.getTerritorioOrigine() + separator + g.getTerritorioDestinazione() + separator + g.getRinforziTurno();        
     }
-    
+
+    //String nome, TipoColore colore, String password, int rinforzi, int tConquistati, String tOrigine, String tDestinazione
     @Override
     public Giocatore deserialize(String[] attributes) {
-        return new Giocatore(attributes[0], TipoColore.valueOf(attributes[1]), attributes[2], Integer.parseInt(attributes[3]),Integer.parseInt(attributes[4]));
+        return new Giocatore(attributes[0], TipoColore.valueOf(attributes[1]), attributes[2],
+                Integer.parseInt(attributes[3]), Integer.parseInt(attributes[4]), attributes[5], attributes[6], Integer.parseInt(attributes[7]));
     }
 }
