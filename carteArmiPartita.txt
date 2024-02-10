@@ -1,4 +1,0 @@
-Afghanistan;FANTERIA;Fre15@
-Mongolia;ARTIGLIERIA;Anna24@
-Alaska;FANTERIA;Fre15@
-America Centrale;CAVALLERIA;Anna24@

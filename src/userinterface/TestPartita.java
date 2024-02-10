@@ -81,7 +81,7 @@ public class TestPartita extends LeggiConsole {
      */
     public void inserisciTipoPartita() {
         try {
-            TipoPartita t = getTipoPartita("INSERISCI IL TIPO DI PARTITA CHE VUOI EFFETTUARE", "IL VALORE INSERITO NON E' ACCETTABILE");
+            TipoPartita t = getTipoPartita("INSERISCI IL TIPO DI PARTITA CHE VUOI EFFETTUARE (CLASSICA o TORNEO)", "IL VALORE INSERITO NON E' ACCETTABILE");
             gp.setTipoPartita(t);
         } catch (IOException ex) {
             Logger.getLogger(TestPartita.class.getName()).log(Level.SEVERE, null, ex);
@@ -132,7 +132,7 @@ public class TestPartita extends LeggiConsole {
         String nome = getStringNonVuota("INSERISCI IL TUO NOME");
         try {
             TipoColore colore = getTipoColore("INSERISCI IL COLORE DELLA TUA ARMATA", "IL VALORE INSERITO NON E' ACCETTABILE");
-            String psw = getPassword("INSERISCI LA TUA PASSWORD IDENTIFICATIVA", "IL VALORE INSERITO NON E' ACCETTABILE \n(più di 8 caratteri, almeno una maiuscola, una minuscola, un numero e un carattere speciale)");
+            String psw = getPassword("INSERISCI LA TUA PASSWORD IDENTIFICATIVA", "IL VALORE INSERITO NON E' ACCETTABILE \n(più di 3 caratteri, almeno una maiuscola, una minuscola, un numero e un carattere speciale)");
             gp.addGiocatore(new Giocatore(nome, colore, psw));
             System.out.println(new Giocatore(nome, colore, psw));
         } catch (IOException | GiocatoreGiaRegistrato ex) {

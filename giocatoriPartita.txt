@@ -1,2 +1,0 @@
-ANNA;BLUE;Anna24@;0;0; ; ;0
-FRE;GREEN;Fre15@;0;0; ; ;8
