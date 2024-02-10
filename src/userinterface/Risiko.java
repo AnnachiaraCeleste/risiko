@@ -13,8 +13,6 @@ import java.lang.System.Logger;
 import java.lang.System.Logger.Level;
 import logic.GestionePartita;
 
-
-
 /**
  *
  * @author Annachiara
@@ -22,8 +20,6 @@ import logic.GestionePartita;
 public class Risiko {
 
     public static void main(String[] args) {
-
-        
         try {
             GestionePartita gp = new GestionePartita();
             TestPartita tp = new TestPartita(gp);
@@ -36,7 +32,7 @@ public class Risiko {
                     + " |_|  \\_\\ |_____| |_____/  |_____| |_|\\_\\  \\____/ ");
             System.out.println("\n\nPRONTO A METTERE IN GIOCO LA TUE ABILITA' STRATEGICHE?\nBUON DIVERTIMENTO!\nRicordati: la guerra non è un gioco");
             //Per poter inziziare la partita deve avere almeno due giocatori e due obiettivi
-            if (gp.getIofGiocatorePartita().loadData().size()>1&&gp.getIofObiettivoPartita().loadData().size()>1) {
+            if (gp.getIofGiocatorePartita().loadData().size() > 1 && gp.getIofObiettivoPartita().loadData().size() > 1) {
                 System.out.println("\n\nVUOI CONTINUARE LA PARTITA INIZIATA?");
                 if (!tp.scelta()) {
                     iofiles.WriteFile.clearAllLines(gp.getIofGiocatorePartita().getFileName());
@@ -70,9 +66,11 @@ public class Risiko {
 
                 }
             }
-        } catch (IOException | ControlloObiettivo ex) {
+        } catch (IOException ex) {
             java.util.logging.Logger.getLogger(Risiko.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }catch(ControlloObiettivo ex){
+            System.out.println(ex);
         }
-        
+
     }
 }

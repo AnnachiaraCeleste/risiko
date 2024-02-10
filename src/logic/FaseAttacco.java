@@ -32,7 +32,7 @@ public class FaseAttacco extends GestionePartita{
     public void setTerritoriTruppePerFase(String psw, String territorioAttacco, String territorioDifesa, int truppe) {
         try {
             controlloFaseAttacco(psw, territorioAttacco, territorioDifesa);
-            super.setTerritoriTruppePerFase(psw, territorioDifesa, territorioAttacco, 0);
+            super.setTerritoriTruppePerFase(psw, territorioAttacco, territorioDifesa, 0);
         } catch (IOException | RisikoExceptions ex) {
             Logger.getLogger(FaseAttacco.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -263,9 +263,9 @@ public class FaseAttacco extends GestionePartita{
     }
 
     @Override
-    public String stampaFase(String psw) throws IOException, GiocatoreNonRegistrato {
+    public void stampaFase(String psw) throws IOException, GiocatoreNonRegistrato {
         Giocatore g= getGiocatore(psw);
-        return "FASE ATTACCO: "+g.getTerritorioOrigine()+" --vs-- "+g.getTerritorioDestinazione();
+        System.out.println("FASE ATTACCO: "+g.getTerritorioOrigine()+" --vs-- "+g.getTerritorioDestinazione());
     }
     
 

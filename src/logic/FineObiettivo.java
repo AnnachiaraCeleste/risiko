@@ -16,7 +16,7 @@ import model.*;
  *
  * @author Annachiara
  */
-public class FinePartita extends GestionePartita {
+public class FineObiettivo extends GestionePartita {
 
     /**
      * CONTROLLO STATO OBIETTIVO GIOCATORE: metodo che controlla se il giocatore
@@ -116,8 +116,8 @@ public class FinePartita extends GestionePartita {
     }
 
     @Override
-    public String stampaFase(String psw) throws IOException, RisikoExceptions {
-       return "";//metodo da implementare per necessità, non servirebbe
+    public void stampaFase(String psw) {
+       //metodo da implementare per necessità, non servirebbe
     }
 
 }

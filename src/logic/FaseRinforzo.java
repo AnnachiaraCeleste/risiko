@@ -227,9 +227,9 @@ public class FaseRinforzo extends GestionePartita {
     }
 
     @Override
-    public String stampaFase(String psw) throws IOException, RisikoExceptions {
+    public void stampaFase(String psw) throws IOException, RisikoExceptions {
         Giocatore g=getGiocatore(psw);
-        return "FASE SPOSTAMENTO: "+g.getTerritorioOrigine()+" +"+g.getTruppe();
+        System.out.println("FASE SPOSTAMENTO: "+g.getTerritorioOrigine()+" +"+g.getTruppe());
     }
 
 }

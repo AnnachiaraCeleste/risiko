@@ -31,9 +31,8 @@ public interface InterfacciaPartita {
      * effettuata
      *
      * @param psw del giocatore che esegue la fase
-     * @return il dettaglio della fase
      * @throws IOException
      * @throws RisikoExceptions
      */
-    String stampaFase(String psw) throws IOException, RisikoExceptions;
+    void stampaFase(String psw) throws IOException, RisikoExceptions;
 }

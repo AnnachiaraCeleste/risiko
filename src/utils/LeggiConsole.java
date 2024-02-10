@@ -284,7 +284,7 @@ public class LeggiConsole {
 
     private boolean checkTruppeRinforzo(String psw, String txt) {
         try {
-            return gp.getGiocatore(psw).getTruppe() >= Integer.parseInt(txt);
+            return gp.getGiocatore(psw).getRinforziTurno()>= Integer.parseInt(txt);
         } catch (IOException | GiocatoreNonRegistrato ex) {
             return false;
         }

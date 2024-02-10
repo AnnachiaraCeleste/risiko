@@ -75,12 +75,12 @@ public class GestionePartita implements InterfacciaPartita {
     }
 
     public GestionePartita() {
-        this.iofGiocatorePartita = new IOObjectFileGiocatorePartita("giocatoriPartita.txt", SEPARATOR);
-        this.iofObiettivoPartita = new IOObjectFileObiettivoPartita("obiettiviPartita.txt", SEPARATOR);
-        this.iofCarteArmiPartita = new IOObjectFileCarteArmiPartita("carteArmiPartita.txt", SEPARATOR);
-        this.iofTerritorioPartita = new IOObjectFileTerritorioPartita("territoriPartita.txt", SEPARATOR);
-        this.iofTerritorioDettagliato = new IOObjectFileTerritorioDettagliato("territori.txt", SEPARATOR);
-        this.iofObiettivo = new IOObjectFileObiettivo("obiettivi.txt", SEPARATOR);
+        iofGiocatorePartita = new IOObjectFileGiocatorePartita("giocatoriPartita.txt", SEPARATOR);
+        iofObiettivoPartita = new IOObjectFileObiettivoPartita("obiettiviPartita.txt", SEPARATOR);
+        iofCarteArmiPartita = new IOObjectFileCarteArmiPartita("carteArmiPartita.txt", SEPARATOR);
+        iofTerritorioPartita = new IOObjectFileTerritorioPartita("territoriPartita.txt", SEPARATOR);
+        iofTerritorioDettagliato = new IOObjectFileTerritorioDettagliato("territori.txt", SEPARATOR);
+        iofObiettivo = new IOObjectFileObiettivo("obiettivi.txt", SEPARATOR);
     }
 
     public GestionePartita(int n_giocatori, TipoPartita tipoPartita) {
@@ -279,7 +279,7 @@ public class GestionePartita implements InterfacciaPartita {
         if (line_giocatore != -1 || line_colore != -1) {
             throw new GiocatoreGiaRegistrato(g.getPassword());
         }
-        g.setTruppe(numeroArmateIniziali());
+        g.setRinforziTurno(numeroArmateIniziali());
         iofGiocatorePartita.add(g);
 
     }
@@ -485,13 +485,13 @@ public class GestionePartita implements InterfacciaPartita {
                 TerritorioPartita territorio = new TerritorioPartita(territoriPartita.get(idxTerritori[j]).getNome(),
                         territoriPartita.get(idxTerritori[j]).getArma(), giocatori.get(i).getPassword(), 1);
                 addTerritorioPartita(territorio);
-                giocatori.get(i).setTruppe(giocatori.get(i).getTruppe() - 1);
+                giocatori.get(i).setRinforziTurno(giocatori.get(i).getRinforziTurno()- 1);
             }
             if ((nGiocatori == 4 || nGiocatori == 5) && (i == 0 || i == 1 && j < territoriPartita.size())) {
                 TerritorioPartita territorio = new TerritorioPartita(territoriPartita.get(idxTerritori[j]).getNome(),
                         territoriPartita.get(idxTerritori[j]).getArma(), giocatori.get(i).getPassword(), 1);
                 addTerritorioPartita(territorio);
-                giocatori.get(i).setTruppe(giocatori.get(i).getTruppe() - 1);
+                giocatori.get(i).setRinforziTurno(giocatori.get(i).getRinforziTurno()- 1);
                 j++;
             }
         }
@@ -548,8 +548,8 @@ public class GestionePartita implements InterfacciaPartita {
     }
 
     @Override
-    public String stampaFase(String psw) throws IOException, RisikoExceptions {
-       return "Una partita è fatta di tre fasi: rinforzo, attacco, spostamento";
+    public void stampaFase(String psw) throws IOException, RisikoExceptions {
+        System.out.println("Una partita è fatta di tre fasi: rinforzo, attacco, spostamento");
     }
     /**
      * SET TERRITORI TRUPPE PER FASE: metodo implementato per supportare i

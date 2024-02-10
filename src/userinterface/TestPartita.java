@@ -30,18 +30,17 @@ public class TestPartita extends LeggiConsole {
 
     private Timer timer;
     private boolean timerScaduto;
-    private GestionePartita gp;
     private FaseAttacco fa;
     private FaseSpostamento fs;
     private FaseRinforzo fr;
-    private FinePartita fi;
+    private FineObiettivo fo;
 
     public TestPartita(GestionePartita gp) {
         super(gp);
         this.fa = new FaseAttacco();
         this.fs = new FaseSpostamento();
         this.fr = new FaseRinforzo();
-        this.fi = new FinePartita();
+        this.fo = new FineObiettivo();
     }
 
     //TIMER-------------------------------------------------------------------//
@@ -167,10 +166,10 @@ public class TestPartita extends LeggiConsole {
 
     public void faseRinforzoInizio(String psw) {
         try {
-            while (gp.getGiocatore(psw).getTruppe() > 0) {
+            while (gp.getGiocatore(psw).getRinforziTurno()> 0) {
                 stampaTerritori(gp.listaTerritoriGiocatorePartita(psw));
                 stampaObiettivoPersonale(psw);
-                System.out.println("Numero Rinforzi: " + gp.getGiocatore(psw).getTruppe());
+                System.out.println("Numero Rinforzi: " + gp.getGiocatore(psw).getRinforziTurno());
                 String territorio = getTerritorioRinforzo(psw, "INSERISCI IL NOME DEL TERRITORIO AL QUALE VUOI AGGIUNGERE LE TRUPPE", "IL VALORE INSERITO NON E' ACCETTABILE");
                 int truppeRinforzo = getTruppeRinforzo(psw, "INSERISCI IL NUMERO DI TRUPPE DA AGGIUNGERE AL TERRITORIO", "IL VALORE INSERITO NON E' ACCETTABILE. INSERISCI UN INTERO");
                 fr.setTerritoriTruppePerFase(psw, territorio, " ", truppeRinforzo);
@@ -289,11 +288,12 @@ public class TestPartita extends LeggiConsole {
 
     }
 
-    public void controlloStatoPartita(String psw) throws ControlloObiettivo {
+    public void controlloStatoPartita(String psw) throws ControlloObiettivo{
         try {
-            fi.eseguiFase(psw);
+            fo.eseguiFase(psw);
         } catch (IOException | GiocatoreNonRegistrato | TerritorioNonRegistrato | ObiettivoNonRegistrato ex) {
             Logger.getLogger(TestPartita.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
     }
 }

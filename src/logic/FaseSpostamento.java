@@ -37,7 +37,7 @@ public class FaseSpostamento extends GestionePartita {
                     || getTerritorioPartita(territorioPartenza).getNumeroArmate() == 1) {
                 throw new SpostamentoFallito(territorioPartenza);
             }
-           super.setTerritoriTruppePerFase(psw, territorioPartenza, territorioDestinazione, nGiocatori);
+           super.setTerritoriTruppePerFase(psw, territorioPartenza, territorioDestinazione, numeroArmateDaSpostare);
         } catch (IOException | TerritorioNonRegistrato | TerritorioNonPosseduto | SpostamentoFallito ex) {
             Logger.getLogger(FaseSpostamento.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -64,9 +64,9 @@ public class FaseSpostamento extends GestionePartita {
     }
 
     @Override
-    public String stampaFase(String psw) throws IOException, RisikoExceptions {
+    public void stampaFase(String psw) throws IOException, RisikoExceptions {
         Giocatore g= getGiocatore(psw);
-        return "FASE SPOSTAMENTO: "+g.getTerritorioOrigine()+"---"+g.getTruppe()+"-->"+g.getTerritorioDestinazione();
+        System.out.println("FASE SPOSTAMENTO: "+g.getTerritorioOrigine()+"---"+g.getTruppe()+"-->"+g.getTerritorioDestinazione());
     }
 
 }
