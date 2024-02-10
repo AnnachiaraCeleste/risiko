@@ -29,10 +29,10 @@ public class LeggiConsole {
     public LeggiConsole(GestionePartitaDaModificare gestp) {
         gp = gestp;
     }
-    
+
     public static int getIntInRange(String messaggio, String messaggioErrore, int estremo_inf, int estremo_sup) {
         Scanner scan = new Scanner(System.in);
-        System.out.print(messaggio+": ");
+        System.out.print(messaggio + ": ");
         String valore;
         do {
             valore = scan.nextLine();
@@ -42,6 +42,20 @@ public class LeggiConsole {
         } while (!NumParser.checkIntInRange(valore, estremo_inf, estremo_sup));
         return Integer.parseInt(valore);
     }
+
+    public static String getStringNonVuota(String messaggio) {
+        Scanner scan = new Scanner(System.in);
+        System.out.print(messaggio+": ");
+        String txt;
+        do {
+            txt = scan.nextLine();
+            if (txt.isEmpty()) {
+                System.out.println("la stampa è vuota reinserisci");
+            }
+        } while (txt.isEmpty());
+        return txt;
+    }
+
     /**
      * inserimento di un booleano
      *

@@ -120,7 +120,7 @@ public class TestPartita extends LeggiConsole {
     }
 
     public void inserisciGiocatore() {
-        String nome = ioconsole.LeggiConsole.getStringNonVuota("INSERISCI IL TUO NOME");
+        String nome =getStringNonVuota("INSERISCI IL TUO NOME");
         try {
             TipoColore colore = getTipoColore("INSERISCI IL COLORE DELLA TUA ARMATA", "IL VALORE INSERITO NON E' ACCETTABILE");
             String psw = getPassword("INSERISCI LA TUA PASSWORD IDENTIFICATIVA", "IL VALORE INSERITO NON E' ACCETTABILE \n(più di 8 caratteri, almeno una maiuscola, una minuscola, un numero e un carattere speciale)");

@@ -41,8 +41,8 @@ public class Risiko {
                     + " | | \\ \\   _| |_   ____) |  _| |_  | . \\  | |__| |\n"
                     + " |_|  \\_\\ |_____| |_____/  |_____| |_|\\_\\  \\____/ ");
             System.out.println("\n\nPRONTO A METTERE IN GIOCO LA TUE ABILITA' STRATEGICHE?\nBUON DIVERTIMENTO!\nRicordati: la guerra non è un gioco");
-
-            if (gp.getIofGiocatorePartita().loadData().size()>1) {
+            //Per poter inziziare la partita deve avere almeno due giocatori e due obiettivi
+            if (gp.getIofGiocatorePartita().loadData().size()>1&&gp.getIofObiettivoPartita().loadData().size()>1) {
                 System.out.println("\n\nVUOI CONTINUARE LA PARTITA INIZIATA?");
                 if (!tp.scelta()) {
                     iofiles.WriteFile.clearAllLines(gp.getIofGiocatorePartita().getFileName());
@@ -59,6 +59,8 @@ public class Risiko {
                     gp.setN_giocatori(gp.getIofGiocatorePartita().loadData().size());
                 }
             } else {
+                //per sicurezza si ripulisce il file dei giocatori
+                iofiles.WriteFile.clearAllLines(gp.getIofGiocatorePartita().getFileName());
                 tp.inizioPartita();
             }
             System.out.println(gp);
