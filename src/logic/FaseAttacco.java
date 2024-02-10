@@ -16,7 +16,7 @@ import model.*;
  *
  * @author Annachiara
  */
-public class FaseAttacco extends GestionePartita {
+public class FaseAttacco extends GestionePartita{
 
     /**
      * SET TERRITORI TRUPPE PER FASE: metodo che esegue il set dei territori e

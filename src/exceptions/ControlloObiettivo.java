@@ -11,7 +11,7 @@ import model.ObiettivoPartita;
  *
  * @author Annachiara
  */
-public class ControlloObiettivoPerFinePartita extends RisikoExceptions{
+public class ControlloObiettivo extends RisikoExceptions{
 
     private String giocatore;
     private String obiettivo;
@@ -24,7 +24,7 @@ public class ControlloObiettivoPerFinePartita extends RisikoExceptions{
         return obiettivo;
     }
 
-    public ControlloObiettivoPerFinePartita(String giocatore, String obiettivo) {
+    public ControlloObiettivo(String giocatore, String obiettivo) {
         this.giocatore = giocatore;
         this.obiettivo = obiettivo;
     }

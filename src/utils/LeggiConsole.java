@@ -13,10 +13,10 @@ import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.Territorio;
-import logic.GestionePartitaDaModificare;
 import checkfunctions.*;
 import exceptions.GiocatoreNonRegistrato;
 import java.util.ArrayList;
+import logic.GestionePartita;
 
 /**
  *
@@ -24,10 +24,10 @@ import java.util.ArrayList;
  */
 public class LeggiConsole {
 
-    protected GestionePartitaDaModificare gp;
+    protected GestionePartita gp;
 
-    public LeggiConsole(GestionePartitaDaModificare gestp) {
-        gp = gestp;
+    public LeggiConsole(GestionePartita gp) {
+        this.gp = gp;
     }
 
     public static int getIntInRange(String messaggio, String messaggioErrore, int estremo_inf, int estremo_sup) {

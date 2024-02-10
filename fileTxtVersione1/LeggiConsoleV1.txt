@@ -66,6 +66,19 @@ public class LeggiConsole {
         return Integer.parseInt(valore);
     }
 
+    public static String getStringNonVuota(String messaggio) {
+        Scanner scan = new Scanner(System.in);
+        System.out.print(messaggio+": ");
+        String txt;
+        do {
+            txt = scan.nextLine();
+            if (txt.isEmpty()) {
+                System.out.println("la stampa è vuota reinserisci");
+            }
+        } while (txt.isEmpty());
+        return txt;
+    }
+
     protected String getTerritorioRinforzo(String psw, String messaggio, String messaggioErrore) throws IOException {
         Scanner scan = new Scanner(System.in);
         System.out.print(messaggio + ": ");

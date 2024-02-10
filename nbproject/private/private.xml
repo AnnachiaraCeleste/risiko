@@ -1,26 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
-    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="2"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Annachiara/Documents/NetBeansProjects/Risiko/src/logic/InizioFinePartita.java</file>
+            <file>file:/C:/Users/Annachiara/Documents/NetBeansProjects/Risiko/fileTxtVersione1/RisikoV1.txt</file>
             <file>file:/C:/Users/Annachiara/Documents/NetBeansProjects/Risiko/src/logic/FaseAttacco.java</file>
             <file>file:/C:/Users/Annachiara/Documents/NetBeansProjects/Risiko/src/userinterface/TestPartita.java</file>
-            <file>file:/C:/Users/Annachiara/Documents/NetBeansProjects/Risiko/src/data/IOObjectFileObiettivoPartita.java</file>
             <file>file:/C:/Users/Annachiara/Documents/NetBeansProjects/Risiko/src/userinterface/Risiko.java</file>
-            <file>file:/C:/Users/Annachiara/Documents/NetBeansProjects/Risiko/src/model/TerritorioDettagliato.java</file>
-            <file>file:/C:/Users/Annachiara/Documents/NetBeansProjects/Risiko/src/model/TerritorioPartita.java</file>
-            <file>file:/C:/Users/Annachiara/Documents/NetBeansProjects/Risiko/src/model/CarteArmiPartita.java</file>
+            <file>file:/C:/Users/Annachiara/Documents/NetBeansProjects/Risiko/src/logic/InterfacciaPartita.java</file>
+            <file>file:/C:/Users/Annachiara/Documents/NetBeansProjects/Risiko/obiettiviPartita.txt</file>
             <file>file:/C:/Users/Annachiara/Documents/NetBeansProjects/Risiko/src/logic/FaseRinforzo.java</file>
-            <file>file:/C:/Users/Annachiara/Documents/NetBeansProjects/Risiko/src/enums/TipoColore.java</file>
-            <file>file:/C:/Users/Annachiara/Documents/NetBeansProjects/Risiko/src/model/Obiettivo.java</file>
-            <file>file:/C:/Users/Annachiara/Documents/NetBeansProjects/Risiko/src/model/Territorio.java</file>
-            <file>file:/C:/Users/Annachiara/Documents/NetBeansProjects/Risiko/src/model/ObiettivoPartita.java</file>
-            <file>file:/C:/Users/Annachiara/Documents/NetBeansProjects/Risiko/src/logic/GestionePartitaDaModificare.java</file>
+            <file>file:/C:/Users/Annachiara/Documents/NetBeansProjects/Risiko/fileTxtVersione1/GestionePartitaV1.txt</file>
+            <file>file:/C:/Users/Annachiara/Documents/NetBeansProjects/Risiko/fileTxtVersione1/TestPartitaV1.txt</file>
+            <file>file:/C:/Users/Annachiara/Documents/NetBeansProjects/Risiko/src/exceptions/ControlloObiettivo.java</file>
+            <file>file:/C:/Users/Annachiara/Documents/NetBeansProjects/Risiko/territoriPartita.txt</file>
+            <file>file:/C:/Users/Annachiara/Documents/NetBeansProjects/Risiko/carteArmiPartita.txt</file>
+            <file>file:/C:/Users/Annachiara/Documents/NetBeansProjects/Risiko/manifest.mf</file>
+            <file>file:/C:/Users/Annachiara/Documents/NetBeansProjects/Risiko/src/logic/FinePartita.java</file>
+            <file>file:/C:/Users/Annachiara/Documents/NetBeansProjects/Risiko/fileTerritoriObiettivi/territori.txt</file>
             <file>file:/C:/Users/Annachiara/Documents/NetBeansProjects/Risiko/src/logic/FaseSpostamento.java</file>
             <file>file:/C:/Users/Annachiara/Documents/NetBeansProjects/Risiko/src/logic/GestionePartita.java</file>
-            <file>file:/C:/Users/Annachiara/Documents/NetBeansProjects/Risiko/src/enums/TipoArma.java</file>
             <file>file:/C:/Users/Annachiara/Documents/NetBeansProjects/Risiko/src/utils/LeggiConsole.java</file>
+            <file>file:/C:/Users/Annachiara/Documents/NetBeansProjects/Risiko/giocatoriPartita.txt</file>
+            <file>file:/C:/Users/Annachiara/Documents/NetBeansProjects/Risiko/fileTerritoriObiettivi/obiettivi.txt</file>
         </group>
     </open-files>
 </project-private>

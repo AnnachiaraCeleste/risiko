@@ -8,22 +8,22 @@ Ontario;Quebec,Groenlandia,Stati Uniti Orientali,Stati Uniti Occidentali,Alberta
 Territori del Nord-Ovest;Alberta,Ontario,Alaska,Groenlandia;NORD_AMERICA;ARTIGLIERIA
 America Centrale;Venezuela,Stati Uniti Orientali,Stati Uniti Occidentali;NORD_AMERICA;CAVALLERIA
 Venezuela;America Centrale,Brasile,Peru;SUD_AMERICA;ARTIGLIERIA
-Brasile;Venezuela,Peru,Nord Africa,Argentina;SUD_AMERICA;ARTIGLIERIA
+Brasile;Venezuela,Peru,Africa del Nord,Argentina;SUD_AMERICA;ARTIGLIERIA
 Peru;Brasile,Venezuela,Argentina;SUD_AMERICA;CAVALLERIA
 Argentina;Peru,Brasile;SUD_AMERICA;FANTERIA
 Islanda;Groenlandia,Gran Bretagna,Scandinavia;EUROPA;FANTERIA
 Gran Bretagna;Islanda,Scandinavia,Europa Occidentale,Europa Settentrionale;EUROPA;CAVALLERIA
 Scandinavia;Islanda,Gran Bretagna,Europa Settentrionale,Ucraina;EUROPA;ARTIGLIERIA
-Europa Occidentale;Gran Bretagna,Europa Settentrionale,Europa Meridionale,Nord Africa;EUROPA;FANTERIA
+Europa Occidentale;Gran Bretagna,Europa Settentrionale,Europa Meridionale,Africa del Nord;EUROPA;FANTERIA
 Europa Settentrionale;Gran Bretagna,Scandinavia,Europa Occidentale,Ucraina;EUROPA;CAVALLERIA
-Europa Meridionale;Europa Occidentale,Europa Settentrionale,Nord Africa,Medio Oriente,Ucraina;EUROPA;CAVALLERIA
+Europa Meridionale;Europa Occidentale,Europa Settentrionale,Africa del Nord,Medio Oriente,Ucraina;EUROPA;CAVALLERIA
 Ucraina;Europa Meridionale,Europa Settentrionale,Medio Oriente,Scandinavia,Urali,Afghanistan;EUROPA;ARTIGLIERIA
-Nord Africa;Brasile,Europa Meridionale,Europa Occidentale,Egitto,Congo,Africa Orientale;AFRICA;FANTERIA
-Congo;Nord Africa,Africa Orientale,Sud Africa;AFRICA;CAVALLERIA
-Africa Orientale;Congo,Sud Africa,Madagascar,Egitto,Nord Africa;AFRICA;ARTIGLIERIA
-Sud Africa;Congo,Madagascar,Africa Orientale;AFRICA;ARTIGLIERIA
-Madagascar;Africa Orientale,Sud Africa;AFRICA;FANTERIA
-Egitto;Nord Africa,Africa Orientale,Medio Oriente,Europa Meridionale;AFRICA;FANTERIA
+Africa del Nord;Brasile,Europa Meridionale,Europa Occidentale,Egitto,Congo,Africa Orientale;AFRICA;FANTERIA
+Congo;Africa del Nord,Africa Orientale,Africa del Sud;AFRICA;CAVALLERIA
+Africa Orientale;Congo,Africa del Sud,Madagascar,Africa del Nord;AFRICA;ARTIGLIERIA
+Africa del Sud;Congo,Madagascar,Africa Orientale;AFRICA;ARTIGLIERIA
+Madagascar;Africa Orientale,Africa del Sud;AFRICA;FANTERIA
+Egitto;Africa del Nord,Africa Orientale,Medio Oriente,Europa Meridionale;AFRICA;FANTERIA
 Urali;Ucraina,Afghanistan,Siberia,Cina;ASIA;CAVALLERIA
 Siberia;Urali,Cina,Mongolia,Jacuzia,Cita;ASIA;ARTIGLIERIA
 Cita;Siberia,Kamchatka,Jacuzia,Mongolia;ASIA;FANTERIA

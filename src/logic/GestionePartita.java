@@ -12,15 +12,14 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
 import model.*;
 
 /**
  *
  * @author Annachiara
  */
-public abstract class GestionePartita {
+public class GestionePartita implements InterfacciaPartita {
 
     protected static final int NUMERO_MIN_GIOCATORI = 2;
     protected static final int NUMERO_MAX_GIOCATORI = 6;
@@ -76,24 +75,25 @@ public abstract class GestionePartita {
     }
 
     public GestionePartita() {
-        iofGiocatorePartita = new IOObjectFileGiocatorePartita("giocatoriPartita.txt", SEPARATOR);
-        iofObiettivoPartita = new IOObjectFileObiettivoPartita("obiettiviPartita.txt", SEPARATOR);
-        iofCarteArmiPartita = new IOObjectFileCarteArmiPartita("carteArmiPartita.txt", SEPARATOR);
-        iofTerritorioPartita = new IOObjectFileTerritorioPartita("territoriPartita.txt", SEPARATOR);
-        iofTerritorioDettagliato = new IOObjectFileTerritorioDettagliato("territori.txt", SEPARATOR);
-        iofObiettivo = new IOObjectFileObiettivo("obiettivi.txt", SEPARATOR);
+        this.iofGiocatorePartita = new IOObjectFileGiocatorePartita("giocatoriPartita.txt", SEPARATOR);
+        this.iofObiettivoPartita = new IOObjectFileObiettivoPartita("obiettiviPartita.txt", SEPARATOR);
+        this.iofCarteArmiPartita = new IOObjectFileCarteArmiPartita("carteArmiPartita.txt", SEPARATOR);
+        this.iofTerritorioPartita = new IOObjectFileTerritorioPartita("territoriPartita.txt", SEPARATOR);
+        this.iofTerritorioDettagliato = new IOObjectFileTerritorioDettagliato("territori.txt", SEPARATOR);
+        this.iofObiettivo = new IOObjectFileObiettivo("obiettivi.txt", SEPARATOR);
     }
 
     public GestionePartita(int n_giocatori, TipoPartita tipoPartita) {
         this.nGiocatori = n_giocatori;
         this.tipoPartita = tipoPartita;
-        iofGiocatorePartita = new IOObjectFileGiocatorePartita("giocatoriPartita.txt", SEPARATOR);
-        iofObiettivoPartita = new IOObjectFileObiettivoPartita("obiettiviPartita.txt", SEPARATOR);
-        iofCarteArmiPartita = new IOObjectFileCarteArmiPartita("carteArmiPartita.txt", SEPARATOR);
-        iofTerritorioPartita = new IOObjectFileTerritorioPartita("territoriPartita.txt", SEPARATOR);
-        iofTerritorioDettagliato = new IOObjectFileTerritorioDettagliato("territori.txt", SEPARATOR);
-        iofObiettivo = new IOObjectFileObiettivo("obiettivi.txt", SEPARATOR);
+        this.iofGiocatorePartita = new IOObjectFileGiocatorePartita("giocatoriPartita.txt", SEPARATOR);
+        this.iofObiettivoPartita = new IOObjectFileObiettivoPartita("obiettiviPartita.txt", SEPARATOR);
+        this.iofCarteArmiPartita = new IOObjectFileCarteArmiPartita("carteArmiPartita.txt", SEPARATOR);
+        this.iofTerritorioPartita = new IOObjectFileTerritorioPartita("territoriPartita.txt", SEPARATOR);
+        this.iofTerritorioDettagliato = new IOObjectFileTerritorioDettagliato("territori.txt", SEPARATOR);
+        this.iofObiettivo = new IOObjectFileObiettivo("obiettivi.txt", SEPARATOR);
     }
+
 
     @Override
     public String toString() {
@@ -453,7 +453,8 @@ public abstract class GestionePartita {
     //////////////////////////FUNZIONI INIZIO PARTITA///////////////////////////
     /*
     Queste due funzioni non sono presenti in una propria classe specifica 
-    perchè non dipendono da un singolo giocatore
+    perchè non dipendono da un singolo giocatore, vengono chiamate dopo aver creato 
+    tutti i giocatori
      */
     /**
      * ADD TERRITORI PARTITA: metodo per assegnare ad ogni giocatore un numero
@@ -541,18 +542,15 @@ public abstract class GestionePartita {
 
     ////////////////////////////////////////////////////////////////////////////
     //---------------------METODI ASTRATTI DA IMPLEMENTARE--------------------//
-    /**
-     * ESEGUI FASE: metodo astratto da implementare nelle classi che
-     * ereditano.Tutte le classi che saranno implementate hanno in comune un
-     * giocatore con una psw specifica che in un momento della partita esegue le
-     * tre fasi di gioco (rinforzo, attacco, spostamento)
-     *
-     * @param psw specifica del giocatore
-     * @throws java.io.IOException
-     * @throws exceptions.RisikoExceptions
-     */
-    public abstract void eseguiFase(String psw) throws IOException, RisikoExceptions;
+    @Override
+    public void eseguiFase(String psw) throws IOException, RisikoExceptions {
+        
+    }
 
+    @Override
+    public String stampaFase(String psw) throws IOException, RisikoExceptions {
+       return "Una partita è fatta di tre fasi: rinforzo, attacco, spostamento";
+    }
     /**
      * SET TERRITORI TRUPPE PER FASE: metodo implementato per supportare i
      * metodi astratti esegui fase
@@ -565,14 +563,15 @@ public abstract class GestionePartita {
      * durante l'azione
      * @throws IOException
      */
-    public void setTerritoriTruppePerFase(String psw, String territorioOrigine, String territorioDestinazione, int truppe) throws IOException{
-            ArrayList<Giocatore> giocatori = iofGiocatorePartita.loadData();
-            giocatori.get(getLineGiocatore(psw)).setTerritorioOrigine(territorioOrigine);
-            giocatori.get(getLineGiocatore(psw)).setTerritorioDestinazione(territorioDestinazione);
-            giocatori.get(getLineGiocatore(psw)).setTruppe(truppe);
-            iofGiocatorePartita.saveData(giocatori);
-        
+    public void setTerritoriTruppePerFase(String psw, String territorioOrigine, String territorioDestinazione, int truppe) throws IOException {
+        ArrayList<Giocatore> giocatori = iofGiocatorePartita.loadData();
+        giocatori.get(getLineGiocatore(psw)).setTerritorioOrigine(territorioOrigine);
+        giocatori.get(getLineGiocatore(psw)).setTerritorioDestinazione(territorioDestinazione);
+        giocatori.get(getLineGiocatore(psw)).setTruppe(truppe);
+        iofGiocatorePartita.saveData(giocatori);
+
     }
+
     /**
      * REIMPOSTA TERRITORI E TRUPPE: metodo creato per reimpostare a default
      * ""/0 i terriori per le fasi e le truppe.
@@ -580,21 +579,13 @@ public abstract class GestionePartita {
      * @param psw specifica del giocatore
      * @throws IOException
      */
-    protected void reimpostaTerritoriTruppe(String psw) throws IOException {
+    public void reimpostaTerritoriTruppe(String psw) throws IOException {
         ArrayList<Giocatore> giocatori = iofGiocatorePartita.loadData();
         giocatori.get(getLineGiocatore(psw)).setTerritorioOrigine(" ");
         giocatori.get(getLineGiocatore(psw)).setTerritorioDestinazione(" ");
         giocatori.get(getLineGiocatore(psw)).setTruppe(0);
         iofGiocatorePartita.saveData(giocatori);
     }
-    /**
-     * STAMPA FASE: metodo per stampare in maniera riassunta la fase che viene effettuata
-     * @param psw del giocatore che esegue la fase
-     * @return il dettaglio della fase
-     * @throws IOException
-     * @throws RisikoExceptions 
-     */
-    public abstract String stampaFase(String psw)throws IOException, RisikoExceptions;
 
     //------------------------------------------------------------------------//
     //-----------------------------FUNZIONI UTILS-----------------------------//
@@ -728,5 +719,7 @@ public abstract class GestionePartita {
         }
         System.out.println("**************************************************************************");
     }
+
+    
 
 }

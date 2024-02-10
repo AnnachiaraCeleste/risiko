@@ -42,7 +42,7 @@ public class Risiko {
                     + " |_|  \\_\\ |_____| |_____/  |_____| |_|\\_\\  \\____/ ");
             System.out.println("\n\nPRONTO A METTERE IN GIOCO LA TUE ABILITA' STRATEGICHE?\nBUON DIVERTIMENTO!\nRicordati: la guerra non è un gioco");
 
-            if (gp.getIofGiocatorePartita().loadData().size()>1) {
+            if (gp.getIofGiocatorePartita().loadData().size()>1 && gp.getIofObiettivoPartita().loadData().size()>1) {
                 System.out.println("\n\nVUOI CONTINUARE LA PARTITA INIZIATA?");
                 if (!tp.scelta()) {
                     iofiles.WriteFile.clearAllLines(gp.getIofGiocatorePartita().getFileName());
@@ -59,6 +59,7 @@ public class Risiko {
                     gp.setN_giocatori(gp.getIofGiocatorePartita().loadData().size());
                 }
             } else {
+		iofiles.WriteFile.clearAllLines(gp.getIofGiocatorePartita().getFileName());
                 tp.inizioPartita();
             }
             System.out.println(gp);

@@ -5,22 +5,15 @@
  */
 package userinterface;
 
-import enums.TipoColore;
 import enums.TipoObiettivo;
 import enums.TipoPartita;
-import exceptions.ControlloObiettivoPerFinePartita;
-import exceptions.GiocatoreNonRegistrato;
-import exceptions.ObiettivoNonRegistrato;
-import exceptions.TerritorioNonRegistrato;
+import exceptions.ControlloObiettivo;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import userinterface.TestPartita;
-import logic.GestionePartitaDaModificare;
-import model.ObiettivoPartita;
-import model.Territorio;
-import model.TerritorioPartita;
+import java.lang.System.Logger;
+import java.lang.System.Logger.Level;
+import logic.GestionePartita;
+
+
 
 /**
  *
@@ -30,8 +23,9 @@ public class Risiko {
 
     public static void main(String[] args) {
 
+        
         try {
-            GestionePartitaDaModificare gp = new GestionePartitaDaModificare();
+            GestionePartita gp = new GestionePartita();
             TestPartita tp = new TestPartita(gp);
 
             System.out.println("  _____    _____    _____   _____   _  __   ____  \n"
@@ -76,10 +70,9 @@ public class Risiko {
 
                 }
             }
-        } catch (IOException ex) {
-            Logger.getLogger(Risiko.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ControlloObiettivoPerFinePartita ex) {
-            Logger.getLogger(Risiko.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException | ControlloObiettivo ex) {
+            java.util.logging.Logger.getLogger(Risiko.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        
     }
 }
