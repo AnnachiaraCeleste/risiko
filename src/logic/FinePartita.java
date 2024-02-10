@@ -5,14 +5,12 @@
  */
 package logic;
 
-import enums.TipoColore;
-import enums.TipoContinente;
+import enums.*;
 import exceptions.*;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import model.*;
+
 
 /**
  *
@@ -29,12 +27,13 @@ public class FinePartita extends GestionePartita {
      *
      * @param psw del giocatore
      * @throws IOException
-     * @throw ControlloObiettivoPerFinePartita
+     * @throws ControlloObiettivo
      * @throws GiocatoreNonRegistrato
      * @throws TerritorioNonRegistrato
      * @throws ObiettivoNonRegistrato
      */
-    public void controlloStatoObiettivoGiocatore(String psw) throws IOException, GiocatoreNonRegistrato, TerritorioNonRegistrato, ObiettivoNonRegistrato, ControlloObiettivoPerFinePartita {
+    @Override
+    public void eseguiFase(String psw) throws IOException, GiocatoreNonRegistrato, TerritorioNonRegistrato, ObiettivoNonRegistrato, ControlloObiettivo {
         boolean statoObiettivo = false;
         ObiettivoPartita obiettivo = getObiettivoPartita(psw);
         ArrayList<TerritorioPartita> territoriGiocatore = listaTerritoriGiocatorePartita(psw);
@@ -106,14 +105,10 @@ public class FinePartita extends GestionePartita {
                 }
         }
         if (statoObiettivo) {
-            throw new ControlloObiettivoPerFinePartita(getGiocatore(psw).getNome(), obiettivo.getObiettivo());
+            throw new ControlloObiettivo(getGiocatore(psw).getNome(), obiettivo.getObiettivo());
         }
     }
 
-    @Override
-    public void eseguiFase(String psw) throws IOException, GiocatoreNonRegistrato, TerritorioNonRegistrato, ObiettivoNonRegistrato, ControlloObiettivoPerFinePartita {
-        controlloStatoObiettivoGiocatore(psw);
-    }
 
     @Override
     public void setTerritoriTruppePerFase(String psw, String territorioOrigine, String territorioDestinazione, int truppe) {
