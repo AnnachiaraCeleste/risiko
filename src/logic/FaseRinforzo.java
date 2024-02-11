@@ -30,8 +30,6 @@ import model.TerritorioPartita;
  */
 public class FaseRinforzo extends GestionePartita {
 
-    public FaseRinforzo() {
-    }
 
     @Override
     public void setTerritoriTruppePerFase(String psw, String territorioPartenza, String territorioDestinazione, int numeroArmateDaSpostare) {
