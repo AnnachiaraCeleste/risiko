@@ -3,34 +3,17 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="2"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Annachiara/Documents/NetBeansProjects/Risiko/src/exceptions/NMinTruppeAttaccoRaggiunto.java</file>
-            <file>file:/C:/Users/Annachiara/Documents/NetBeansProjects/Risiko/src/logic/FaseAttacco.java</file>
-            <file>file:/C:/Users/Annachiara/Documents/NetBeansProjects/Risiko/src/logic/InterfacciaPartita.java</file>
-            <file>file:/C:/Users/Annachiara/Documents/NetBeansProjects/Risiko/src/model/Giocatore.java</file>
-            <file>file:/C:/Users/Annachiara/Documents/NetBeansProjects/Risiko/src/exceptions/AttaccoFallito.java</file>
-            <file>file:/C:/Users/Annachiara/Documents/NetBeansProjects/Risiko/territoriPartita.txt</file>
-            <file>file:/C:/Users/Annachiara/Documents/NetBeansProjects/Risiko/src/exceptions/TerritorioNonRegistrato.java</file>
-            <file>file:/C:/Users/Annachiara/Documents/NetBeansProjects/Risiko/src/exceptions/GiocatoreGiaRegistrato.java</file>
-            <file>file:/C:/Users/Annachiara/Documents/NetBeansProjects/Risiko/src/exceptions/NMaxTruppeRinforzoRaggiunto.java</file>
-            <file>file:/C:/Users/Annachiara/Documents/NetBeansProjects/Risiko/src/exceptions/RisikoExceptions.java</file>
-            <file>file:/C:/Users/Annachiara/Documents/NetBeansProjects/Risiko/src/logic/FineObiettivo.java</file>
-            <file>file:/C:/Users/Annachiara/Documents/NetBeansProjects/Risiko/src/enums/TipoArma.java</file>
-            <file>file:/C:/Users/Annachiara/Documents/NetBeansProjects/Risiko/giocatoriPartita.txt</file>
-            <file>file:/C:/Users/Annachiara/Documents/NetBeansProjects/Risiko/src/data/IOObjectFileGiocatorePartita.java</file>
-            <file>file:/C:/Users/Annachiara/Documents/NetBeansProjects/Risiko/src/exceptions/TerritorioGiaRegistrato.java</file>
-            <file>file:/C:/Users/Annachiara/Documents/NetBeansProjects/Risiko/src/exceptions/TerritorioNonPosseduto.java</file>
-            <file>file:/C:/Users/Annachiara/Documents/NetBeansProjects/Risiko/src/userinterface/TestPartita.java</file>
+            <file>file:/C:/Users/Annachiara/Documents/NetBeansProjects/Risiko/src/model/Territorio.java</file>
+            <file>file:/C:/Users/Annachiara/Documents/NetBeansProjects/Risiko/src/model/Obiettivo.java</file>
+            <file>file:/C:/Users/Annachiara/Documents/NetBeansProjects/Risiko/src/model/ObiettivoPartita.java</file>
+            <file>file:/C:/Users/Annachiara/Documents/NetBeansProjects/Risiko/src/data/IOObjectFileCarteArmiPartita.java</file>
             <file>file:/C:/Users/Annachiara/Documents/NetBeansProjects/Risiko/src/userinterface/Risiko.java</file>
-            <file>file:/C:/Users/Annachiara/Documents/NetBeansProjects/Risiko/src/logic/FaseRinforzo.java</file>
-            <file>file:/C:/Users/Annachiara/Documents/NetBeansProjects/Risiko/src/exceptions/CartaNonRegistrataPSWNome.java</file>
-            <file>file:/C:/Users/Annachiara/Documents/NetBeansProjects/Risiko/src/exceptions/ControlloObiettivo.java</file>
-            <file>file:/C:/Users/Annachiara/Documents/NetBeansProjects/Risiko/src/exceptions/ObiettivoGiaRegistrato.java</file>
-            <file>file:/C:/Users/Annachiara/Documents/NetBeansProjects/Risiko/src/exceptions/SpostamentoFallito.java</file>
-            <file>file:/C:/Users/Annachiara/Documents/NetBeansProjects/Risiko/src/exceptions/CartaGiaRegistrata.java</file>
-            <file>file:/C:/Users/Annachiara/Documents/NetBeansProjects/Risiko/src/exceptions/CartaNonRegistrataTerritorio.java</file>
-            <file>file:/C:/Users/Annachiara/Documents/NetBeansProjects/Risiko/src/logic/FaseSpostamento.java</file>
+            <file>file:/C:/Users/Annachiara/Documents/NetBeansProjects/Risiko/src/logic/InterfacciaPartita.java</file>
+            <file>file:/C:/Users/Annachiara/Documents/NetBeansProjects/Risiko/src/model/TerritorioDettagliato.java</file>
+            <file>file:/C:/Users/Annachiara/Documents/NetBeansProjects/Risiko/src/model/Giocatore.java</file>
+            <file>file:/C:/Users/Annachiara/Documents/NetBeansProjects/Risiko/src/model/TerritorioPartita.java</file>
             <file>file:/C:/Users/Annachiara/Documents/NetBeansProjects/Risiko/src/logic/GestionePartita.java</file>
-            <file>file:/C:/Users/Annachiara/Documents/NetBeansProjects/Risiko/src/utils/LeggiConsole.java</file>
+            <file>file:/C:/Users/Annachiara/Documents/NetBeansProjects/Risiko/src/model/CarteArmiPartita.java</file>
         </group>
     </open-files>
 </project-private>

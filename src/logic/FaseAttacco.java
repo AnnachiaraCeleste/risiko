@@ -16,7 +16,7 @@ import model.*;
  *
  * @author Annachiara
  */
-public class FaseAttacco extends GestionePartita{
+public class FaseAttacco extends GestionePartita {
 
     /**
      * SET TERRITORI TRUPPE PER FASE: metodo che esegue il set dei territori e
@@ -154,7 +154,8 @@ public class FaseAttacco extends GestionePartita{
      * @return true se il territorio è stato conquistato
      * @throws IOException
      */
-    private boolean controlloTruppeTerritorio(String territorioAttaccante, String territorioDifensore) throws IOException, SpostamentoFallito, GiocatoreNonRegistrato, ObiettivoNonRegistrato, TerritorioNonRegistrato, RisikoExceptions {
+    private boolean controlloTruppeTerritorio(String territorioAttaccante, String territorioDifensore)
+            throws IOException, SpostamentoFallito, GiocatoreNonRegistrato, ObiettivoNonRegistrato, TerritorioNonRegistrato, RisikoExceptions {
         ArrayList<TerritorioPartita> territori = iofTerritorioPartita.loadData();
         ArrayList<Giocatore> giocatori = iofGiocatorePartita.loadData();
         //indice attaccante
@@ -182,10 +183,10 @@ public class FaseAttacco extends GestionePartita{
             }
             iofTerritorioPartita.saveData(territori);
             FaseSpostamento faseSpostamento = new FaseSpostamento();
-            String psw=territori.get(idx_attacc).getPasswordGiocatore();
-            faseSpostamento.setTerritoriTruppePerFase(psw,territorioAttaccante, territorioDifensore, nArmateVincenti);
+            String psw = territori.get(idx_attacc).getPasswordGiocatore();
+            faseSpostamento.setTerritoriTruppePerFase(psw, territorioAttaccante, territorioDifensore, nArmateVincenti);
             faseSpostamento.eseguiFase(psw);
-           
+
         }
         return territorioConquistato;
     }
@@ -264,9 +265,8 @@ public class FaseAttacco extends GestionePartita{
 
     @Override
     public void stampaFase(String psw) throws IOException, GiocatoreNonRegistrato {
-        Giocatore g= getGiocatore(psw);
-        System.out.println("FASE ATTACCO: "+g.getTerritorioOrigine()+" --vs-- "+g.getTerritorioDestinazione());
+        Giocatore g = getGiocatore(psw);
+        System.out.println("FASE ATTACCO: " + g.getTerritorioOrigine() + " --vs-- " + g.getTerritorioDestinazione());
     }
-    
 
 }

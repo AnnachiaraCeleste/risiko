@@ -5,7 +5,6 @@
  */
 package model;
 
-import model.Obiettivo;
 import enums.TipoObiettivo;
 
 /**

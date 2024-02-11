@@ -30,7 +30,15 @@ import model.TerritorioPartita;
  */
 public class FaseRinforzo extends GestionePartita {
 
-
+    /**
+     * SET TERRITORI TRUPPE PER FASE
+     *
+     * @param psw del giocatore che svolge l'azione
+     * @param territorioPartenza territorio su cui si vogliono aggiungere le
+     * truppe
+     * @param territorioDestinazione null
+     * @param numeroArmateDaSpostare armate coinvolte nella fase
+     */
     @Override
     public void setTerritoriTruppePerFase(String psw, String territorioPartenza, String territorioDestinazione, int numeroArmateDaSpostare) {
         try {
@@ -43,10 +51,9 @@ public class FaseRinforzo extends GestionePartita {
             super.setTerritoriTruppePerFase(psw, territorioPartenza, " ", numeroArmateDaSpostare);
         } catch (IOException | TerritorioNonRegistrato | TerritorioNonPosseduto | GiocatoreNonRegistrato | NMaxTruppeRinforzoRaggiunto ex) {
             Logger.getLogger(FaseRinforzo.class.getName()).log(Level.SEVERE, null, ex);
-        } 
+        }
 
     }
-   
 
     /**
      * FASE RINFORZO: metodo che aggiunge un numero specifico di rinforzi a un
@@ -54,28 +61,31 @@ public class FaseRinforzo extends GestionePartita {
      * giocatore.
      *
      * @param psw del giocatore da ricercare
-   */
-   @Override
-    public void eseguiFase(String psw)throws IOException, RisikoExceptions {
+     * @throws IOException
+     * @throws RisikoExceptions
+     */
+    @Override
+    public void eseguiFase(String psw) throws IOException, RisikoExceptions {
         stampaFase(psw);
         ArrayList<TerritorioPartita> territori = iofTerritorioPartita.loadData();
         ArrayList<Giocatore> giocatori = iofGiocatorePartita.loadData();
-        Giocatore g= getGiocatore(psw);
-        territori.get(getLineTerritorioPartita(g.getTerritorioOrigine())).setNumeroArmate(g.getTruppe()+ getTerritorioPartita(g.getTerritorioOrigine()).getNumeroArmate());
-        giocatori.get(getLineGiocatore(psw)).setRinforziTurno(getGiocatore(psw).getRinforziTurno()- g.getTruppe());
+        Giocatore g = getGiocatore(psw);
+        territori.get(getLineTerritorioPartita(g.getTerritorioOrigine())).setNumeroArmate(g.getTruppe() + getTerritorioPartita(g.getTerritorioOrigine()).getNumeroArmate());
+        giocatori.get(getLineGiocatore(psw)).setRinforziTurno(getGiocatore(psw).getRinforziTurno() - g.getTruppe());
         iofTerritorioPartita.saveData(territori);
         iofGiocatorePartita.saveData(giocatori);
     }
-    
+
     /**
-     * CALCOLA TRUPPE RINFORZO: metodo che calcola il numero di rinforzi totale che un
-     * giocatore riceverà nella fase di rinforzo.Il calcolo dipende dal numero
-     * di territori occupati, territori occupati, i continenti conquistati e le
-     * combinazioni di carte.
+     * CALCOLA TRUPPE RINFORZO: metodo che calcola il numero di rinforzi totale
+     * che un giocatore riceverà nella fase di rinforzo.Il calcolo dipende dal
+     * numero di territori occupati, territori occupati, i continenti
+     * conquistati e le combinazioni di carte.
      *
      * @param psw del giocatore da ricercare
      * @throws IOException
      * @throws CartaNonRegistrataPSWNome
+     * @throws GiocatoreNonRegistrato
      */
     public void calcolaTruppeRinforzo(String psw) throws IOException, CartaNonRegistrataPSWNome, GiocatoreNonRegistrato {
         // Calcola il numero di armate di rinforzo
@@ -226,8 +236,8 @@ public class FaseRinforzo extends GestionePartita {
 
     @Override
     public void stampaFase(String psw) throws IOException, RisikoExceptions {
-        Giocatore g=getGiocatore(psw);
-        System.out.println("FASE SPOSTAMENTO: "+g.getTerritorioOrigine()+" +"+g.getTruppe());
+        Giocatore g = getGiocatore(psw);
+        System.out.println("FASE SPOSTAMENTO: " + g.getTerritorioOrigine() + " +" + g.getTruppe());
     }
 
 }

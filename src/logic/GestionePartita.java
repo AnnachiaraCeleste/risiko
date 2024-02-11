@@ -94,7 +94,6 @@ public class GestionePartita implements InterfacciaPartita {
         this.iofObiettivo = new IOObjectFileObiettivo("obiettivi.txt", SEPARATOR);
     }
 
-
     @Override
     public String toString() {
         return "-----------------------------\n"
@@ -265,7 +264,7 @@ public class GestionePartita implements InterfacciaPartita {
         return line_carta;
     }
 
-    ///////////////////////// CRUD FUNCTIONS GIOCATORE /////////////////////////
+    ////////////////////////////// CRUD FUNCTIONS //////////////////////////////
     /**
      * ADD GIOCATORE: Metodo che dato un giocatore lo inserisce nel gioco
      *
@@ -462,6 +461,7 @@ public class GestionePartita implements InterfacciaPartita {
      * assegnato di default una unità di armate)
      *
      * @throws IOException
+     * @throws TerritorioGiaRegistrato
      */
     public void addTerritoriPartita() throws IOException, TerritorioGiaRegistrato {
         int[] idxTerritori = new int[42];
@@ -485,13 +485,13 @@ public class GestionePartita implements InterfacciaPartita {
                 TerritorioPartita territorio = new TerritorioPartita(territoriPartita.get(idxTerritori[j]).getNome(),
                         territoriPartita.get(idxTerritori[j]).getArma(), giocatori.get(i).getPassword(), 1);
                 addTerritorioPartita(territorio);
-                giocatori.get(i).setRinforziTurno(giocatori.get(i).getRinforziTurno()- 1);
+                giocatori.get(i).setRinforziTurno(giocatori.get(i).getRinforziTurno() - 1);
             }
             if ((nGiocatori == 4 || nGiocatori == 5) && (i == 0 || i == 1 && j < territoriPartita.size())) {
                 TerritorioPartita territorio = new TerritorioPartita(territoriPartita.get(idxTerritori[j]).getNome(),
                         territoriPartita.get(idxTerritori[j]).getArma(), giocatori.get(i).getPassword(), 1);
                 addTerritorioPartita(territorio);
-                giocatori.get(i).setRinforziTurno(giocatori.get(i).getRinforziTurno()- 1);
+                giocatori.get(i).setRinforziTurno(giocatori.get(i).getRinforziTurno() - 1);
                 j++;
             }
         }
@@ -507,6 +507,7 @@ public class GestionePartita implements InterfacciaPartita {
      * obiettivo della partita
      *
      * @throws IOException
+     * @throws ObiettivoGiaRegistrato
      */
     public void addObiettivi() throws IOException, ObiettivoGiaRegistrato {
         int[] idxObiettivo = new int[nGiocatori];
@@ -544,16 +545,17 @@ public class GestionePartita implements InterfacciaPartita {
     //---------------------METODI ASTRATTI DA IMPLEMENTARE--------------------//
     @Override
     public void eseguiFase(String psw) throws IOException, RisikoExceptions {
-        
+
     }
 
     @Override
     public void stampaFase(String psw) throws IOException, RisikoExceptions {
         System.out.println("Una partita è fatta di tre fasi: rinforzo, attacco, spostamento");
     }
+
     /**
      * SET TERRITORI TRUPPE PER FASE: metodo implementato per supportare i
-     * metodi astratti esegui fase
+     * metodi astratti "eseguiFase"
      *
      * @param psw specifica del giocatore
      * @param territorioOrigine territorio di tipoAttacco o Rinforzo di partenza
@@ -563,7 +565,8 @@ public class GestionePartita implements InterfacciaPartita {
      * durante l'azione
      * @throws IOException
      */
-    public void setTerritoriTruppePerFase(String psw, String territorioOrigine, String territorioDestinazione, int truppe) throws IOException {
+    public void setTerritoriTruppePerFase(String psw, String territorioOrigine,
+            String territorioDestinazione, int truppe) throws IOException {
         ArrayList<Giocatore> giocatori = iofGiocatorePartita.loadData();
         giocatori.get(getLineGiocatore(psw)).setTerritorioOrigine(territorioOrigine);
         giocatori.get(getLineGiocatore(psw)).setTerritorioDestinazione(territorioDestinazione);
@@ -719,7 +722,5 @@ public class GestionePartita implements InterfacciaPartita {
         }
         System.out.println("**************************************************************************");
     }
-
-    
 
 }

@@ -22,7 +22,15 @@ import model.TerritorioPartita;
  */
 public class FaseSpostamento extends GestionePartita {
 
-
+    /**
+     * SET TERRITORI TRUPPE PER FASE
+     *
+     * @param psw del giocatore
+     * @param territorioPartenza territorio dal quale si vuole spostare le
+     * truppe
+     * @param territorioDestinazione territorio su cui spostare le truppe
+     * @param numeroArmateDaSpostare numero di truppe da spostare
+     */
     @Override
     public void setTerritoriTruppePerFase(String psw, String territorioPartenza, String territorioDestinazione, int numeroArmateDaSpostare) {
         try {
@@ -37,7 +45,7 @@ public class FaseSpostamento extends GestionePartita {
                     || getTerritorioPartita(territorioPartenza).getNumeroArmate() == 1) {
                 throw new SpostamentoFallito(territorioPartenza);
             }
-           super.setTerritoriTruppePerFase(psw, territorioPartenza, territorioDestinazione, numeroArmateDaSpostare);
+            super.setTerritoriTruppePerFase(psw, territorioPartenza, territorioDestinazione, numeroArmateDaSpostare);
         } catch (IOException | TerritorioNonRegistrato | TerritorioNonPosseduto | SpostamentoFallito ex) {
             Logger.getLogger(FaseSpostamento.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -65,8 +73,8 @@ public class FaseSpostamento extends GestionePartita {
 
     @Override
     public void stampaFase(String psw) throws IOException, RisikoExceptions {
-        Giocatore g= getGiocatore(psw);
-        System.out.println("FASE SPOSTAMENTO: "+g.getTerritorioOrigine()+"---"+g.getTruppe()+"-->"+g.getTerritorioDestinazione());
+        Giocatore g = getGiocatore(psw);
+        System.out.println("FASE SPOSTAMENTO: " + g.getTerritorioOrigine() + "---" + g.getTruppe() + "-->" + g.getTerritorioDestinazione());
     }
 
 }
