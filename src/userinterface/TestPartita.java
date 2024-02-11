@@ -13,14 +13,11 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import exceptions.*;
 import model.*;
-import ioconsole.*;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 
 import logic.*;
-
 
 /**
  *
@@ -128,6 +125,10 @@ public class TestPartita extends LeggiConsole {
         faseSpostamento(psw);
     }
 
+    /**
+     * INSERISCI GIOCATORE: metodo per assegnare nome, password e colore armata
+     * ad un giocatore
+     */
     public void inserisciGiocatore() {
         String nome = getStringNonVuota("INSERISCI IL TUO NOME");
         try {
@@ -141,6 +142,12 @@ public class TestPartita extends LeggiConsole {
 
     }
 
+    /**
+     * RICERCA GIOCATORE: metodo per ricercare un giocatore grazie alla psw
+     *
+     * @param psw del giocatore
+     * @return la stringa con nome, colore e password del giocatore
+     */
     public String ricercaGiocatore(String psw) {
         try {
             return gp.getGiocatore(psw).toString();
@@ -150,6 +157,12 @@ public class TestPartita extends LeggiConsole {
         return null;
     }
 
+    /**
+     * GET PASSWORD
+     *
+     * @param i posizione del giocatore
+     * @return la password nella posizione i
+     */
     public String getPassword(int i) {
         try {
             return gp.getIofGiocatorePartita().get(i).getPassword();
@@ -159,14 +172,25 @@ public class TestPartita extends LeggiConsole {
         return null;
     }
 
+    /**
+     * SCELTA: metodo che permette di eseguire una scelta true o false
+     *
+     * @return true o false
+     */
     public boolean scelta() {
         boolean scelta = utils.LeggiConsole.getBoolean("(effettua la tua scelta)", "IL VALORE INSERITO NON E' ACCETTABILE: inserisci \"true\" o \"false\"");
         return scelta;
     }
 
+    /**
+     * FASE RINFORZO INIZIO: dato un giocatore e i propri rinforzi del turno,
+     * vengono effettuati i rinforzi finchè i rinforzi non finiscono
+     *
+     * @param psw del giocatore che esegue la fase
+     */
     public void faseRinforzoInizio(String psw) {
         try {
-            while (gp.getGiocatore(psw).getRinforziTurno()> 0) {
+            while (gp.getGiocatore(psw).getRinforziTurno() > 0) {
                 stampaTerritori(gp.listaTerritoriGiocatorePartita(psw));
                 stampaObiettivoPersonale(psw);
                 System.out.println("Numero Rinforzi: " + gp.getGiocatore(psw).getRinforziTurno());
@@ -181,6 +205,13 @@ public class TestPartita extends LeggiConsole {
         }
     }
 
+    /**
+     * FASE RINFORZO: fase rinforzo per le truppe rinforzo che si ottengono a
+     * inizio partita a seconda per esempio delle carte o dei territori
+     * conquistati
+     *
+     * @param psw del giocatore
+     */
     public void faseRinforzo(String psw) {
         try {
             fr.calcolaTruppeRinforzo(psw);
@@ -190,6 +221,12 @@ public class TestPartita extends LeggiConsole {
         }
     }
 
+    /**
+     * FASE ATTACCO: metodo per esequire a propria scelta un numero variabile di
+     * attacchi in un tempo di tre minuti.
+     *
+     * @param psw del giocatore
+     */
     public void faseAttacco(String psw) {
         System.out.println("VUOI CONTINUARE CON LA FASE DI ATTACCO (true) OPPURE PASSARE ALLO SPOSTAMENTO TRUPPE(false)?");
         if (scelta()) {
@@ -249,6 +286,12 @@ public class TestPartita extends LeggiConsole {
         }
     }
 
+    /**
+     * FASE SPOSTAMENTO: metodo per effettuare lo spostamento di un numero
+     * variabile truppe da un proprio territorio ad un'altro
+     *
+     * @param psw del giocatore
+     */
     private void faseSpostamento(String psw) {
         System.out.println("VUOI CONTINUARE CON LA FASE DI SPOSTAMENTO(true) OPPURE PASSARE IL TURNO(false)?");
         if (scelta()) {
@@ -288,12 +331,20 @@ public class TestPartita extends LeggiConsole {
 
     }
 
-    public void controlloStatoPartita(String psw) throws ControlloObiettivo{
+    /**
+     * CONTROLLO STATO PARTITA: metodo che controlla all'inizio e all'inizio e
+     * alla fine del proprio turno se il giocatore ha portato a termine le
+     * richieste del proprio obiettivo
+     *
+     * @param psw del giocatore
+     * @throws ControlloObiettivo
+     */
+    public void controlloStatoPartita(String psw) throws ControlloObiettivo {
         try {
             fo.eseguiFase(psw);
         } catch (IOException | GiocatoreNonRegistrato | TerritorioNonRegistrato | ObiettivoNonRegistrato ex) {
             Logger.getLogger(TestPartita.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
     }
 }
