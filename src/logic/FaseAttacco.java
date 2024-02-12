@@ -63,13 +63,14 @@ public class FaseAttacco extends GestionePartita {
             TerritorioNonPosseduto, TerritorioNonConfinante, NMinTruppeAttaccoRaggiunto,
             CartaGiaRegistrata, CartaNonRegistrataTerritorio, RisikoExceptions {
         int armateAttaccante, armateDifensore;
-        ArrayList<TerritorioPartita> territori = iofTerritorioPartita.loadData();
         Giocatore g = getGiocatore(psw);
         int idx_attacc = getLineTerritorioPartita(g.getTerritorioOrigine());
+        TerritorioPartita tAttacc = iofTerritorioPartita.get(getLineTerritorioPartita(g.getTerritorioOrigine()));
         int idx_diff = getLineTerritorioPartita(g.getTerritorioDestinazione());
-        if (territori.get(idx_attacc).getNumeroArmate() > 3) {
+        TerritorioPartita tDif = iofTerritorioPartita.get(getLineTerritorioPartita(g.getTerritorioDestinazione()));
+        if (tAttacc.getNumeroArmate() > 3) {
             armateAttaccante = 3;
-        } else if (territori.get(idx_attacc).getNumeroArmate() == 3) {
+        } else if (tAttacc.getNumeroArmate() == 3) {
             armateAttaccante = 2;
         } else {
             armateAttaccante = 1;
@@ -78,10 +79,10 @@ public class FaseAttacco extends GestionePartita {
         int[] attaccanteDadi = lancioDadi(armateAttaccante);
         ordinamentoDadi(attaccanteDadi);
         stampaDadi("Attaccante", attaccanteDadi);//stampa dei dadi lanciati
-        if (territori.get(idx_diff).getNumeroArmate() > 3) {
+        if (tDif.getNumeroArmate() > 3) {
             armateDifensore = 3;
         } else {
-            armateDifensore = territori.get(idx_diff).getNumeroArmate();
+            armateDifensore = tDif.getNumeroArmate();
         }
         // Difensore dichiara il numero di dadi
         int[] difensoreDadi = lancioDadi(armateDifensore);
@@ -92,11 +93,12 @@ public class FaseAttacco extends GestionePartita {
         //controlloTruppeTerritorio: se true si blocca il ciclo senza controllare tutti i dadi
         for (int i = 0; !controlloTruppeTerritorio(g.getTerritorioOrigine(), g.getTerritorioDestinazione()) && i < confronti; i++) {
             if (attaccanteDadi[i] > difensoreDadi[i]) {
-                territori.get(idx_diff).setNumeroArmate(territori.get(idx_diff).getNumeroArmate() - 1);
+                tDif.setNumeroArmate(tDif.getNumeroArmate() - 1);
+                iofTerritorioPartita.set(idx_diff, tDif);
             } else if (attaccanteDadi[i] <= difensoreDadi[i]) {
-                territori.get(idx_attacc).setNumeroArmate(territori.get(idx_attacc).getNumeroArmate() - 1);
+                tAttacc.setNumeroArmate(tAttacc.getNumeroArmate() - 1);
+                iofTerritorioPartita.set(idx_attacc, tAttacc);
             }
-            iofTerritorioPartita.saveData(territori);
         }
         pescaCarta(psw);
     }
@@ -156,36 +158,36 @@ public class FaseAttacco extends GestionePartita {
      */
     private boolean controlloTruppeTerritorio(String territorioAttaccante, String territorioDifensore)
             throws IOException, SpostamentoFallito, GiocatoreNonRegistrato, ObiettivoNonRegistrato, TerritorioNonRegistrato, RisikoExceptions {
-        ArrayList<TerritorioPartita> territori = iofTerritorioPartita.loadData();
-        ArrayList<Giocatore> giocatori = iofGiocatorePartita.loadData();
         //indice attaccante
         int idx_attacc = getLineTerritorioPartita(territorioAttaccante);
+        TerritorioPartita tA = iofTerritorioPartita.get(idx_attacc);
         //indice difensore
         int idx_dif = getLineTerritorioPartita(territorioDifensore);
+        TerritorioPartita tD = iofTerritorioPartita.get(idx_dif);
         boolean territorioConquistato = false;
         //se nArmate>3 sposto 3 carri armati
         //se il numero di armate del difensore =0 e il territorio è stato conquist devo spostare alcune truppe
-        if (territori.get(idx_dif).getNumeroArmate() == 0) {
+        if (tD.getNumeroArmate() == 0) {
             territorioConquistato = true;
             //cambio la password del giocatore
-            territori.get(idx_dif).setPasswordGiocatore(territori.get(idx_attacc).getPasswordGiocatore());
+            tD.setPasswordGiocatore(tA.getPasswordGiocatore());
             //aumento il numero di territori conquistati dal giocatore in questo turno
-            giocatori.get(getLineGiocatore(territori.get(idx_attacc).getPasswordGiocatore())).setNTerritoriConquistatiPerTurno(giocatori.get(getLineGiocatore(
-                    territori.get(idx_attacc).getPasswordGiocatore())).getNTerritoriConquistatiPerTurno() + 1);
-            iofGiocatorePartita.saveData(giocatori);
+            Giocatore g = iofGiocatorePartita.get(idx_attacc);
+            g.setNTerritoriConquistatiPerTurno(g.getNTerritoriConquistatiPerTurno() + 1);
+            iofGiocatorePartita.set(idx_attacc, g);
             int nArmateVincenti;//numero di armate da assagnare al territorio
-            if (territori.get(idx_attacc).getNumeroArmate() > 3) {
+            if (tA.getNumeroArmate() > 3) {
                 nArmateVincenti = 3;
-            } else if (territori.get(idx_attacc).getNumeroArmate() == 3) {
+            } else if (tA.getNumeroArmate() == 3) {
                 nArmateVincenti = 2;
             } else {
                 nArmateVincenti = 1;
             }
-            iofTerritorioPartita.saveData(territori);
+            iofTerritorioPartita.set(idx_attacc, tA);
+            iofTerritorioPartita.set(idx_dif, tD);
             FaseSpostamento faseSpostamento = new FaseSpostamento();
-            String psw = territori.get(idx_attacc).getPasswordGiocatore();
-            faseSpostamento.setTerritoriTruppePerFase(psw, territorioAttaccante, territorioDifensore, nArmateVincenti);
-            faseSpostamento.eseguiFase(psw);
+            faseSpostamento.setTerritoriTruppePerFase(g.getPassword(), territorioAttaccante, territorioDifensore, nArmateVincenti);
+            faseSpostamento.eseguiFase(g.getPassword());
 
         }
         return territorioConquistato;
@@ -201,19 +203,18 @@ public class FaseAttacco extends GestionePartita {
      * @throws exceptions.CartaGiaRegistrata
      * @throws exceptions.CartaNonRegistrataTerritorio
      */
-    public void pescaCarta(String psw) throws IOException, GiocatoreNonRegistrato, CartaGiaRegistrata, CartaNonRegistrataTerritorio {
+    public void pescaCarta(String psw) throws IOException, GiocatoreNonRegistrato, CartaGiaRegistrata, CartaNonRegistrataTerritorio, TerritorioNonRegistrato {
         if (getGiocatore(psw).getNTerritoriConquistatiPerTurno() > 0) {
-            ArrayList<Giocatore> giocatori = iofGiocatorePartita.loadData();
-            ArrayList<TerritorioDettagliato> territoriDet = iofTerritorioDettagliato.loadData();
+            Giocatore g = getGiocatore(psw);
             boolean trovato;
             int idxCarta;
             do {
                 idxCarta = (int) (Math.random() * (42));
-                trovato = getLineCarteArmiPartita(territoriDet.get(idxCarta).getNome()) == -1;
+                trovato = getLineCarteArmiPartita(iofCarteArmiPartita.get(idxCarta).getNome()) == -1;
             } while (!trovato);
-            addCartaArmiPartita(new CarteArmiPartita(territoriDet.get(idxCarta).getNome(), territoriDet.get(idxCarta).getArma(), psw));
-            giocatori.get(getLineGiocatore(psw)).setNTerritoriConquistatiPerTurno(0);
-            iofGiocatorePartita.saveData(giocatori);
+            TerritorioDettagliato td = getTerritorioDettagliato(iofTerritorioDettagliato.get(idxCarta).getNome());
+            addCartaArmiPartita(new CarteArmiPartita(td.getNome(), td.getArma(), psw));
+            g.setNTerritoriConquistatiPerTurno(0);
         }
     }
 

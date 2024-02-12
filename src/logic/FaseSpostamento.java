@@ -5,6 +5,8 @@
  */
 package logic;
 
+import enums.TipoArma;
+import exceptions.GiocatoreNonRegistrato;
 import exceptions.RisikoExceptions;
 import exceptions.SpostamentoFallito;
 import exceptions.TerritorioNonPosseduto;
@@ -32,7 +34,7 @@ public class FaseSpostamento extends GestionePartita {
      * @param numeroArmateDaSpostare numero di truppe da spostare
      */
     @Override
-    public void setTerritoriTruppePerFase(String psw, String territorioPartenza, String territorioDestinazione, int numeroArmateDaSpostare) {
+    public void setTerritoriTruppePerFase(String psw, String territorioPartenza, String territorioDestinazione, int numeroArmateDaSpostare) throws GiocatoreNonRegistrato {
         try {
             if (!getTerritorioPartita(territorioPartenza).getPasswordGiocatore().equals(psw)) {
                 throw new TerritorioNonPosseduto(territorioPartenza);
@@ -64,11 +66,13 @@ public class FaseSpostamento extends GestionePartita {
     @Override
     public void eseguiFase(String psw) throws IOException, RisikoExceptions {
         stampaFase(psw);
-        ArrayList<TerritorioPartita> territoriPartita = iofTerritorioPartita.loadData();
         Giocatore g = getGiocatore(psw);
-        territoriPartita.get(getLineTerritorioPartita(g.getTerritorioOrigine())).setNumeroArmate(getTerritorioPartita(g.getTerritorioOrigine()).getNumeroArmate() - g.getTruppe());
-        territoriPartita.get(getLineTerritorioPartita(g.getTerritorioDestinazione())).setNumeroArmate(getTerritorioPartita(g.getTerritorioDestinazione()).getNumeroArmate() + g.getTruppe());
-        iofTerritorioPartita.saveData(territoriPartita);
+        TerritorioPartita tO= iofTerritorioPartita.get(getLineTerritorioPartita(g.getTerritorioOrigine()));
+        TerritorioPartita tD=iofTerritorioPartita.get(getLineTerritorioPartita(g.getTerritorioDestinazione()));
+        tO.setNumeroArmate(getTerritorioPartita(g.getTerritorioOrigine()).getNumeroArmate() - g.getTruppe());
+        iofTerritorioPartita.set(getLineTerritorioPartita(g.getTerritorioOrigine()), tO);
+        tD.setNumeroArmate(getTerritorioPartita(g.getTerritorioDestinazione()).getNumeroArmate() + g.getTruppe());
+        iofTerritorioPartita.set(getLineTerritorioPartita(g.getTerritorioOrigine()),tD );
     }
 
     @Override

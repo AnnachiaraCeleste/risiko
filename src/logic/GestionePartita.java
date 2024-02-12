@@ -477,28 +477,28 @@ public class GestionePartita implements InterfacciaPartita {
                 }
             } while (trovato);
         }
-        ArrayList<Giocatore> giocatori = iofGiocatorePartita.loadData();
-        ArrayList<TerritorioDettagliato> territoriPartita = iofTerritorioDettagliato.loadData();
 
-        for (int i = 0, j = 0; i < giocatori.size(); i++) {
-            for (int k = 0; j < territoriPartita.size() && k < ((int) 42 / nGiocatori); k++, j++) {
-                TerritorioPartita territorio = new TerritorioPartita(territoriPartita.get(idxTerritori[j]).getNome(),
-                        territoriPartita.get(idxTerritori[j]).getArma(), giocatori.get(i).getPassword(), 1);
-                addTerritorioPartita(territorio);
-                giocatori.get(i).setRinforziTurno(giocatori.get(i).getRinforziTurno() - 1);
+        for (int i = 0, j = 0; i < nGiocatori; i++) {
+            Giocatore g = iofGiocatorePartita.get(i);
+            for (int k = 0; j < iofTerritorioDettagliato.loadData().size() && k < ((int) 42 / nGiocatori); k++, j++) {
+                TerritorioPartita territorio = new TerritorioPartita(iofTerritorioDettagliato.get(idxTerritori[j]).getNome(),
+                        iofTerritorioDettagliato.get(idxTerritori[j]).getArma(), g.getPassword(), 1);
+                iofTerritorioPartita.add(territorio);
+                g.setRinforziTurno(g.getRinforziTurno() - 1);
+                iofGiocatorePartita.set(i, g);
             }
-            if ((nGiocatori == 4 || nGiocatori == 5) && (i == 0 || i == 1 && j < territoriPartita.size())) {
-                TerritorioPartita territorio = new TerritorioPartita(territoriPartita.get(idxTerritori[j]).getNome(),
-                        territoriPartita.get(idxTerritori[j]).getArma(), giocatori.get(i).getPassword(), 1);
-                addTerritorioPartita(territorio);
-                giocatori.get(i).setRinforziTurno(giocatori.get(i).getRinforziTurno() - 1);
+            if ((nGiocatori == 4 || nGiocatori == 5) && (i == 0 || i == 1 && j < iofTerritorioDettagliato.loadData().size())) {
+                TerritorioPartita territorio = new TerritorioPartita(iofTerritorioDettagliato.get(idxTerritori[j]).getNome(),
+                        iofTerritorioDettagliato.get(idxTerritori[j]).getArma(), g.getPassword(), 1);
+                iofTerritorioPartita.add(territorio);
+                g.setRinforziTurno(g.getRinforziTurno() - 1);
+                iofGiocatorePartita.set(i, g);
                 j++;
             }
         }
 
         ArrayList<TerritorioPartita> territoriAssegnati = iofTerritorioPartita.loadData();
         Collections.sort(territoriAssegnati);
-        iofGiocatorePartita.saveData(giocatori);
         iofTerritorioPartita.saveData(territoriAssegnati);
     }
 
@@ -532,12 +532,10 @@ public class GestionePartita implements InterfacciaPartita {
                 }
             } while (trovato);
         }
-        ArrayList<Giocatore> giocatori = iofGiocatorePartita.loadData();
-        ArrayList<Obiettivo> listaObiettivi = iofObiettivo.loadData();
-        for (int i = 0; i < giocatori.size(); i++) {
-            ObiettivoPartita obiettivo = new ObiettivoPartita(listaObiettivi.get(idxObiettivo[i]).getObiettivo(),
-                    listaObiettivi.get(idxObiettivo[i]).getTipoObiettivo(), giocatori.get(i).getPassword());
-            addObiettivoPartita(obiettivo);
+        for (int i = 0; i < iofGiocatorePartita.loadData().size(); i++) {
+            ObiettivoPartita obiettivo = new ObiettivoPartita(iofObiettivo.get(idxObiettivo[i]).getObiettivo(),
+                    iofObiettivo.get(idxObiettivo[i]).getTipoObiettivo(), iofGiocatorePartita.get(i).getPassword());
+            iofObiettivoPartita.add(obiettivo);
         }
     }
 
@@ -566,13 +564,12 @@ public class GestionePartita implements InterfacciaPartita {
      * @throws IOException
      */
     public void setTerritoriTruppePerFase(String psw, String territorioOrigine,
-            String territorioDestinazione, int truppe) throws IOException {
-        ArrayList<Giocatore> giocatori = iofGiocatorePartita.loadData();
-        giocatori.get(getLineGiocatore(psw)).setTerritorioOrigine(territorioOrigine);
-        giocatori.get(getLineGiocatore(psw)).setTerritorioDestinazione(territorioDestinazione);
-        giocatori.get(getLineGiocatore(psw)).setTruppe(truppe);
-        iofGiocatorePartita.saveData(giocatori);
-
+            String territorioDestinazione, int truppe) throws IOException, GiocatoreNonRegistrato {
+        Giocatore g = getGiocatore(psw);
+        g.setTerritorioOrigine(territorioOrigine);
+        g.setTerritorioDestinazione(territorioDestinazione);
+        g.setTruppe(truppe);
+        iofGiocatorePartita.set(getLineGiocatore(psw), g);
     }
 
     /**
@@ -581,13 +578,14 @@ public class GestionePartita implements InterfacciaPartita {
      *
      * @param psw specifica del giocatore
      * @throws IOException
+     * @throws GiocatoreNonRegistrato
      */
-    public void reimpostaTerritoriTruppe(String psw) throws IOException {
-        ArrayList<Giocatore> giocatori = iofGiocatorePartita.loadData();
-        giocatori.get(getLineGiocatore(psw)).setTerritorioOrigine(" ");
-        giocatori.get(getLineGiocatore(psw)).setTerritorioDestinazione(" ");
-        giocatori.get(getLineGiocatore(psw)).setTruppe(0);
-        iofGiocatorePartita.saveData(giocatori);
+    public void reimpostaTerritoriTruppe(String psw) throws IOException, GiocatoreNonRegistrato {
+        Giocatore g = getGiocatore(psw);
+        g.setTerritorioOrigine(" ");
+        g.setTerritorioDestinazione(" ");
+        g.setTruppe(0);
+        iofGiocatorePartita.set(getLineGiocatore(psw), g);
     }
 
     //------------------------------------------------------------------------//
