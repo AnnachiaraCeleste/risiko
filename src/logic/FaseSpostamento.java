@@ -72,7 +72,7 @@ public class FaseSpostamento extends GestionePartita {
         tO.setNumeroArmate(getTerritorioPartita(g.getTerritorioOrigine()).getNumeroArmate() - g.getTruppe());
         iofTerritorioPartita.set(getLineTerritorioPartita(g.getTerritorioOrigine()), tO);
         tD.setNumeroArmate(getTerritorioPartita(g.getTerritorioDestinazione()).getNumeroArmate() + g.getTruppe());
-        iofTerritorioPartita.set(getLineTerritorioPartita(g.getTerritorioOrigine()),tD );
+        iofTerritorioPartita.set(getLineTerritorioPartita(g.getTerritorioDestinazione()),tD );
     }
 
     @Override

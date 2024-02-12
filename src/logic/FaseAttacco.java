@@ -172,9 +172,9 @@ public class FaseAttacco extends GestionePartita {
             //cambio la password del giocatore
             tD.setPasswordGiocatore(tA.getPasswordGiocatore());
             //aumento il numero di territori conquistati dal giocatore in questo turno
-            Giocatore g = iofGiocatorePartita.get(idx_attacc);
+            Giocatore g = iofGiocatorePartita.get(getLineGiocatore(tA.getPasswordGiocatore()));
             g.setNTerritoriConquistatiPerTurno(g.getNTerritoriConquistatiPerTurno() + 1);
-            iofGiocatorePartita.set(idx_attacc, g);
+            iofGiocatorePartita.set(getLineGiocatore(tA.getPasswordGiocatore()), g);
             int nArmateVincenti;//numero di armate da assagnare al territorio
             if (tA.getNumeroArmate() > 3) {
                 nArmateVincenti = 3;
@@ -192,6 +192,45 @@ public class FaseAttacco extends GestionePartita {
         }
         return territorioConquistato;
     }
+    /*
+    rivate boolean controlloTruppeTerritorio(String territorioAttaccante, String territorioDifensore)
+            throws IOException, SpostamentoFallito, GiocatoreNonRegistrato, ObiettivoNonRegistrato, TerritorioNonRegistrato, RisikoExceptions {
+        ArrayList<TerritorioPartita> territori = iofTerritorioPartita.loadData();
+        ArrayList<Giocatore> giocatori = iofGiocatorePartita.loadData();
+        //indice attaccante
+        int idx_attacc = getLineTerritorioPartita(territorioAttaccante);
+        //indice difensore
+        int idx_dif = getLineTerritorioPartita(territorioDifensore);
+        boolean territorioConquistato = false;
+        //se nArmate>3 sposto 3 carri armati
+        //se il numero di armate del difensore =0 e il territorio è stato conquist devo spostare alcune truppe
+        if (territori.get(idx_dif).getNumeroArmate() == 0) {
+            territorioConquistato = true;
+            //cambio la password del giocatore
+            territori.get(idx_dif).setPasswordGiocatore(territori.get(idx_attacc).getPasswordGiocatore());
+            //aumento il numero di territori conquistati dal giocatore in questo turno
+            giocatori.get(getLineGiocatore(territori.get(idx_attacc).getPasswordGiocatore())).setNTerritoriConquistatiPerTurno(giocatori.get(getLineGiocatore(
+                    territori.get(idx_attacc).getPasswordGiocatore())).getNTerritoriConquistatiPerTurno() + 1);
+            iofGiocatorePartita.saveData(giocatori);
+            int nArmateVincenti;//numero di armate da assagnare al territorio
+            if (territori.get(idx_attacc).getNumeroArmate() > 3) {
+                nArmateVincenti = 3;
+            } else if (territori.get(idx_attacc).getNumeroArmate() == 3) {
+                nArmateVincenti = 2;
+            } else {
+                nArmateVincenti = 1;
+            }
+            iofTerritorioPartita.saveData(territori);
+            FaseSpostamento faseSpostamento = new FaseSpostamento();
+            String psw = territori.get(idx_attacc).getPasswordGiocatore();
+            faseSpostamento.setTerritoriTruppePerFase(psw, territorioAttaccante, territorioDifensore, nArmateVincenti);
+            faseSpostamento.eseguiFase(psw);
+
+        }
+        return territorioConquistato;
+    }
+
+    */
 
     /**
      * PESCA CARTA: metodo che assegna ad un giocatore una carta arma utile per
@@ -205,16 +244,14 @@ public class FaseAttacco extends GestionePartita {
      */
     public void pescaCarta(String psw) throws IOException, GiocatoreNonRegistrato, CartaGiaRegistrata, CartaNonRegistrataTerritorio, TerritorioNonRegistrato {
         if (getGiocatore(psw).getNTerritoriConquistatiPerTurno() > 0) {
-            Giocatore g = getGiocatore(psw);
             boolean trovato;
             int idxCarta;
             do {
                 idxCarta = (int) (Math.random() * (42));
-                trovato = getLineCarteArmiPartita(iofCarteArmiPartita.get(idxCarta).getNome()) == -1;
+                trovato = getLineCarteArmiPartita(iofTerritorioDettagliato.get(idxCarta).getNome()) == -1;
             } while (!trovato);
             TerritorioDettagliato td = getTerritorioDettagliato(iofTerritorioDettagliato.get(idxCarta).getNome());
             addCartaArmiPartita(new CarteArmiPartita(td.getNome(), td.getArma(), psw));
-            g.setNTerritoriConquistatiPerTurno(0);
         }
     }
 

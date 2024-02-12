@@ -1,0 +1,2 @@
+Anna;RED;Anna@0;0;2; ; ;0
+Jack;BLUE;Tatone@9;0;0; ; ;0

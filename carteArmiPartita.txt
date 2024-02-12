@@ -1,0 +1,5 @@
+Stati Uniti Occidentali;FANTERIA;Anna@0
+Urali;CAVALLERIA;Anna@0
+Australia Orientale;FANTERIA;Anna@0
+Medio Oriente;ARTIGLIERIA;Anna@0
+Siberia;ARTIGLIERIA;Anna@0
