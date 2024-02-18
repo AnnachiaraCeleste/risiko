@@ -16,7 +16,7 @@ import logic.GestionePartita;
  * @author Annachiara
  */
 public class Risiko {
-
+/*
     public static void main(String[] args) {
         try {
             GestionePartita gp = new GestionePartita();
@@ -70,5 +70,5 @@ public class Risiko {
             System.out.println(ex);
         }
 
-    }
+    }*/
 }
